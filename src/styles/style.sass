@@ -1,0 +1,161 @@
+body
+    direction: rtl
+    margin-top: 70px
+    background-color: #eee
+
+nav
+    height: 60px
+    text-align: center
+    display: flex
+    align-items: center
+    color: #fff
+    box-shadow: 0 0 10px #ddd
+    justify-content: space-between
+    padding: 10px 20px
+    a
+        margin: 10px
+    .logo
+        display: flex
+        color: #fff
+        img
+            margin: 0 10px
+            width: 60px
+    img
+        width: 30px
+article
+    // margin-top: 20px
+    display: flex
+form
+    flex-direction: column !important
+    max-width: 350px
+    margin: 10px auto
+    display: flex
+    box-shadow: 0 0 10px #ddd
+    padding: 20px
+    border-radius: 20px
+    & h1 ,h2
+        text-align: center
+        padding: 20px
+// end new style
+
+.w-full
+    width: -webkit-fill-available
+header a
+    display: block
+    line-height: 1
+    padding: 8px 12px
+    border-radius: 10px
+    text-decoration: 'none'
+    color: #666
+    font-size: 18px
+    font-weight: 500
+    &a.btn
+        margin: 10px
+        &:hover
+            background-color: #4CAF50
+    &:not(.btn):hover
+        background-color: #fbe0ff
+a
+    color: #4CAF50
+aside a
+    padding: 10px 20px
+    &:hover
+        background-color: #f9f9f9
+        border-right: 3px solid
+.m-a
+    margin: 10px auto
+
+input , textarea
+    padding: 10px
+    border: 0.2px solid #4CAF50
+    background-color: #fff4fc
+button , .btn ,[type='submit']
+    border: 0
+    background-color: #4CAF50
+    color: #fff
+    padding: 10px
+    text-align: center
+    min-width: 80px
+    border-radius: 10px
+    &:focus , &:active
+        background-color: #fbe6ff
+        color: #4CAF50
+        border: 1px solid
+    &.off
+        background-color: #fff
+        color: #4CAF50
+        border: 1px solid #4CAF50
+
+.err
+    background-color: #E91E63 !important
+    color: #fff !important
+
+.title
+    margin: 10px
+    box-shadow: 0 0 10px #ddd
+    background-color: #fff
+    padding: 10px
+    color: #4CAF50
+.ant-table-wrapper
+    overflow: auto
+@media screen and ( min-width: 701px )
+    .menu-icon
+        display: none !important
+
+@media (max-width: 700px)
+    .menu
+        display: none
+        position: absolute !important
+        z-index: 20
+        right: -300px
+        &-delay
+            right: 0 !important
+            min-width: 300px
+@media (max-width: 733px)
+    .hotel
+        &-title
+            flex-direction: column !important
+            align-items: flex-start
+
+            img
+                width: -webkit-fill-available !important
+
+
+.menu
+    transition: right 0.7s , width 0.2s
+    position: relative
+.card
+    display: flex
+    flex-direction: column !important
+    padding: 0
+    margin: 10px
+    width: 300px
+    box-shadow: 0 0 10px #ddd
+    background-color: #fff
+    border-radius: 10px
+    justify-content: space-between
+    .po 
+        background-color: rgb(255 255 255)
+        padding: 10px 20px
+        margin: -20px 20px 10px
+        border-radius: 10px
+        box-shadow: 0 0 10px #ddd
+        height: 50px
+        color: #666
+ 
+    img
+        border-radius: 10px 
+        max-height: 200px
+    .footer
+        display: flex
+        flex-direction: column
+        padding: 10px
+        margin-bottom: 10px
+        justify-content: space-between
+        color: #555
+        text-align: center
+
+h1
+    margin-right: 15px 
+.page
+    max-width: 700px

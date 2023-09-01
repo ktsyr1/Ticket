@@ -1,0 +1,130 @@
+/**
+ name: "ktui",
+ theme: light
+ author: "Qotayba mohammad"
+ description: "styleing for the website"
+ version: "3.0.0"
+ license: "MIT"
+
+// - Restart code
+
+*
+    padding: 0
+    margin: 0
+    text-decoration: none
+    box-sizing: border-box
+.bord
+    box-shadow: 0 0 10px #ddd
+    background-color: #fff
+    padding: 10px
+    border-radius: 20px
+
+    &:hover
+        box-shadow: 10px 5px 10px #ccc
+        transition: box-shadow .2s ease,border .2s ease
+.ui
+    box-shadow: 5px 5px 10px #ddd
+    background-color: #fff
+    border-radius: 10px
+    color: #4CAF50
+
+    padding: 10px
+    margin: 10px
+    &:hover
+        box-shadow: 10px 5px 10px #ccc
+        transition: box-shadow .2s ease,border .2s ease
+.sh
+    box-shadow: 5px 5px 10px #ddd
+
+// - components ( form , table, cards , list el , pagination, nav )
+
+// Sizeing
+
+@mixin Sizes($tag,$name , $key ,$value )
+    .#{$tag}#{$name}
+        #{$key}: 1px
+        &-#{$value}
+            #{$key}: #{$value }px
+        @if $key == margin   or $key == "padding"
+            &t-#{$value}
+                #{$key}-top: #{$value }px
+            &l-#{$value}
+                #{$key}-left: #{$value }px
+            &r-#{$value}
+                #{$key}-right: #{$value }px
+            &b-#{$value}
+                #{$key}-bottom: #{$value }px
+            &x-#{$value}
+                #{$key}-left: #{$value }px
+                #{$key}-right: #{$value }px
+            &y-#{$value}
+                #{$key}-top: #{$value }px
+                #{$key}-bottom: #{$value }px
+
+// - Layout :( box , col , row ...)
+
+@mixin fullContent($tag )
+    $size_lg: ( 50,100,200,300)
+    $size_sm: (0,5,10,15,20)
+
+    @each $value in $size_lg
+        @include Sizes($tag , w, width , $value)
+        @include Sizes($tag , h, height , $value)
+
+    @each $value in $size_sm
+        @include Sizes($tag , p, padding, $value )
+        @include Sizes($tag , m, margin , $value)
+
+    .#{$tag}box
+        display: flex
+    .#{$tag}space
+        justify-content: space-between
+    .#{$tag}col
+        flex-direction: column !important
+    .#{$tag}row
+        flex-direction: row
+    .#{$tag}grid
+        flex-wrap: wrap
+    .#{$tag}left
+        justify-content: flex-start
+        flex-direction: row
+        width: 100%
+    .#{$tag}j
+        justify-content: center
+        &-end
+            justify-content: flex-end
+        &-start
+            justify-content: flex-start
+    .#{$tag}aitem
+        align-items: center
+    .#{$tag}scroll
+        overflow: auto
+    .#{$tag}none
+        display: none
+    .#{$tag}pup
+        position: fixed
+    .#{$tag}f
+        &-sm
+            font-size: small
+        &-md
+            font-size: medium
+        &-lg
+            font-size: larger
+        &-xl
+            font-size: x-large
+        &-xxl
+            font-size: xx-large
+
+@mixin responsive($tags,$min,$max)
+    @if $tags == ''
+        @include  fullContent($tags )
+    @else
+        @media (min-width: $min) and (max-width: $max)
+            @include fullContent($tags )
+
+@include responsive('',0,999999px)
+@include responsive('sm-',0px ,576px)
+@include responsive('md-',576px ,768px)
+@include responsive('lg-',768px ,992px)
+@include responsive('xl-',992px ,1200px)
+@include responsive('xxl-',1200px ,999999px)

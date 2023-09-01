@@ -1,0 +1,70 @@
+GET http://localhost:3000/api/admin/posts 
+###
+PATCH    http://localhost:3000/api/admin/users 
+content-type: application/json
+{
+"email":"ktsyr1234@gmail.com"
+}
+###
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt0c3lyMTIzNEBnbWFpbC5jb20iLCJleHAiOjE2OTIxOTkzMDQsImlhdCI6MTY5MTU5NDUwNH0.Txa5hr89CRTgjyI_2Lb_8ZHqSfEHHThbkS7h41-v0NQ
+
+POST http://localhost:3000/api/auth
+content-type: application/json
+
+{
+    "fullname": "ktsyr1",
+    "password": "0000",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt0c3lyLjFAZ21haWwuY29tIiwiZXhwIjoxNjkyOTU0ODg4LCJpYXQiOjE2OTIzNTAwODh9.wXJ4LnVLz3JNgLmuSs0jucsLQmKmayTwfDsJ7cRo-9Q"
+}
+###
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt0c3lyMTIzNEBnbWFpbC5jb20iLCJleHAiOjE2OTIxOTkzMDQsImlhdCI6MTY5MTU5NDUwNH0.Txa5hr89CRTgjyI_2Lb_8ZHqSfEHHThbkS7h41-v0NQ
+
+GET http://localhost:3000/api/
+content-type: application/json
+token: {{token}}
+###
+GET http://localhost:3000/api/client/posts/whatsapp-business1
+###
+GET    http://localhost:3000/api/admin/car-with-driver/
+content-type: application/json
+{
+  "title": "جولة بالسيارة في المدينة",
+  "city": "القاهرة",
+  "duration": 3,
+  "driver": "عربي",
+  "tourDuration": "10 ساعات",
+  "price": 150,
+  "additionalFeatures": "واي فاي مجاني , مشروبات مجانية",
+  "programDetails": "تشمل الجولة زيارة أماكن سياحية معلمة في المدينة. OK"
+}
+###
+DELETE   http://localhost:3000/api/admin/hotels/64e9f786da636305768c6230
+content-type: application/json
+{
+     "name": "فندق tyrrtytr",
+    "rank": 5,
+    "city": "الرياض",
+    "address": "شارع الملك فهد",
+    "image": "/images/hotel1.jpg",
+    "images": ["/images/hotel1-1.jpg", "/images/hotel1-2.jpg"],
+    "description": "فندق فاخر ذو إطلالات رائعة على المدينة",
+    "services": {
+      "freeParking": true,
+      "freeWiFi": true,
+      "breakfast": true
+    },
+    "surroundingArea": "قريب من المعالم السياحية والتسوق"
+}
+
+HTTP/1.1 200  - OK
+content-type: application/json; charset=utf-8
+access-control-allow-origin: *
+access-control-allow-credentials: true
+x-requested-with: NEXTJS
+access-control-allow-headers: Origin, Content-Type, Accept
+etag: "176bh6caa42t"
+vary: Accept-Encoding
+date: Sat, 26 Aug 2023 13:51:18 GMT
+content-encoding: gzip
+connection: close
+transfer-encoding: chunked
