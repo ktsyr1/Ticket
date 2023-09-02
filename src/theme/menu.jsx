@@ -42,7 +42,6 @@ export function Menu() {
     const { classes, cx } = useStyles();
     const [active, setActive] = useState('Billing');
 
-    console.log(data);
     const links = data?.map(({ link, label, Icon }) => (
         <Link href={link} key={label} className={cx(classes.link, { [classes.linkActive]: label === active })} >
             <Icon className={classes.linkIcon} stroke={1.5} />

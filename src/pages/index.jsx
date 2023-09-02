@@ -3,8 +3,8 @@ import Link from 'next/link';
 // import { CardHotel } from './hotels';
 
 export const getStaticProps = async ({ query }) => {
-    let { data } = {}// await axios.get(`${process.env.NEXT_PUBLIC_API || '/api'}/client/`);
-    return { props: { data } }
+    // let { data } = {} await axios.get(`${process.env.NEXT_PUBLIC_API || '/api'}/client/`);
+    return { props: { data: "" } }
 }
 export default function Home({ data }) {
     return (
