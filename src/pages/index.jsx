@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Link from 'next/link';
-import { CardHotel } from './hotels';
+// import { CardHotel } from './hotels';
 
 export const getStaticProps = async ({ query }) => {
     let { data } = {}// await axios.get(`${process.env.NEXT_PUBLIC_API || '/api'}/client/`);
