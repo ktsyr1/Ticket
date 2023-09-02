@@ -1,10 +1,10 @@
 import axios from 'axios';
 import Link from 'next/link';
-// import { CardHotel } from './hotels';
+import { CardHotel } from './hotels';
 
 export const getStaticProps = async ({ query }) => {
-    // let { data } = {} await axios.get(`${process.env.NEXT_PUBLIC_API || '/api'}/client/`);
-    return { props: { data: "" } }
+    let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API || '/api'}/client/`);
+    return { props: { data } }
 }
 export default function Home({ data }) {
     return (
@@ -15,7 +15,7 @@ export default function Home({ data }) {
             <p> ansfni</p> */}
             <h1>الاوتيلات</h1>
             <div className="box grid">
-                {/* {data?.hotels?.map(e => <CardHotel
+                {data?.hotels?.map(e => <CardHotel
                     key={e._id}
                     title={e.name}
                     image={e.image}
@@ -23,7 +23,7 @@ export default function Home({ data }) {
                     city={e.city}
                     href={`/hotels/${encodeURIComponent(e._id)}`}
                 />
-                )} */}
+                )}
             </div>
             {/* Q/A */}
             {/* <p> Q / A</p> */}

@@ -7,10 +7,10 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 # package-lock.json
-/src/pages/car-with-driver/*
-/src/pages/page*
-/src/pages/hotels*
-/src/pages/admin*
+# /src/pages/car-with-driver/*
+# /src/pages/page*
+# /src/pages/hotels*
+# /src/pages/admin*
 
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
