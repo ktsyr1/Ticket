@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { createStyles, Navbar, Group, Code, getStylesRef, rem } from '@mantine/core';
-import { IconUsers, IconArticle, IconCar, IconHotelService, Icon2fa, IconDatabaseImport, IconReceipt2, IconSwitchHorizontal, IconLogout, } from '@tabler/icons-react';
+import { createStyles, getStylesRef } from '@mantine/core';
+import { IconHome, IconArticle, IconCar, IconHotelService, Icon2fa, } from '@tabler/icons-react';
+import Link from 'next/link';
 
 const useStyles = createStyles((theme) => ({
     link: {
@@ -26,53 +27,32 @@ const useStyles = createStyles((theme) => ({
     linkIcon: {
         ref: getStylesRef('icon'),
         color: theme.colorScheme === 'dark' ? theme.colors.dark[2] : theme.colors.gray[6],
-        marginRight: theme.spacing.sm,
-    },
-    linkActive: {
-        '&, &:hover': {
-            backgroundColor: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).background,
-            color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
-            [`& .${getStylesRef('icon')}`]: {
-                color: theme.fn.variant({ variant: 'light', color: theme.primaryColor }).color,
-            },
-        },
-    },
+    }
 }));
 
 
 const data = [
-    { label: 'المستخدمين', link: "/admin/users", icon: IconUsers, color: 'blue' },
-    { label: 'المنشورات', link: "/admin/posts", icon: IconArticle, color: 'green' },
-    { label: 'السيارة مع السائق', link: "/admin/car-with-driver", icon: IconCar, color: 'teal' },
-    { label: 'اوتيلات', link: "/admin/hotels", icon: IconHotelService, color: 'cyan' },
+    { label: 'الرئيسية', link: "/", Icon: IconHome, color: 'blue' },
+    { label: 'اوتيلات', link: "/admin/hotels", Icon: IconHotelService, color: 'cyan' },
+    // { label: 'المنشورات', link: "/admin/posts", icon: IconArticle, color: 'green' },
+    // { label: 'السيارة مع السائق', link: "/admin/car-with-driver", icon: IconCar, color: 'teal' },
 ];
 
 export function Menu() {
     const { classes, cx } = useStyles();
     const [active, setActive] = useState('Billing');
 
-    const links = data.map((item) => (
-        <a
-            className={cx(classes.link, { [classes.linkActive]: item.label === active })}
-            href={item.link}
-            key={item.label}
-            onClick={(event) => {
-                event.preventDefault();
-                setActive(item.label);
-            }}
-        >
-            <item.icon className={classes.linkIcon} stroke={1.5} />
-            <span className="mr-20">{item.label}</span>
-        </a>
+    console.log(data);
+    const links = data?.map(({ link, label, Icon }) => (
+        <Link href={link} key={label} className={cx(classes.link, { [classes.linkActive]: label === active })} >
+            <Icon className={classes.linkIcon} stroke={1.5} />
+            <span className="mr-20">{label}</span>
+        </Link>
     ));
 
     return (
-        <div className='bord w-300 m-10 menu'>
-            <div className='box col' style={{width: '280px'}}>
-
-                {links}
-            </div>
-
+        <div className='menu' >
+            {links}
         </div>
     );
 }

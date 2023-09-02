@@ -4,13 +4,17 @@ import { IconSearch } from '@tabler/icons-react';
 import Image from 'next/image';
 // import { MantineLogo } from '@mantine/ds';
 import Link from 'next/link';
+import { Menu } from './menu';
+
 
 const useStyles = createStyles((theme) => ({
     header: {
         paddingLeft: theme.spacing.md,
         paddingRight: theme.spacing.md,
         position: "absolute",
-        marginBottom: 0
+        marginBottom: 0,
+        display: "flex",
+        flexDirection: "column"
     },
 
     inner: {
@@ -49,38 +53,22 @@ const useStyles = createStyles((theme) => ({
 }));
 
 
-export function NavHeader({ links }) {
+export function NavHeader() {
     const [opened, { toggle }] = useDisclosure(false);
     const { classes } = useStyles();
 
-    const items =[]
-     links.map((link) => (
-        <Link
-            key={link.label}
-            href={link.link}
-            className={link.ok === true ? " btn" : " "}
-        // onClick={(event) => event.preventDefault()}
-        >
-            {link.label}
-        </Link>
-    ));
-
     return (
-        <Header height={56} className={classes.header} mb={120}>
+        <nav >
             <div className={classes.inner}>
                 <Group>
-                    {/* <Burger opened={opened} onClick={toggle} size="sm" />*/}
-                    <b style={{ fontSize: "30px" }}>Ticket</b>
-                    {/* <Image src={'/images/logo.png'} width={40} height={40} alt='logo ansfni' /> */}
+                    {/* <Image src={'/images/menu.png'} width={40} height={40} alt='logo ansfni' onClick={openMenu} /> */}
+                    <Image src={'/images/logo.png'} width={40} height={40} alt='logo ansfni' />
+                    <b style={{ fontSize: "30px" }}>تكت مسافر</b>
 
                 </Group>
 
-                <Group>
-                    <Group ml={50} spacing={5} className={classes.links}>
-                        {items}
-                    </Group>
-                </Group>
             </div>
-        </Header>
+            <Menu />
+        </nav>
     );
 }

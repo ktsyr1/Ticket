@@ -1,7 +1,6 @@
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-// import { Card } from "@/components"; 
 import { IconMapPin, IconStars, IconCashBanknote, IconCoin, } from '@tabler/icons-react';
 
 export async function getStaticProps() {
@@ -15,7 +14,7 @@ export default function AllPosts({ data }) {
     return (
         <div className="box grid m-a j">
             {data.map((e) => (
-                <Card
+                <CardHotel
                     key={e._id}
                     title={e.name}
                     image={e.image}
@@ -27,8 +26,7 @@ export default function AllPosts({ data }) {
         </div>
     );
 }
-
-const Card = ({ title, image, href, rank, city }) => {
+export const CardHotel = ({ title, image, href, rank, city }) => {
     return (
         <Link className="card" href={href}>
             <img src={image || "/images/logo.png"} alt={title} className="w-full h-auto mb-2" loading="lazy"/>

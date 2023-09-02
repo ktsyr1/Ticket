@@ -51,8 +51,8 @@ export default function PageOne({ data }) {
             <p>{data.description}</p>
           </div>
         </div>
-        <div className=" bord my-10 p-20 row scroll" style={{ userSelect: 'none', cursor: 'pointer', transform: 'translate3d(0px, 0px, 0px)' }}>
-          <div className="box row " style={{ transform: "translateX(0px)" }} >
+        <div className=" bord my-10 p-20 row scroll" >
+          <div className="box row "  >
             {data?.images.length > 0 
             	?data?.images?.map(a => <img src={a} key={a} style={{ borderRadius: '10px', height: '200px', margin: '5px' }}  loading="lazy"/>)
             	:<p className="aitem box h-100 j m-a">لايوجد صور </p>

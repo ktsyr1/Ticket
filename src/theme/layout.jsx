@@ -7,16 +7,9 @@ import { Menu } from './menu'
 export default function RootLayout({ children }) {
     return (
         <>
-            <NavHeader links={[
-                { link: "/", label: "الصفحة الرئيسية" },
-                { link: "/page/diploma", label: "الدبلومة" },
-                { link: "/QA", label: "سؤال وجواب" },
-                { link: "/admin", label: "لوحة التحكم", ok: true },
-            ]
-
-            } />
+            <NavHeader />
             <article >
-                <Menu />
+                {/* <Menu /> */}
                 {children}
             </article>
         </>
