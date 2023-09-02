@@ -9,7 +9,7 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-import Next13NProgress from 'next13-nprogress';
+import { Next13ProgressBar } from 'next13-progressbar';
 
 import '@/styles/style.sass'
 import '@/styles/beta.sass'
@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }) {
 
                 <link rel="shortcut icon" href="/image/logo.png" />
             </Head>
-            <Next13NProgress />
+            <Next13ProgressBar height="4px" color="#0A2FFF" options={{ showSpinner: true }} showOnShallow />
             <RootLayout>
                 <Component {...pageProps} />
             </RootLayout>
