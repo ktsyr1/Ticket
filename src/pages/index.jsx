@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Link from 'next/link';
 import { CardHotel } from './hotels';
+import { Hero } from '../theme/hero';
 
 export const getStaticProps = async ({ query }) => {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API || '/api'}/client/`);
@@ -9,26 +10,13 @@ export const getStaticProps = async ({ query }) => {
 export default function Home({ data }) {
     return (
         <section className="box col m-10 " >
-            {/* hero
-            <p> hero</p>
-            ansfni
-            <p> ansfni</p> */}
-            <h1>الاوتيلات</h1>
+            {/* <Hero /> */}
+            <h1 style={{ fontSize: 'xx-large', marginTop: '20px' }}>الاوتيلات</h1>
             <div className="box grid">
-                {data?.hotels?.map(e => <CardHotel
-                    key={e._id}
-                    title={e.name}
-                    image={e.image}
-                    rank={e.rank}
-                    city={e.city}
-                    href={`/hotels/${encodeURIComponent(e._id)}`}
-                />
+                {data?.hotels?.map(e =>
+                    <CardHotel key={e._id} title={e.name} image={e.image} rank={e.rank} city={e.city} href={`/hotels/${encodeURIComponent(e._id)}`} />
                 )}
             </div>
-            {/* Q/A */}
-            {/* <p> Q / A</p> */}
-            {/* res */}
-            {/* <p> res</p > */}
         </section>
     )
 } 
