@@ -33,7 +33,7 @@ const useStyles = createStyles((theme) => ({
 
 const data = [
     { label: 'الرئيسية', link: "/", Icon: IconHome, color: 'blue' },
-    { label: 'اوتيلات', link: "/admin/hotels", Icon: IconHotelService, color: 'cyan' },
+    { label: 'اوتيلات', link: "/hotels", Icon: IconHotelService, color: 'cyan' },
     // { label: 'المنشورات', link: "/admin/posts", icon: IconArticle, color: 'green' },
     // { label: 'السيارة مع السائق', link: "/admin/car-with-driver", icon: IconCar, color: 'teal' },
 ];

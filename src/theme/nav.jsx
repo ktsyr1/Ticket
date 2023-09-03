@@ -63,7 +63,7 @@ export function NavHeader() {
                 <Group>
                     {/* <Image src={'/images/menu.png'} width={40} height={40} alt='logo ansfni' onClick={openMenu} /> */}
                     <Image src={'/images/logo.png'} width={40} height={40} alt='logo ansfni' />
-                    <b style={{ fontSize: "30px" }}>تكت مسافر</b>
+                    <p style={{ color: "#000" }}>تكت مسافر - Ticket Musafir </p>
 
                 </Group>
 
