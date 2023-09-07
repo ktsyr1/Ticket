@@ -35,10 +35,10 @@ export const CardHotel = ({ title, image, href, rank, city }) => {
                     <IconMapPin size={18} />
                     <p className="mr-10">{city}</p>
                 </div>
-                <div className="box row aitem">
+                {rank ? <div className="box row aitem">
                     <IconStars size={18} />
                     <p className="mr-10">{rank}</p>
-                </div>
+                </div> : <></>}
             </div>
             <div className="footer">
                 <b>{title}</b>

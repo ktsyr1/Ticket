@@ -27,3 +27,6 @@ export const Hotel = hotel
 
 import carWithDriver from "@/models/CarWithDriver";
 export const CarWithDriver = carWithDriver
+
+import hotelApartment from "@/models/HotelApartment";
+export const HotelApartment = hotelApartment

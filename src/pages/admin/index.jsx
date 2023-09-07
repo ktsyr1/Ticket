@@ -12,7 +12,8 @@ const mockdata = [
     { title: 'المنشورات', href: "/admin/posts", icon: IconArticle, color: 'green' },
     { title: 'السيارة مع السائق', href: "/admin/car-with-driver", icon: IconCar, color: 'teal' },
     { title: 'اوتيلات', href: "/admin/hotels", icon: IconHotelService, color: 'cyan' },
-    // { title: 'Reports', icon: IconReport, color: 'pink' },
+    { title: 'شقق فندقية', href: "/admin/hotel-apartment", icon: IconHotelService, color: 'cyan' },
+   // { title: 'Reports', icon: IconReport, color: 'pink' },
     // { title: 'Payments', icon: IconCoin, color: 'red' },
     // { title: 'Cashback', icon: IconCashBanknote, color: 'orange' },
 ];
@@ -50,7 +51,7 @@ export default function ActionsGrid() {
     const { classes, theme } = useStyles();
 
     const items = mockdata.map((item) => (
-        <Link href={item.href} key={item.title} className={classes.item}>
+        <Link href={item.href} key={item.title} className="aitem bord box col h-100 j w-200 m-10">
             <item.icon color={theme.colors[item.color][6]} size="2rem" />
             <Text size="xs" mt={7}>
                 {item.title}
@@ -59,14 +60,11 @@ export default function ActionsGrid() {
     ));
 
     return (
-        <Card radius="md" className={classes.card}>
-            <Group position="apart">
-                <Text className={classes.title}>لوحة التحكم</Text>
-
-            </Group>
+        <div>
+            <h1 className="m-20"> لوحة التحكم</h1>
             <div className="box grid">
                 {items}
             </div>
-        </Card>
+        </div>
     );
 }
