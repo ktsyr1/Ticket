@@ -5,12 +5,12 @@ import nodemailer from 'nodemailer';
 
 export default async function users(req, res, next) {
         let { GET, PATCH, Send } = new API(req, res)
-        let Auth = new APIAuth(req, res)
+        // let Auth = new APIAuth(req, res)
         let secret = process.env.secret
 
         let { body } = req
         GET(
-                await Auth.isLogin(),
+                // await Auth.isLogin(),
                 async () => {
                         let users = await User
                                 .find()
