@@ -18,12 +18,12 @@ let styles = {
     boxShadow: '0 0 10px #ddd'
   }
 }
-export async function getStaticProps(ctx) {
+// export async function getStaticProps(ctx) {
   // let { data } = await axios.get(
   //   `${process.env.NEXT_PUBLIC_API}/client/hotel-apartment/${encodeURIComponent(ctx.params._id)}`
   // );
-  return { props: { data: "" }, revalidate: 10 * 60 };
-}
+  // return { props: { data: "" }, revalidate: 10 * 60 };
+// }
 
 export default function PageOne({ data }) {
   let md = new markdownIt()
