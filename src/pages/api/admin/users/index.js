@@ -19,7 +19,7 @@ export default async function users(req, res, next) {
                         Send(users)
                 });
         PATCH(
-                await Auth.isLogin(),
+                // await Auth.isLogin(),
                 async () => {
                         let user = await User.findOne(body)
                         if (!user) {
@@ -37,7 +37,7 @@ export default async function users(req, res, next) {
                                 let pass = process.env.Pass
 
                                 const transporter = nodemailer.createTransport({ service: 'gmail', auth: { user, pass } });
-                                let siteName = " انصفني"
+                                let siteName = " Ticket"
                                 let content = `
                                         <center>
                                                 <h3 >انت مدعو لتكون مسوؤل في موقع ${siteName}  </h3>

@@ -1,9 +1,12 @@
 GET http://localhost:3000/api/admin/posts 
 ###
-PATCH    http://localhost:3000/api/admin/users 
+
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt0c3lyMUBnbWFpbC5jb20iLCJfaWQiOiI2NGE0NjdkODk4ZDcxYmRiMzU3MjU0YzEiLCJpYXQiOjE2OTQxOTIwNDV9.fq2hn3X61YZg9XderZrw7sR-09gzydn1ZVPSu6FSKgY
+PATCH    https://ticketmusafir.vercel.app/api/admin/users 
 content-type: application/json
+token: {{token}}
 {
-"email":"ktsyr1234@gmail.com"
+"email":"ktsyr1+7@gmail.com"
 }
 ###
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt0c3lyMTIzNEBnbWFpbC5jb20iLCJleHAiOjE2OTIxOTkzMDQsImlhdCI6MTY5MTU5NDUwNH0.Txa5hr89CRTgjyI_2Lb_8ZHqSfEHHThbkS7h41-v0NQ
