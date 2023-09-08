@@ -1,3 +1,4 @@
+import LineTitles from "@/theme/Elements";
 import axios from "axios";
 import { useRouter } from "next/router";
 
@@ -19,6 +20,9 @@ export default function PageOne({ data }) {
 
     return (
         <article className="box col aitem">
+
+            <LineTitles data={[{ href: "/hotel-apartment", title: "الشقق الفندقية" }]} />
+
             {/* عرض بيانات المنتج هنا */}
         </article>
     );

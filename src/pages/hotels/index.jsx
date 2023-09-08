@@ -2,6 +2,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { IconMapPin, IconStars, IconCashBanknote, IconCoin, } from '@tabler/icons-react';
+import { HeroPart } from "@/theme/Elements";
 
 export async function getStaticProps() {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/hotels`);
@@ -10,9 +11,16 @@ export async function getStaticProps() {
 
 export default function AllPosts({ data }) {
     const router = useRouter();
-
+    let icon = <img src={"/icons/hotel.svg"} alt=" ايقونة الفنادق" className="w-50" />
     return (
-        <div className="box grid m-a j">
+        <div className="box col m-a j">
+            <HeroPart
+                iconType={false}
+                Icon={icon}
+                title="الاوتيلات"
+                about="نقدم لكم شقق مفروشة للإيجار في طرابزون. تقع هذه المجمعات بمناطق راقية ذات اطلالات رائعة وقريبة من الخدمات العامة. الشقق مجهزة بالكامل من أجل إقامة ممتعة ومريحة. كما تتميز الشقق بمساحات وأسعار مختلفة تلائم الجميع "
+            /> 
+            <div className="box grid m-a j">
             {data.map((e) => (
                 <CardHotel
                     key={e._id}
@@ -23,6 +31,7 @@ export default function AllPosts({ data }) {
                     href={`/hotels/${encodeURIComponent(e._id)}`}
                 />
             ))}
+            </div>
         </div>
     );
 }

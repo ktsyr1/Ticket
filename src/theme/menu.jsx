@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createStyles, getStylesRef } from '@mantine/core';
-import { IconHome, IconArticle, IconCar, IconHotelService, Icon2fa, } from '@tabler/icons-react';
+import { IconHome, IconBuilding, IconCar, IconHotelService, Icon2fa, } from '@tabler/icons-react';
 import Link from 'next/link';
 
 const useStyles = createStyles((theme) => ({
@@ -34,7 +34,7 @@ const useStyles = createStyles((theme) => ({
 const data = [
     { label: 'الرئيسية', link: "/", Icon: IconHome, color: 'blue' },
     { label: 'اوتيلات', link: "/hotels", Icon: IconHotelService, color: 'cyan' },
-    { label: 'شقق فندقية', link: "/hotel-apartment", Icon: IconArticle, color: 'green' },
+    { label: 'شقق فندقية', link: "/hotel-apartment", Icon: IconBuilding, color: 'green' },
     // { label: 'السيارة مع السائق', link: "/admin/car-with-driver", icon: IconCar, color: 'teal' },
 ];
 

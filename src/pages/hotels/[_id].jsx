@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import { IconMapPin, IconStars, IconWifi, IconParking, } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
 import { createStyles, Paper, Text, Title, Button, useMantineTheme, rem } from '@mantine/core';
+import LineTitles from "@/theme/Elements";
 
-import { Carousel } from 'antd';
 export async function getStaticPaths() {
   let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/hotels`);
   const paths = data.map((post) => ({ params: { _id: post._id } }));
@@ -28,6 +28,7 @@ export default function PageOne({ data }) {
 
   return (
     <div className="  m-10">
+      <LineTitles data={[{ href: "/hotels", title: "الاوتيلات" }]} />
       <article className="  box col m-a page hotel  ">
         <div className="bord box col m-a page   m-0">
           <div className="box grid m-10 j hotel-title">
