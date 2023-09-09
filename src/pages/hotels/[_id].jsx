@@ -1,9 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { IconMapPin, IconStars, IconWifi, IconParking, } from '@tabler/icons-react';
-import { useMediaQuery } from '@mantine/hooks';
-import { createStyles, Paper, Text, Title, Button, useMantineTheme, rem } from '@mantine/core';
-import LineTitles from "@/theme/Elements";
+import LineTitles, { ContactWa } from "@/theme/Elements";
 
 export async function getStaticPaths() {
   let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/hotels`);
@@ -25,7 +23,7 @@ export async function getStaticProps(ctx) {
 }
 
 export default function PageOne({ data }) {
-
+  let route = useRouter()
   return (
     <div className="  m-10">
       <LineTitles data={[{ href: "/hotels", title: "الاوتيلات" }]} />
@@ -45,6 +43,7 @@ export default function PageOne({ data }) {
                 {/* icon stars */}
                 <p className="mr-10">{data.rank}</p>
               </div>
+              <ContactWa href={`${process.env.NEXT_PUBLIC_API.replace("/api", "")}${route.asPath}`} />
             </div>
           </div>
           <div className="box col m-10">

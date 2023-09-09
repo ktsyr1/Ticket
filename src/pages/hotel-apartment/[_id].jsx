@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { IconMapPin, IconStars, IconWifi, IconParking, } from '@tabler/icons-react';
-import { useMediaQuery } from '@mantine/hooks';
-import { createStyles, Paper, Text, Title, Button, useMantineTheme, rem } from '@mantine/core';
+import { IconMapPin } from '@tabler/icons-react';
 import markdownIt from "markdown-it";
-import LineTitles from "@/theme/Elements";
+import LineTitles, { ContactWa } from "@/theme/Elements";
 
 export async function getStaticPaths() {
   let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/hotel-apartment`);
@@ -26,6 +24,7 @@ export async function getStaticProps(ctx) {
 }
 
 export default function PageOne({ data }) {
+  let route = useRouter()
   let md = new markdownIt()
   let interiorFeatures = md.render(data?.interiorFeatures || '')
   let accommodationFeatures = md.render(data?.accommodationFeatures || '')
@@ -44,6 +43,7 @@ export default function PageOne({ data }) {
                 <IconMapPin size={18} />
                 <p className="mr-10">{data.city} - {data.address}</p>
               </div>
+              <ContactWa href={`${process.env.NEXT_PUBLIC_API.replace("/api", "")}${route.asPath}`} />
 
             </div>
           </div>
