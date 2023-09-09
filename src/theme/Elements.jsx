@@ -4,7 +4,7 @@ import { IconHome } from '@tabler/icons-react';
 
 export default function LineTitles({ data }) {
     return (
-        <div className="bord box page row aitem">
+        <div className="bord box page row aitem m-a">
             <IconHome stroke={1.5} className="m-10" />
             <Link href={"/"} className="ml-10" > الرئيسية </Link>
             {data?.map(a => (<><span>/</span> <Link href={a.href} key={a.href} className="mr-10" > {a.title}</Link></>))}

@@ -46,7 +46,7 @@ export default function AdminHotelsApartment(props) {
             title: "اسم الفندق", dataIndex: "name", key: "name",
             render: (_, record) => <Link href={`/admin/hotel-apartment/${encodeURIComponent(record._id)}`}>{record.name}</Link>,
         },
-        { title: "التقييم", dataIndex: "city", key: "city", },
+        { title: "المدينة", dataIndex: "city", key: "city", },
         {
             title: "حذف", dataIndex: "delete", key: "delete",
             render: (_, record) => <Btn id={record._id} />,
