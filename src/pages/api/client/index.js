@@ -1,5 +1,5 @@
 import { API, APIAuth } from "@/lib/app";
-import { Hotel } from "@/models";
+import { Hotel, HotelApartment } from "@/models";
 
 export default async function auth(req, res, next) {
 
@@ -7,7 +7,8 @@ export default async function auth(req, res, next) {
 
     GET(
         async () => {
-            let hotels = await Hotel.find()
-            Send({ hotels })
+            let hotels = await Hotel.find().select("name image rank city")
+            let hotelsApartment = await HotelApartment.find().select("name image city")
+            Send({ hotels, hotelsApartment })
         })
 }
