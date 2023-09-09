@@ -7,7 +7,7 @@ import { HeroPart } from "@/theme/Elements";
 
 export async function getStaticProps() {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/hotel-apartment`);
-    return { props: { data }, revalidate: 10 * 60 };
+    return { props: { data }, };
 }
 
 export default function AllPosts({ data }) {

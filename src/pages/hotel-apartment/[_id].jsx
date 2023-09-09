@@ -20,7 +20,7 @@ export async function getStaticProps(ctx) {
   let { data } = await axios.get(
     `${process.env.NEXT_PUBLIC_API}/client/hotel-apartment/${encodeURIComponent(ctx.params._id)}`
   );
-  return { props: { data }, revalidate: 10 * 60 };
+  return { props: { data } };
 }
 
 export default function PageOne({ data }) {
