@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { IconMapPin } from '@tabler/icons-react';
 import markdownIt from "markdown-it";
 import LineTitles, { ContactWa } from "@/theme/Elements";
+import SEO from "@/lib/SEO";
 
 export async function getStaticPaths() {
   let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/hotel-apartment`);
@@ -31,6 +32,8 @@ export default function PageOne({ data }) {
   let generalDetails = md.render(data?.generalDetails || '')
   return (
     <div className="  m-10">
+      <SEO title={`شقق فندقية | ${data?.name}`} description={data?.about} image={data?.image} />
+
       <LineTitles data={[{ href: "/hotel-apartment", title: "الشقق الفندقية" }]} />
       <article className="  box col m-a page hotel  ">
         <div className="bord box col m-a page   m-0">

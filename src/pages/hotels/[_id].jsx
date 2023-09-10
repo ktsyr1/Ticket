@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { IconMapPin, IconStars, IconWifi, IconParking, } from '@tabler/icons-react';
 import LineTitles, { ContactWa } from "@/theme/Elements";
+import SEO from "@/lib/SEO";
 
 export async function getStaticPaths() {
   let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/hotels`);
@@ -26,6 +27,8 @@ export default function PageOne({ data }) {
   let route = useRouter()
   return (
     <div className="  m-10">
+      <SEO title={`اوتيل | ${data?.name}`} description={data?.description} image={data?.image} />
+
       <LineTitles data={[{ href: "/hotels", title: "الاوتيلات" }]} />
       <article className="  box col m-a page hotel  ">
         <div className="bord box col m-a page   m-0">
