@@ -3,14 +3,20 @@ import Link from 'next/link';
 import { CardHotel } from './hotels';
 import { Hero } from '../theme/hero';
 import { IconBuilding } from '@tabler/icons-react';
+import SEO from '@/lib/SEO';
 
 export const getStaticProps = async ({ query }) => {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API || '/api'}/client/`);
     return { props: { data } }
 }
+
 export default function Home({ data }) {
     return (
         <section className="box col m-10 " >
+            <SEO
+                title="تكت مسافر - Ticket Musafir"
+                description="افضل خدمة لاروع مكان"
+            />
             {/* <Hero /> */}
             <div className="box row m-10">
                 <img src="/icons/hotel.svg" alt=" ايقونة الاوتيلات" width="30" />
