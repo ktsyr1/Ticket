@@ -5,11 +5,12 @@ import { useRouter } from "next/router";
 */
 export default function SEO(props) {
     let route = useRouter()
+    let domain = process?.env?.NEXT_PUBLIC_API.replace("/api", "")
     let {
         title = "تكت مسافر - Ticket Musafir",
         description = '  افضل خدمة لاروع مكان  ',
-        canonical = process?.env?.NEXT_PUBLIC_API.replace("/api", "") + route.asPath,
-        image = `${process?.env?.NEXT_PUBLIC_API.replace("/api", "")}/images/logo-full.png`
+        canonical = domain + route.asPath,
+        image = `${domain}/images/logo-full.png`
     } = props
     let site_name = "تكت مسافر - Ticket Musafir"
     return (
