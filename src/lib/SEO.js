@@ -9,7 +9,7 @@ export default function SEO(props) {
         title = "تكت مسافر - Ticket Musafir",
         description = '  افضل خدمة لاروع مكان  ',
         canonical = process?.env?.NEXT_PUBLIC_API.replace("/api", "") + route.asPath,
-        image = '/image/logo-full.png'
+        image = `${process?.env?.NEXT_PUBLIC_API.replace("/api", "")}/images/logo-full.png`
     } = props
     let site_name = "تكت مسافر - Ticket Musafir"
     return (
