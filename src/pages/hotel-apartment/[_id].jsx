@@ -24,7 +24,7 @@ export async function getStaticProps(ctx) {
   return { props: { data } };
 }
 
-export default function PageOne({ data }) {
+export default function HotelsApartmentOne({ data }) {
   let route = useRouter()
   let md = new markdownIt()
   let interiorFeatures = md.render(data?.interiorFeatures || '')

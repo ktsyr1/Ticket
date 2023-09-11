@@ -10,7 +10,7 @@ export async function getStaticProps() {
     return { props: { data } };
 }
 
-export default function AllPosts({ data }) {
+export default function Hotels({ data }) {
     const router = useRouter();
     let icon = <img src={"/icons/hotel.svg"} alt=" ايقونة الفنادق" className="w-50" />
     let about = "نقدم لكم شقق مفروشة للإيجار في طرابزون. تقع هذه المجمعات بمناطق راقية ذات اطلالات رائعة وقريبة من الخدمات العامة. الشقق مجهزة بالكامل من أجل إقامة ممتعة ومريحة. كما تتميز الشقق بمساحات وأسعار مختلفة تلائم الجميع "

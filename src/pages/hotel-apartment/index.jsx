@@ -10,7 +10,7 @@ export async function getStaticProps() {
     return { props: { data }, };
 }
 
-export default function AllPosts({ data }) {
+export default function HotelsApartment({ data }) {
     const router = useRouter();
     let about = "نقدم لكم شقق مفروشة للإيجار في طرابزون. تقع هذه المجمعات بمناطق راقية ذات اطلالات رائعة وقريبة من الخدمات العامة. الشقق مجهزة بالكامل من أجل إقامة ممتعة ومريحة. كما تتميز الشقق بمساحات وأسعار مختلفة تلائم الجميع "
 

@@ -3,6 +3,8 @@ import { message } from "antd";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { AuthServerSide } from "@/lib/app2";
+import { useState } from "react";
+import { Storage } from "@/lib/firebase";
 
 export async function getServerSideProps(ctx) {
     return await AuthServerSide(ctx, async ({ NEXT_PUBLIC_API, query, config }) => {
@@ -14,16 +16,15 @@ export async function getServerSideProps(ctx) {
 
 export default function EditCarWithDriver({ data, config, query }) {
     const { register, handleSubmit } = useForm({ defaultValues: data });
+    let [res, setR] = useState()
     let route = useRouter();
 
     const onSubmit = (formData) => {
-        let updatedData = {
-            ...formData,
-            // additionalFeatures: formData.additionalFeatures?.split(","),
-        };
+        let data = { ...formData, ...res };
+
 
         // Send updated data to the server
-        axios.put(`/api/admin/car-with-driver/${query._id}`, formData, config)
+        axios.put(`/api/admin/car-with-driver/${query._id}`, data, config)
             .then(({ data }) => {
                 message.success("تم تعديل السيارة مع السائق");
                 route.push('/admin/car-with-driver');
@@ -33,6 +34,10 @@ export default function EditCarWithDriver({ data, config, query }) {
             });
     }
 
+    async function upImage(e) {
+        let image = await Storage.add(e.target.files)
+        setR({ ...res, carImage: image[0] })
+    }
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <h1>تعديل سيارة مع السائق</h1>
@@ -43,8 +48,8 @@ export default function EditCarWithDriver({ data, config, query }) {
             <label htmlFor="city">المدينة</label>
             <input type="text" id="city" {...register("city")} />
 
-            {/* <label htmlFor="carImage">صورة السيارة</label>
-            <input type="file" id="carImage" {...register("carImage")} /> */}
+            <label htmlFor="carImage">صورة السيارة</label>
+            <input type="file" id="carImage" {...register("carImage")} onChange={upImage} />
 
             <label htmlFor="duration">المدة</label>
             <input type="text" id="duration" {...register("duration")} />

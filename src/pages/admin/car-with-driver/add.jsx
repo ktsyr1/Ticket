@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthServerSide } from "@/lib/app2";
+import { Storage } from "@/lib/firebase";
 
 export async function getServerSideProps(ctx) {
   return await AuthServerSide(ctx, async ({ query, config }) => ({ config, query }));
@@ -12,15 +13,14 @@ export async function getServerSideProps(ctx) {
 export default function AddCarWithDriver({ config, query }) {
   let route = useRouter();
   const { register, handleSubmit } = useForm();
+  let [res, setR] = useState()
 
   const onSubmit = (formData) => {
-    let data = {
-      ...formData,
-      // additionalFeatures: formData.additionalFeatures?.split(","),
-    };
+    let data = { ...formData, ...res };
+
 
     // Send data to the server
-    axios.post('/api/admin/car-with-driver', formData, config)
+    axios.post('/api/admin/car-with-driver', data, config)
       .then(({ data }) => {
         message.success("تم إضافة السيارة مع السائق");
         route.push('/admin/car-with-driver');
@@ -29,7 +29,10 @@ export default function AddCarWithDriver({ config, query }) {
         message.error("حدث خطأ أثناء إضافة السيارة مع السائق");
       });
   }
-
+  async function upImage(e) {
+    let image = await Storage.add(e.target.files)
+    setR({ ...res, carImage: image[0] })
+  }
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -41,8 +44,8 @@ export default function AddCarWithDriver({ config, query }) {
         <label htmlFor="city">المدينة</label>
         <input type="text" id="city" {...register("city")} />
 
-        {/* <label htmlFor="carImage">صورة السيارة</label>
-        <input type="file" id="carImage" {...register("carImage")} /> */}
+        <label htmlFor="carImage">صورة السيارة</label>
+        <input type="file" id="carImage" {...register("carImage")} onChange={upImage} />
 
         <label htmlFor="duration">المدة</label>
         <input type="text" id="duration" {...register("duration")} />

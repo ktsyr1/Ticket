@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createStyles, getStylesRef } from '@mantine/core';
-import { IconHome, IconBuilding, IconCar, IconHotelService, Icon2fa, } from '@tabler/icons-react';
+import { IconHome, IconBuilding, IconLayout2, IconHotelService, IconCar, } from '@tabler/icons-react';
 import Link from 'next/link';
+import Cookies from "js-cookie";
 
 const useStyles = createStyles((theme) => ({
     link: {
@@ -30,18 +31,27 @@ const useStyles = createStyles((theme) => ({
     }
 }));
 
-
 const data = [
     { label: 'الرئيسية', link: "/", Icon: IconHome, color: 'blue' },
     { label: 'اوتيلات', link: "/hotels", Icon: IconHotelService, color: 'cyan' },
     { label: 'شقق فندقية', link: "/hotel-apartment", Icon: IconBuilding, color: 'green' },
-    // { label: 'السيارة مع السائق', link: "/admin/car-with-driver", icon: IconCar, color: 'teal' },
+     { label: 'السيارة مع السائق', link: "/car-with-driver", Icon: IconCar, color: 'teal' },
 ];
 
 export function Menu() {
     const { classes, cx } = useStyles();
     const [active, setActive] = useState('Billing');
+      const [isLogin, setIsLogin] = useState(false)
 
+      useEffect(() => {
+        let token = Cookies.get("token")
+       if (token?.length > 15) setIsLogin(true)
+
+     }, [])
+     let Admin = () => <Link href={"/admin"} className={cx(classes.link)} >
+       <IconLayout2 className={classes.linkIcon} stroke={1.5} />
+        <span className="mr-20">admin</span>
+     </Link>
     const links = data?.map(({ link, label, Icon }) => (
         <Link href={link} key={label} className={cx(classes.link, { [classes.linkActive]: label === active })} >
             <Icon className={classes.linkIcon} stroke={1.5} />
@@ -52,6 +62,8 @@ export function Menu() {
     return (
         <div className='menu' >
             {links}
+            {/* <Admin /> */}
+           {isLogin ? <Admin /> : <></>}  
         </div>
     );
 }

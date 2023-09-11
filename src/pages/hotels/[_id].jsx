@@ -23,7 +23,7 @@ export async function getStaticProps(ctx) {
   return { props: { data } };
 }
 
-export default function PageOne({ data }) {
+export default function HotelsOne({ data }) {
   let route = useRouter()
   return (
     <div className="  m-10">
