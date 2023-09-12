@@ -60,7 +60,7 @@ export function Menu() {
     ));
 
     return (
-        <div className='menu' >
+        <div className='menu menu-none ' >
             {links}
             {/* <Admin /> */}
            {isLogin ? <Admin /> : <></>}  

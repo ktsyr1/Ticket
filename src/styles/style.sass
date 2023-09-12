@@ -16,33 +16,34 @@ nav
     width: -webkit-fill-available
     top: 0
     z-index: 1000
-    .menu
-        display: flex
-        flex-direction: row
-        overflow: auto
-        width: -webkit-fill-available
-        justify-content: center
-        margin: 0 10px
-        a
-            line-height: 1
-            padding: 8px 12px
-            border-radius: 10px
-            text-decoration: 'none'
-            color: #666
-            font-size: 18px
-            margin: 0 10px
-            font-weight: 500
-            span
-                margin: 0 10px
-                white-space: nowrap
+
     a
         margin: 0 10px
 
+.menu
+    display: flex
+    width: 300px
+    margin: 10px
+    flex-direction: column
+    overflow: auto
+    a
+        line-height: 1
+        padding: 10px
+        border-radius: 10px
+        text-decoration: none
+        color: #666
+        font-size: 15px
+        margin: 0 10px
+        font-weight: 500
+        span
+            margin: 0 10px
+            white-space: nowrap
 article
     direction: rtl
-    margin-top: 140px
+    margin-top: 80px !important
     background-color: #eee
-    // display: flex
+    display: flex
+    align-items: flex-start
 form
     flex-direction: column !important
     max-width: 350px
@@ -107,13 +108,20 @@ button , .btn ,[type='submit']
     .menu-icon
         display: none !important
 
-@media (max-width: 700px)
-    // .menu
-    //     display: none
-    //     position: absolute !important
-    //     z-index: 20
-    //     right: -300px
-    //     &-delay
+@media (max-width: 900px)
+    article
+        &> div:nth-child(2)
+            margin: 10px auto
+
+    .menu
+        position: fixed
+        background-color: #fff
+        padding: 10px
+        border-radius: 10px
+        height: -webkit-fill-available
+        box-shadow: 0 0 10px #ddd
+        &-none
+            display: none !important
     //         right: 0 !important
     //         min-width: 300px
 @media (max-width: 733px)
@@ -160,6 +168,5 @@ h1
     margin-right: 15px
 .page
     max-width: 700px
-    
-.card
 
+.card

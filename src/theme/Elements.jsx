@@ -2,6 +2,19 @@ import Link from "next/link";
 import { IconHome, IconBrandWhatsapp } from '@tabler/icons-react';
 
 
+export function Gallray({ data }) {
+    let images = data?.map(a => <img src={a} key={a} style={{ borderRadius: '10px', height: '200px', margin: '5px' }} loading="lazy" />)
+    let notFound = <p className="aitem box h-100 j m-a">لايوجد صور </p>
+    return (
+        <div className=" bord my-10 p-20 box col page w-full" >
+            <b>معرض الصور</b>
+            <div className=" box row scroll " >
+                {data.length > 0 ? images : notFound}
+            </div>
+        </div>
+    )
+}
+
 export default function LineTitles({ data }) {
     return (
         <div className="bord box page row aitem m-a w-full">

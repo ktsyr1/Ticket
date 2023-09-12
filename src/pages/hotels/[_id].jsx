@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { IconMapPin, IconStars, IconWifi, IconParking, } from '@tabler/icons-react';
-import LineTitles, { ContactWa } from "@/theme/Elements";
+import LineTitles, { ContactWa, Gallray } from "@/theme/Elements";
 import SEO from "@/lib/SEO";
 
 export async function getStaticPaths() {
@@ -30,7 +30,7 @@ export default function HotelsOne({ data }) {
       <SEO title={`اوتيل | ${data?.name}`} description={data?.description} image={data?.image} />
 
       <LineTitles data={[{ href: "/hotels", title: "الاوتيلات" }]} />
-      <article className="  box col m-a page hotel  ">
+      <div className="  box col m-a page hotel  ">
         <div className="bord box col m-a page   m-0">
           <div className="box grid m-10 j hotel-title">
             <img src={data.image} alt={`صورة ${data.name}`} className="" style={styles.image}  loading="lazy"/>
@@ -54,15 +54,9 @@ export default function HotelsOne({ data }) {
             <p>{data.description}</p>
           </div>
         </div>
-        <div className=" bord my-10 p-20 row scroll" >
-          <div className="box row "  >
-            {data?.images.length > 0 
-            	?data?.images?.map(a => <img src={a} key={a} style={{ borderRadius: '10px', height: '200px', margin: '5px' }}  loading="lazy"/>)
-            	:<p className="aitem box h-100 j m-a">لايوجد صور </p>
-            }
-          </div>
-        </div>
-        <div className="box grid bord p-20">
+        <Gallray data={data?.images} />
+
+        <div className="box grid bord p-20 page w-full">
 
           <div className="box col w-200">
             <b>الخدمات</b>
@@ -89,7 +83,7 @@ export default function HotelsOne({ data }) {
             <b>محيط مكان الإقامة</b>
             <p>{data.surroundingArea}</p>
           </div> </div>
-      </article>
+      </div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { IconMapPin } from '@tabler/icons-react';
 import markdownIt from "markdown-it";
 import LineTitles, { ContactWa } from "@/theme/Elements";
 import SEO from "@/lib/SEO";
+import { Gallray } from "../../theme/Elements";
 
 export async function getStaticPaths() {
   let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/hotel-apartment`);
@@ -35,8 +36,8 @@ export default function HotelsApartmentOne({ data }) {
       <SEO title={`شقق فندقية | ${data?.name}`} description={data?.about} image={data?.image} />
 
       <LineTitles data={[{ href: "/hotel-apartment", title: "الشقق الفندقية" }]} />
-      <article className="  box col m-a page hotel  ">
-        <div className="bord box col m-a page   m-0">
+      <div className="  box col m-a page hotel  ">
+        <div className="bord box col m-a page m-0">
           <div className="box grid m-10 j hotel-title">
             <img src={data.image} alt={`صورة ${data.name}`} className="" style={styles.image} loading="lazy" />
             <div className="box col m-10 mx-20 w-300">
@@ -55,15 +56,9 @@ export default function HotelsApartmentOne({ data }) {
             <p>{data.about}</p>
           </div>
         </div>
-        <div className=" bord my-10 p-20 row scroll" >
-          <div className="box row "  >
-            {data?.images.length > 0
-              ? data?.images?.map(a => <img src={a} key={a} style={{ borderRadius: '10px', height: '200px', margin: '5px' }} loading="lazy" />)
-              : <p className="aitem box h-100 j m-a">لايوجد صور </p>
-            }
-          </div>
-        </div>
-        <div className="box col bord p-20">
+        <Gallray data={data?.images} />
+
+        <div className="box col bord p-20 page w-full">
           <div className="box col m-10">
             <b>الميزات الداخلية</b>
             <div dangerouslySetInnerHTML={{ __html: interiorFeatures }} />
@@ -77,7 +72,7 @@ export default function HotelsApartmentOne({ data }) {
             <div dangerouslySetInnerHTML={{ __html: generalDetails }} />
           </div>
         </div>
-      </article>
+      </div>
     </div>
   );
 }

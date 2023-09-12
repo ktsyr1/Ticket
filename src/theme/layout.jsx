@@ -9,12 +9,9 @@ export default function RootLayout({ children }) {
         <>
             <NavHeader />
             <article >
-                {/* <Menu /> */}
+                <Menu />
                 {children}
             </article>
         </>
     )
 }
-export function openMenu() {
-    document.querySelector(".menu")?.classList.toggle('menu-delay')
-} 

@@ -1,10 +1,11 @@
-import { createStyles, Header, Autocomplete, Group, Burger, rem } from '@mantine/core';
+import { createStyles, Header, Autocomplete, Group, Burger, rem, getStylesRef } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
 import Image from 'next/image';
-// import { MantineLogo } from '@mantine/ds';
-import Link from 'next/link';
-import { Menu } from './menu';
+
+import {
+    IconMenu, IconSteeringWheel, IconCurrencyDollar, IconCalendarTime, IconMapPin, IconClockPlay
+} from '@tabler/icons-react';
 
 
 const useStyles = createStyles((theme) => ({
@@ -18,10 +19,11 @@ const useStyles = createStyles((theme) => ({
     },
 
     inner: {
-        height: rem(56),
+        // height: rem(56),
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        alignItems: 'center', 
+        width: '-webkit-fill-available'
     },
 
     links: {
@@ -35,7 +37,10 @@ const useStyles = createStyles((theme) => ({
             display: 'none',
         },
     },
-
+    linkIcon: {
+        ref: getStylesRef('icon'),
+        color: theme.colorScheme === 'dark' ? theme.colors.dark[2] : theme.colors.gray[6],
+    },
     link: {
         display: 'block',
         lineHeight: 1,
@@ -57,18 +62,21 @@ export function NavHeader() {
     const [opened, { toggle }] = useDisclosure(false);
     const { classes } = useStyles();
 
+    function openMenu() {
+        document.querySelector(".menu")?.classList.toggle('menu-none')
+    }
     return (
         <nav >
             <div className={classes.inner}>
-                <Group>
-                    {/* <Image src={'/images/menu.png'} width={40} height={40} alt='logo ansfni' onClick={openMenu} /> */}
+                <IconMenu className={classes.linkIcon} stroke={1.5} onClick={openMenu} />
+
+                <div className="p-10 box row">
                     <Image src={'/images/logo.png'} width={40} height={40} alt='logo ansfni' />
                     <p style={{ color: "#000" }}>تكت مسافر - Ticket Musafir </p>
-
-                </Group>
+                </div>
 
             </div>
-            <Menu />
+            {/* <Menu /> */}
         </nav>
     );
 }
