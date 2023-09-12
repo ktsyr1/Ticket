@@ -33,7 +33,7 @@ export default function HotelsOne({ data }) {
       <div className="  box col m-a page hotel  ">
         <div className="bord box col m-a page   m-0">
           <div className="box grid m-10 j hotel-title">
-            <img src={data.image} alt={`صورة ${data.name}`} className="" style={styles.image}  loading="lazy"/>
+            <img src={data.image} alt={`صورة ${data.name}`} className="" style={styles.image} loading="lazy" />
             <div className="box col m-10 mx-20 w-300">
               <h1 className="m-0">{data.name}</h1>
               <div className="aitem box m-10 row">
@@ -56,33 +56,31 @@ export default function HotelsOne({ data }) {
         </div>
         <Gallray data={data?.images} />
 
-        <div className="box grid bord p-20 page w-full">
-
-          <div className="box col w-200">
+        <div className="box col bord p-20 page w-full">
+          <div className="box col ">
+            <b>محيط مكان الإقامة</b>
+            <p>{data.surroundingArea}</p>
+          </div>
+          <div className="box col ">
             <b>الخدمات</b>
-            <div className="aitem box m-10 row">
+            <div className="box grid my-10">
 
+              <div className="aitem box m-10 row"> 
               {/* icon wifi */}
               <IconWifi size={18} />
               <p className="mr-10">{data.services.freeWiFi ? "" : "لا"} وايفاي مجانية</p>
             </div>
-            <div className="aitem box m-10 row">
-
-              {/* icon parking */}
+              <div className="aitem box m-10 row">
               <IconParking size={18} />
               <p className="mr-10">{data.services.freeParking ? "" : "لا"} موقف سيارات مجانية</p>
             </div>
-            <div className="aitem box m-10 row">
-
-              {/* icon breakfast */}
+              <div className="aitem box m-10 row">
               <IconWifi size={18} />
               <p className="mr-10">{data.services.breakfast ? "" : "لا"} فطور </p>
             </div>
+            </div>
           </div>
-          <div className="box col w-300">
-            <b>محيط مكان الإقامة</b>
-            <p>{data.surroundingArea}</p>
-          </div> </div>
+        </div>
       </div>
     </div>
   );

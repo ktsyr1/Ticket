@@ -6,6 +6,7 @@ import Image from 'next/image';
 import {
     IconMenu, IconSteeringWheel, IconCurrencyDollar, IconCalendarTime, IconMapPin, IconClockPlay
 } from '@tabler/icons-react';
+import Link from 'next/link';
 
 
 const useStyles = createStyles((theme) => ({
@@ -70,11 +71,11 @@ export function NavHeader() {
             <div className={classes.inner}>
                 <IconMenu className={classes.linkIcon} stroke={1.5} onClick={openMenu} />
 
-                <div className="p-10 box row">
+                <Link href="/" className="box row aitem">
                     <Image src={'/images/logo.png'} width={40} height={40} alt='logo ansfni' />
                     <p style={{ color: "#000" }}>تكت مسافر - Ticket Musafir </p>
-                </div>
-
+                </Link>
+                <div></div>
             </div>
             {/* <Menu /> */}
         </nav>
