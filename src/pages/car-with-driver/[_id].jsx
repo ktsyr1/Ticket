@@ -42,8 +42,6 @@ export default function CarWithDriverOne({ data }) {
         <div className="aitem box col j  page w-full">
             <SEO title={data?.title} description={data?.programDetails} />
             <LineTitles data={[{ href: "/car-with-driver", title: "سيارة مع سائق" }]} />
-
-            {/* عرض بيانات المنتج هنا */}
             <div className="bord box col m-a page   m-0">
                 <div className="box col m-10 j  ">
                     <img src={data.carImage} alt={`صورة ${data.title}`} className="" style={styles.image} loading="lazy" />

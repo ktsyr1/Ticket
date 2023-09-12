@@ -38,7 +38,7 @@ export default function HotelsApartmentOne({ data }) {
       <LineTitles data={[{ href: "/hotel-apartment", title: "الشقق الفندقية" }]} />
       <div className="  box col m-a page hotel  ">
         <div className="part">
-          {/* <div className="box grid m-10 j hotel-title">
+          <div className="box grid m-10 j hotel-title">
             <img src={data.image} alt={`صورة ${data.name}`} className="" style={styles.image} loading="lazy" />
             <div className="box col m-10 mx-20 w-300">
               <h1 className="m-0">{data.name}</h1>
@@ -49,7 +49,7 @@ export default function HotelsApartmentOne({ data }) {
               <ContactWa href={`${process.env.NEXT_PUBLIC_API.replace("/api", "")}${route.asPath}`} />
 
             </div>
-          </div> */}
+          </div>
           <div className="box col m-10">
             <b>الوصف</b>
             <p>{data.about}</p>
@@ -57,7 +57,7 @@ export default function HotelsApartmentOne({ data }) {
         </div>
         <Gallray data={data?.images} />
 
-        {/* <div className="box col bord p-20 page w-full">
+        <div className="box col bord p-20 page w-full">
           <div className="box col m-10">
             <b>الميزات الداخلية</b>
             <div dangerouslySetInnerHTML={{ __html: interiorFeatures }} />
@@ -70,7 +70,7 @@ export default function HotelsApartmentOne({ data }) {
             <b>الميزات الداخلية</b>
             <div dangerouslySetInnerHTML={{ __html: generalDetails }} />
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
