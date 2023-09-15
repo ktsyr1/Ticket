@@ -8,7 +8,7 @@ import { IconCar, IconSteeringWheel, IconCurrencyDollar, IconCalendarTime, IconM
 
 export async function getStaticProps() {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/car-with-driver`);
-    return { props: { data }, revalidate: 0 };
+    return { props: { data }, revalidate: 10 };
 }
 
 export default function CarWithDriver({ data }) {

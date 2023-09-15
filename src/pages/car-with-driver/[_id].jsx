@@ -17,7 +17,7 @@ export async function getStaticProps(ctx) {
     let { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API}/client/car-with-driver/${encodeURIComponent(ctx.params._id)}`
     );
-    return { props: { data }, revalidate: 0 };
+    return { props: { data }, revalidate: 10 };
 }
 let styles = {
     image: {

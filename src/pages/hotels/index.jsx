@@ -7,7 +7,7 @@ import SEO from "@/lib/SEO";
 
 export async function getStaticProps() {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/hotels`);
-    return { props: { data }, revalidate: 0 };
+    return { props: { data }, revalidate: 10 };
 }
 
 export default function Hotels({ data }) {
