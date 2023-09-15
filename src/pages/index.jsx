@@ -7,7 +7,7 @@ import SEO from '@/lib/SEO';
 
 export const getStaticProps = async ({ query }) => {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API || '/api'}/client/`);
-    return { props: { data } }
+    return { props: { data }, revalidate: 0 }
 }
 
 export default function Home({ data }) {

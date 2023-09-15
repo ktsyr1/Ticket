@@ -9,7 +9,7 @@ export async function getStaticPaths() {
 // get static props
 export async function getStaticProps(ctx) {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/posts/${encodeURI(ctx.params.slug)}`);
-    return { props: { data }, revalidate: 10 * 60 }
+    return { props: { data }, revalidate: 0 }
 }
 
 export default function PageOne({ data }) {
