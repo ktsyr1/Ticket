@@ -25,7 +25,7 @@ export default function PageOne({ data }) {
             {/* content */}
             <SEO title={` ${data?.title}`} description={data?.bio} image={data?.image} />
             <div className="bord col page p-10">
-                <img src={data.image || "/images/logo-full.png"} alt={`صورة ${data.title}`} className="" style={{ width: '320px', borderRadius: '20px', boxShadow: '0 0 10px #ddd' }} loading="lazy" />
+                <img src={data?.image || "/images/logo-full.png"} alt={`صورة ${data.title}`} className="" style={{ width: '320px', borderRadius: '20px', boxShadow: '0 0 10px #ddd' }} loading="lazy" />
 
                 <h1 className="m-0">{data.title}</h1>
                 <div className="box row m-10">
