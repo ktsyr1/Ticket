@@ -29,7 +29,7 @@ export default function PageOne({ data }) {
 
                 <h1 className="m-0">{data?.title}</h1>
                 <div className="box row m-10">
-                    <p className="m-0">{new Date(data.create_at)}</p>
+                    <p className="m-0">{new Date(data?.create_at)}</p>
                     <p className="m-0">{data?.cat?.map(a => <Link href={`/page?cat=${a}`} >{a}</Link>)}</p>
 
                 </div>
