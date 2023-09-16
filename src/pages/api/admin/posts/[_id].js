@@ -25,8 +25,10 @@ export default async function postOne(req, res, next) {
                 await Auth.isLogin(),
                 async () => {
                         // types
+                        let { title, content, url, bio, image } = body
+                        let data = { title, content, url, bio, image, cat: body?.cat?.split(",") }
 
-                        await Posts.updateOne(id, body)
+                        await Posts.updateOne(id, data)
                         Send({ msg: "تم تحديث المنشور" })
                 })
         DELETE(

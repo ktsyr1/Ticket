@@ -20,3 +20,5 @@ firebase login
 firebase init
 firebase deploy
 ```
+
+https://chat.openai.com/share/b805c9ab-6ad9-40fc-a34d-5ad168d7a3cc

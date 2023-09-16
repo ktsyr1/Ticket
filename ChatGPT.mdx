@@ -1,0 +1,433 @@
+# نقوم ببناء موقع ويب
+نستخدم تقنيات فيه هي nextjs & mongodb & sass
+وتكون بنية الملفات هي ك التالي
+
+1- @/models/<name-part>.js
+2- @/models/index.js
+
+3- @/pages/api/admin/<name-part>/index.js ( طلب كل معلومات القسم او اضافة عنصر جديد )
+4- @/pages/api/admin/<name-part>/[_id].js  ( طلب معلومات عنصر محدد او تعديلها او حذفها  )
+
+5- @/pages/admin/<name-part>/index.js (عرض كل معلومات القسم و الحذف مع روابط الاضافة و التعديل )
+6- @/pages/admin/<name-part>/add.js (اظافة معلومات جديدة)
+7- @/pages/admin/<name-part>/[_id].jsx (تحديث العنصر )
+
+8- @/pages/api/client/<name-part>/index.js ( طلب كل معلومات القسم  )
+9- @/pages/api/client/<name-part>/[_id].js  ( طلب معلومات عنصر محدد  )
+ 
+10- @/pages/<name-part>/index.jsx ( عرض كل معلومات القسم   )
+11- @/pages/<name-part>/[_id].jsx (عرض معلومات عنصر محدد   )
+
+## اكواد هذه الملفات التي يمكننا استخلاص الكود منها
+### models
+1- @/models/<name-part>.js
+```js
+import mongoose, { Schema } from 'mongoose';
+
+let schema = new Schema({ 
+    title: { type: String, required: true },
+    about: String,
+    // other data
+    create_at: { type: Number, default: new Date() },
+});
+
+mongoose.models = {};
+export default mongoose.model('<name-part>', schema);
+```
+
+2- @/models/index.js
+```js 
+// add this code to file
+import namePart> from "@/models/<name-part>";
+export const NamePart = namePart
+ 
+```
+### admin backend
+
+6- @/pages/api/admin/<name-part>/index.js 
+```js 
+import { NamePart } from "@/models";
+import { API, APIAuth } from "@/lib/app";
+
+export default async function NamePartAPI(req, res, next) {
+        let { body } = req
+        let { GET, POST, Send } = new API(req, res)
+        let Auth = new APIAuth(req, res)
+
+        GET(
+                await Auth.isLogin(),
+                async () => {
+                        let namePart = await NamePart.find().sort({ _id: -1 })
+                        Send(namePart)
+
+                })
+        POST(
+                await Auth.isLogin(),
+                async () => { 
+                        let namePart = await NamePart.create(body)
+                        Send(namePart)
+                })
+} 
+```
+7- @/pages/api/admin/<name-part>/[_id].js  
+```js 
+ import { API, APIAuth } from "@/lib/app";
+import {  NamePart } from "@/models";
+ 
+
+export default async function NamePartOneAPI(req, res, next) {
+        let { body } = req
+        let { id, GET, PUT, DELETE, Send } = new API(req, res)
+        let Auth = new APIAuth(req, res)
+
+        GET(
+                await Auth.isLogin(),
+                async () => {
+                        let namePart = await NamePart.findOne(id)
+                        Send(namePart)
+                })
+        PUT(
+                await Auth.isLogin(),
+                async () => {
+                        await NamePart.updateOne(id, body)
+                        Send({ msg: "تم تحديث المعلومات" })
+                })
+        DELETE(
+                await Auth.isLogin(),
+                async () => {
+                        await NamePart.deleteOne(id)
+                        Send({ msg: "تم حذف المعلومات" })
+
+                })
+
+}
+
+```
+
+### admin front
+3- @/pages/admin/<name-part>/index.jsx
+```js 
+//   imports 
+ import LineHeader from "@/theme/lineHeader";
+import { Table, message, Popconfirm } from "antd";
+import axios from "axios";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import Image from 'next/image';
+import { AuthServerSide } from '@/lib/app2'
+// get data
+export async function getServerSideProps(ctx) {
+	return AuthServerSide(ctx, async (cookies, query, config, NEXT_PUBLIC_API) => {
+		let url = `${NEXT_PUBLIC_API}/admin/<name-part>`
+		let { data } = await axios.get(url, config);
+
+		return { data, config }
+	})
+
+}
+
+
+export default function AdminNamePart(props) {
+
+	let [data, set] = useState(props?.data)
+
+	function Delete(_id) { 
+		let url = `${props.url}/${_id}` 
+		axios.delete(url, props.config)
+			.then(({ data: D }) => {
+				message.success(D.msg)
+				let filter = data.filter(a => a._id.toString() != _id)
+				set(filter)
+			})
+	}
+	function Btn({ id }) {
+		return (
+			<Popconfirm title="هل أنت متأكدة من حذف العنصر" onConfirm={() => Delete(id)} okText="نعم" cancelText="لا" >
+				<button className="err"  >حذف </button>
+			</Popconfirm>
+		)
+	}
+	const columns = [
+		{
+			title: "العنوان", dataIndex: "title", key: "title",
+			render: (_, record) => <Link href={`/admin/<name-part>/${record._id}/edit`} className="  w-50 box j" >{record.title}</Link>
+		}, 
+        // other list code
+		{ title: " تاريخ الانشاء ", dataIndex: "create_at", key: "create_at", },
+		{ title: "حذف", dataIndex: "delete", key: "delete", render: (_, record) => <Btn id={record._id} /> }
+	];
+
+	return (
+		<main className="  bord box m-10 col">
+			<LineHeader data={[]} />
+
+			{/* header */}
+			<div className="aitem   box m-10 grid">
+				<h1> اسم القسم</h1>
+				<Link href="/admin/posts/add" className="btn mx-10">اضافة عنصر</Link>
+			</div>
+			{/* table */}
+			<Table dataSource={data} columns={columns} pagination={false} />
+		</main>
+	);
+}
+
+```
+4- @/pages/admin/<name-part>/add.jsx
+```js 
+import { message } from "antd";
+import axios from "axios"
+import { useRouter } from "next/router"
+import { useState } from "react"
+import { useForm } from "react-hook-form";
+import { AuthServerSide } from "@/lib/app2";
+import { Storage } from "@/lib/firebase";
+
+export async function getServerSideProps(ctx) {
+        return await AuthServerSide(ctx, async ({ query, config }) => ({ config, query }))
+}
+
+export default function AdminNamePartAdd({ config, query }) {
+        let route = useRouter() 
+        const { register, handleSubmit } = useForm();
+        let [res, setR] = useState()
+
+        const onSubmit = (formData) => {
+                let data = { ...formData, ...res };
+
+                axios.post('/api/admin/<name-part>', data, config)
+                        .then(({ data }) => {
+                                // alert
+                                message.success("تم اضافة المنشور")
+                                route.push('/admin/<name-part>')
+                        })
+        }
+
+        async function upImage(e) {
+            let image = await Storage.add(e.target.files)
+            setR({ ...res, image: image[0] })
+        }
+        return (
+                <div>
+                        <form onSubmit={handleSubmit(onSubmit)}  >
+                                <h1>اضافة عنصر</h1>
+                                <label htmlFor="title"  >العنوان</label>
+                                <input type="text" id="title" {...register("title")} />
+  
+                                <label   >الوصف   </label>
+                                <textarea {...register("about")} className="h-200">  </textarea>
+                                
+                                {/* add other code */}
+                                {/*  other code example for image*/}
+
+                                <label htmlFor="image">صورة الفندق</label>
+                                <input type="file" id="image" name={"image"} onChange={upImage} />
+
+                                <div className="mt-20 w-full box row">
+                                        <button onClick={(e) => {
+                                                e.preventDefault()
+                                                route.back()
+                                        }} className="ml-10 btn p-10 w-full m-0 off"  >عودة </button>
+                                        <button type="submit" className="  w-full">اضافة</button>
+                                </div>
+                        </form>
+                </div>
+        )
+} 
+ 
+```
+5- @/pages/admin/<name-part>/[_id].jsx
+```js 
+import { message } from "antd";
+import axios from "axios"
+import { useRouter } from "next/router"
+import { useState } from "react"
+import { useForm } from "react-hook-form";
+import { AuthServerSide } from "@/lib/app2";
+import { Storage } from "@/lib/firebase";
+
+export async function getServerSideProps(ctx) {
+    return await AuthServerSide(ctx, async ({ NEXT_PUBLIC_API, query, config }) => {
+        let url = `${NEXT_PUBLIC_API}/admin/<name-part>/${ctx.query._id}`;
+        let { data } = await axios.get(url, config);
+        return { data, config, query: ctx.query };
+    });
+}
+
+export default function AdminNamePartEdit({  data, config, query }) {
+        let route = useRouter() 
+        const { register, handleSubmit } = useForm({ defaultValues: data });
+        let [res, setR] = useState()
+
+        const onSubmit = (formData) => {
+        let Data = { ...data, ...formData, ...res };
+
+                axios.put('/api/admin/<name-part>', Data, config)
+                        .then(({ data }) => {
+                                // alert
+                                message.success("تم اضافة المنشور")
+                                route.push('/admin/<name-part>')
+                        })
+        }
+
+        async function upImage(e) {
+            let image = await Storage.add(e.target.files)
+            setR({ ...res, image: image[0] })
+        }
+        return (
+                <div>
+                        <form onSubmit={handleSubmit(onSubmit)}  >
+                                <h1>اضافة عنصر</h1>
+                                <label htmlFor="title"  >العنوان</label>
+                                <input type="text" id="title" {...register("title")} />
+  
+                                <label   >الوصف   </label>
+                                <textarea {...register("about")} className="h-200">  </textarea>
+                                
+                                {/* add other code */}
+
+                                {/*  other code example for image*/}
+                                <label htmlFor="image">صورة الفندق</label>
+                                <input type="file" id="image" name={"image"} onChange={upImage} />
+
+                                <div className="mt-20 w-full box row">
+                                        <button onClick={(e) => {
+                                                e.preventDefault()
+                                                route.back()
+                                        }} className="ml-10 btn p-10 w-full m-0 off"  >عودة </button>
+                                        <button type="submit" className="  w-full">اضافة</button>
+                                </div>
+                        </form>
+                </div>
+        )
+} 
+  
+ 
+```
+
+### client backend
+8- @/pages/api/client/<name-part>/index.js 
+```js 
+import { NamePart } from "@/models";
+import { API } from "@/lib/app";
+
+export default async function ClientNamePart(req, res, next) {
+        let { GET, Send } = new API(req, res)
+
+        GET(
+                async () => {
+                        let namePart = await NamePart.find().sort({ _id: -1 })
+                        Send(namePart)
+                })
+}
+ 
+```
+9- @/pages/api/client/<name-part>/[_id].js  
+```js 
+ import { API } from "@/lib/app";
+import { NamePart } from "@/models";
+
+export default async function hotelOne(req, res, next) {
+    let { query } = req;
+    let { GET, Send } = new API(req, res);
+
+    GET(
+        async () => {
+            let namePart = await NamePart.findById(query._id).select("-_id")
+            Send(namePart);
+        }
+    );
+}
+ 
+```
+### client UI
+10- @/pages/<name-part>/index.jsx 
+```js 
+import axios from "axios";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { IconMapPin, IconStars } from '@tabler/icons-react';
+import { HeroPart } from "@/theme/Elements";
+import SEO from "@/lib/SEO";
+
+export async function getStaticProps() {
+    let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/<name-part>`);
+    return { props: { data }, revalidate: 10 };
+}
+
+export default function NamePart({ data }) {
+    const router = useRouter();
+    let icon = <img src={"/icons/hotel.svg"} alt=" ايقونة الفنادق" className="w-50" />
+    let about = " ...  "
+    return (
+        <div className="box col m-a j">
+            <SEO title="<name-part>" description={about} />
+            <HeroPart iconType={false} Icon={icon} title="<name-part>" about={about} />
+
+            <div className="box grid m-a j">
+                    {/* add other code map */}               
+            </div>
+        </div>
+    );
+} 
+```
+
+
+11- @/pages/<name-part>/[_id].jsx 
+```js 
+import axios from "axios";
+import { useRouter } from "next/router";
+import { IconMapPin, IconStars, IconWifi, IconParking, } from '@tabler/icons-react';
+import LineTitles, { ContactWa, Gallray } from "@/theme/Elements";
+import SEO from "@/lib/SEO";
+
+export async function getStaticPaths() {
+  let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/<name-part>`);
+  const paths = data.map((post) => ({ params: { _id: post._id } }));
+  return { paths, fallback: false };
+}
+let styles = {
+  image: {
+    width: '320px',
+    borderRadius: '20px',
+    boxShadow: '0 0 10px #ddd'
+  }
+}
+export async function getStaticProps(ctx) {
+  let { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API}/client/<name-part>/${encodeURIComponent(ctx.params._id)}`
+  );
+  return { props: { data }, revalidate: 10 };
+}
+
+export default function NamePartOne({ data }) {
+  let route = useRouter()
+  return (
+    <div className="  m-10">
+            <SEO title={`<name-part> | ${data?.name}`} description={data?.description} image={data?.image} />
+            <HeroPart iconType={false} Icon={icon} title="<name-part>" about={about} />
+
+            <div className="box grid m-a j">
+                    {/* add other code map */}               
+            </div>
+    </div>
+  );
+}
+
+ 
+```
+
+
+انتهى الكود هنا 
+انتضرني ريثما ارسل لك  باقي المتطلبات  في الرد القادم , يتابع ....
+
+
+
+
+هذه الاكواد الان اصبح عندك رؤية كيف يكون تركيبة الموقع عندك .
+ان كل من <name-part> و NamePart هي اسم القسم يجب عليك اعادة تسميتها بالانكليزية مع مراعات الاحرف الكبيرة و الصغيرة في الكود .
+و يجب ان يقسم الرد بداية الامر الى قسمين الاول للوحة التحكم و الذي يشمل Models , Admin api , admin front .
+الرد الثاني يجب ان يشمل Client Api ,Client ui
+
+انتظرني حتى اقدم لك اسم القسم و نموذج من البيانات وانت بالطرف اللمقابل بصفتك مطور ويب اريد منك ان تعطيني الكود المناسب  والكامل لكل ملف  بنفس البنية التي قدمتها  بالاكواد السابقة 
+انتضرني في الرد القادم ...

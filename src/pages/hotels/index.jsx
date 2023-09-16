@@ -1,7 +1,7 @@
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { IconMapPin, IconStars, IconCashBanknote, IconCoin, } from '@tabler/icons-react';
+import { IconMapPin, IconStars } from '@tabler/icons-react';
 import { HeroPart } from "@/theme/Elements";
 import SEO from "@/lib/SEO";
 
