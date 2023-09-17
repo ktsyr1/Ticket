@@ -40,10 +40,10 @@ export function LineTitlesAdmin({ data }) {
 }
 export function HeroPart({ Icon, iconType, title, about }) {
     return (
-        <div className="aitem box col m-a page m-a">
+        <div className="aitem box col m-a page  ">
             {iconType ? <Icon stroke={1.5} className="m-10" size={50} /> : Icon}
             <h1> {title} </h1>
-            <p> {about} </p>
+            <p className="m-20"> {about} </p>
         </div>
     )
 }

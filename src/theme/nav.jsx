@@ -73,7 +73,7 @@ export function NavHeader() {
 
                 <Link href="/" className="box row aitem">
                     <Image src={'/images/logo.png'} width={40} height={40} alt='logo ansfni' />
-                    <p style={{ color: "#000" }}>تكت مسافر - Ticket Musafir </p>
+                    <p style={{ color: "#000" ,marginRight: '10px' }}>تكت مسافر - Ticket Musafir </p>
                 </Link>
                 <div></div>
             </div>

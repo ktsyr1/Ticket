@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createStyles, getStylesRef } from '@mantine/core';
-import { IconHome, IconBuilding, IconLayout2, IconHotelService, IconCar, IconListDetails } from '@tabler/icons-react';
+import { IconHome, IconBuilding, IconLayout2, IconHotelService, IconCar, IconListDetails ,IconInfoSquareRounded } from '@tabler/icons-react';
 import Link from 'next/link';
 import Cookies from "js-cookie";
 
@@ -77,6 +77,10 @@ export function Menu() {
             </div>
             {links}
             {isLogin ? <Admin /> : <></>}
+            <Link href={"/page/about"}  className={cx(classes.link )} >
+                <IconInfoSquareRounded className={classes.linkIcon} stroke={1.5} />
+                <span className="mr-20">من نحن</span>
+            </Link>
         </div>
     );
 }
