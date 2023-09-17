@@ -5,9 +5,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Image from 'next/image';
 import { AuthServerSide } from '@/lib/app2'
+import { LineTitlesAdmin } from "@/theme/Elements";
 
 export async function getServerSideProps(ctx) {
-	return AuthServerSide(ctx, async (cookies, query, config, NEXT_PUBLIC_API) => {
+	return AuthServerSide(ctx, async ({config, NEXT_PUBLIC_API}) => {
 		let url = `${NEXT_PUBLIC_API}/admin/users`
 		let { data } = await axios.get(url, config);
 
@@ -80,8 +81,8 @@ export default function AdminUsers(props) {
 
 	];
 	return (
-		<section className="bord m-10 p-10 box col  ">
-			<LineHeader data={[]} />
+		<div className="bord m-10 p-10 box col w-full ">
+			<LineTitlesAdmin data={[]} />
 			<div className="box row p-20">
 				<h1 className="ml-20">المستخدمين</h1>
 				<button onClick={() => setInvite(true)} >دعوة </button>
@@ -91,7 +92,7 @@ export default function AdminUsers(props) {
 			<div>
 				<Table dataSource={data} columns={columns} pagination={false} />
 			</div>
-		</section>
+		</div>
 
 	)
 }

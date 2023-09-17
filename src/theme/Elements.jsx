@@ -18,13 +18,26 @@ export function Gallray({ data }) {
 export default function LineTitles({ data }) {
     return (
         <div className="bord box page row aitem m-a w-full">
-            <IconHome stroke={1.5} className="m-10" />
-            <Link href={"/"} className="ml-10" > الرئيسية </Link>
+            <Link href={"/"} className="ml-10 box row aitem" >
+                <IconHome stroke={1.5} className="m-10" />
+                <p> الرئيسية </p>
+            </Link>
             {data?.map(a => (<div key={a.href} className="box row aitem" ><span>/</span> <Link href={a.href} className="mr-10" > {a.title}</Link></div>))}
         </div>
     )
 }
 
+export function LineTitlesAdmin({ data }) {
+    return (
+        <div className=" aitem box p-10 row w-full">
+            <Link href={"/"} className="ml-10 box row aitem bord pl-20" >
+                <IconHome stroke={1.5} className="m-10" />
+                <p> الرئيسية </p>
+            </Link>
+            {data?.map(a => (<div key={a.href} className="box row aitem" ><span>/</span> <Link href={a.href} className="mr-10" > {a.title}</Link></div>))}
+        </div>
+    )
+}
 export function HeroPart({ Icon, iconType, title, about }) {
     return (
         <div className="aitem box col m-a page m-a">

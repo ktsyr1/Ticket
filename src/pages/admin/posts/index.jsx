@@ -5,6 +5,7 @@ import Link from "next/link";
 import LineHeader from "@/theme/lineHeader";
 import { useState } from "react";
 import { AuthServerSide } from "@/lib/app2";
+import { LineTitlesAdmin } from "@/theme/Elements";
 
 export async function getServerSideProps(ctx) {
 	return await AuthServerSide(ctx, async ({ NEXT_PUBLIC_API, config }) => {
@@ -49,8 +50,8 @@ export default function Posts(props) {
 	];
 
 	return (
-		<main className="  bord box m-10 col">
-			<LineHeader data={[]} />
+		<main className="  bord box m-10 col w-full">
+			<LineTitlesAdmin data={[]} />
 
 			{/* header */}
 			<div className="aitem   box m-10 grid">

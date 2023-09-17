@@ -4,6 +4,7 @@ import { AuthServerSide } from "@/lib/app2";
 import { useState } from "react";
 import LineHeader from "@/theme/lineHeader";
 import Link from "next/link";
+import { LineTitlesAdmin } from "@/theme/Elements";
 
 export async function getServerSideProps(ctx) {
     return await AuthServerSide(ctx, async ({ NEXT_PUBLIC_API, config }) => {
@@ -54,13 +55,13 @@ export default function AdminHotelsApartment(props) {
     ];
 
     return (
-        <main className="bord box m-10 col">
-            <LineHeader data={[]} />
+        <main className="bord box m-10 col w-full">
+            <LineTitlesAdmin data={[]} />
             <div className="aitem box m-10 grid">
                 <h1 className="text-xl font-semibold mb-4">قائمة  الشقق الفندقية</h1>
                 <Link href="/admin/hotel-apartment/add" className="btn mx-10"> إضافة </Link>
             </div>
-            <Table dataSource={data} columns={columns} />
+            <Table dataSource={data} columns={columns} pagination={false} />
         </main>
     );
 }

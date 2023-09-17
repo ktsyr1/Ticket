@@ -5,61 +5,65 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 import { useForm } from "react-hook-form";
 import { AuthServerSide } from "@/lib/app2";
+import { Storage } from "@/lib/firebase";
 
 export async function getServerSideProps(ctx) {
-        return await AuthServerSide(ctx, async ({ query, config }) => ({ config, query }))
+    return await AuthServerSide(ctx, async ({ query, config }) => ({ config, query }))
 }
 
 export default function AddPost({ config, query }) {
-        let route = useRouter()
-        // let [Data, setData] = useState({})
-        const { register, handleSubmit } = useForm();
-        const onSubmit = res => {
-                let image = ITS(res.image)
-                delete res.image
-                let data = { ...res, image }
+    let route = useRouter()
+    let [res, setR] = useState()
+    const { register, handleSubmit } = useForm(); 
 
-                // send data to the server
-                axios.post('/api/admin/posts', data, config)
-                        .then(({ data }) => {
-                                // alert
-                                message.success("تم اضافة المنشور")
-                                route.push('/admin/posts')
-                        })
-        }
-        return (
-                <div>
-                        <form onSubmit={handleSubmit(onSubmit)}  >
-                                <h1>اضافة منشور</h1>
-                                <label htmlFor="title"  >العنوان</label>
-                                <input type="text" id="title" {...register("title")} />
+    const onSubmit = (formData) => { 
+        let data = { ...formData, ...res }; 
+        
+        axios.post('/api/admin/posts', data, config)
+            .then(({ data }) => {
+                // alert
+                message.success("تم اضافة المنشور")
+                route.push('/admin/posts')
+            })
+    }
 
-                                <label htmlFor="url"  >الرابط   </label>
-                                <input type="text" id="url" {...register("url")} />
+    async function upImage(e) {
+        let image = await Storage.add(e.target.files)
+        setR({ ...res, image: image[0] })
+    }
+    return (
+        <div>
+            <form onSubmit={handleSubmit(onSubmit)}  >
+                <h1>اضافة منشور</h1>
+                <label htmlFor="title"  >العنوان</label>
+                <input type="text" id="title" {...register("title")} />
 
-                                <label htmlFor="cat"  >التصنيف   </label>
-                                <input type="text" id="cat" {...register("cat")} />
+                <label htmlFor="url"  >الرابط   </label>
+                <input type="text" id="url" {...register("url")} />
 
-                                <label htmlFor="image"  >الصورة   </label>
-                                <input type="file" id="image" {...register("image")} />
+                <label htmlFor="cat"  >التصنيف   </label>
+                <input type="text" id="cat" {...register("cat")} />
 
-                                <label htmlFor="bio"  >الوصف   </label>
-                                <input type="text" id="bio" {...register("bio")} />
+                <label htmlFor="image"  >الصورة   </label>
+                <input type="file" id="image" {...register("image")}  onChange={upImage}  />
 
-                                <label   >المحتوى   </label>
-                                <textarea {...register("content")} className="h-200">  </textarea>
+                <label htmlFor="bio"  >الوصف   </label>
+                <input type="text" id="bio" {...register("bio")} />
+
+                <label   >المحتوى   </label>
+                <textarea {...register("content")} className="h-200">  </textarea>
 
 
-                                <div className="mt-20 w-full box row">
-                                        <button onClick={(e) => {
-                                                e.preventDefault()
-                                                route.back()
-                                        }} className="ml-10 btn p-10 w-full m-0 off"  >عودة </button>
-                                        <button type="submit" className="  w-full">اضافة</button>
-                                </div>
-                        </form>
+                <div className="mt-20 w-full box row">
+                    <button onClick={(e) => {
+                        e.preventDefault()
+                        route.back()
+                    }} className="ml-10 btn p-10 w-full m-0 off"  >عودة </button>
+                    <button type="submit" className="  w-full">اضافة</button>
                 </div>
-        )
+            </form>
+        </div>
+    )
 }
 
 
