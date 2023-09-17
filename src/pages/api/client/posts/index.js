@@ -8,7 +8,8 @@ let {query} = req
 console.log(query);
     GET(
         async () => {
-            let posts = await Posts.find().sort({ _id: -1 })
+            let Query = query?.cat ?{cat: { $in: [query?.cat]}} :{}
+            let posts = await Posts.find(Query).sort({ _id: -1 })
             Send(posts)
         })
 }

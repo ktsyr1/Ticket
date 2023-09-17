@@ -41,7 +41,7 @@ export default function PageOne({ data ,slug}) {
                 <div className="box row m-10 aitem">
                     <p className="m-0 ml-10">{`${year}/${month}/${day} - ${hours}:${minutes}`}</p>
                     <IconTags stroke={1.5} className="m-10" size={17} />
-                    <div className="m-0">{data?.cat?.map(a => <Link href={`/page?cat=${a}`} key={a}>{a}</Link>)}</div>
+                    <div className="m-0">{data?.cat?.map(a => <Link href={`/page?cat=${a}`} className={"mx-10"} key={a}>{a}</Link>)}</div>
                 </div>
                 <div className="m-20" dangerouslySetInnerHTML={{ __html: content }} />
             </div>
