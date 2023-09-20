@@ -11,15 +11,15 @@ PageOne.getInitialProps = async (ctx) => {
 }
 
 export default function PageOne(props) {
-    console.log(props);
-let { data, cat }= props
+    let { data, cat }= props
     let md = new markdownIt()
     let content = md.render(data?.content || '')
-console.log(data);
+    let title = `نتيجة تصنيف  ${cat}`
     return (
         <div className="aitem m-10 box col page w-full" >
             {/* content */}
-            <SEO title={cat} description={data?.bio} image={data?.image} />
+            <SEO title={title} description={data?.bio} image={data?.image} />
+            <h1 className="bord w-full"> {title}</h1>
             <div>
                 {data?.map(a => (
                     <Link href={`/page/${a.url}`} className="bord w-300 box col m-10" key={a._id}>

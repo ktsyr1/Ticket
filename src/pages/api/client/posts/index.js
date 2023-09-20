@@ -3,9 +3,8 @@ import { API } from "@/lib/app";
 
 export default async function ClientPosts(req, res, next) {
     let { GET, Send } = new API(req, res)
-//  query
-let {query} = req
-console.log(query);
+    //  query
+    let {query} = req
     GET(
         async () => {
             let Query = query?.cat ?{cat: { $in: [query?.cat]}} :{}
