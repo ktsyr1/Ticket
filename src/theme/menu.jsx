@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createStyles, getStylesRef } from '@mantine/core';
-import { IconHome, IconBuilding, IconLayout2, IconHotelService, IconCar, IconListDetails ,IconInfoSquareRounded } from '@tabler/icons-react';
+import { IconHome, IconBuilding, IconLayout2, IconHotelService, IconCar, IconListDetails ,IconInfoSquareRounded ,IconBrandWhatsapp } from '@tabler/icons-react';
 import Link from 'next/link';
 import Cookies from "js-cookie";
 
@@ -47,6 +47,12 @@ const data = [
     { label: 'شقق فندقية', link: "/hotel-apartment", Icon: IconBuilding, color: 'green' },
     { label: 'السيارة مع السائق', link: "/car-with-driver", Icon: IconCar, color: 'teal' },
 ];
+const add_links = [
+
+    { label: 'من نحن', link: "/page/about", Icon: IconInfoSquareRounded, color: 'blue' },
+    { label: 'تواصل معنا', link: "https://wa.me/905365475371", Icon: IconBrandWhatsapp, color: 'blue' },
+ 
+];
 
 export function Menu() {
     const { classes, cx } = useStyles();
@@ -56,18 +62,19 @@ export function Menu() {
     useEffect(() => {
         let token = Cookies.get("token")
         if (token?.length > 15) setIsLogin(true)
-
     }, [])
-    let Admin = () => <Link href={"/admin"} className={cx(classes.link)} >
-        <IconLayout2 className={classes.linkIcon} stroke={1.5} />
-        <span className="mr-20">admin</span>
-    </Link>
-    const links = data?.map(({ link, label, Icon }) => (
+    let Links = ({ link, label, Icon })=> (
         <Link href={link} key={label} className={cx(classes.link, { [classes.linkActive]: label === active })} >
             <Icon className={classes.linkIcon} stroke={1.5} />
             <span className="mr-20">{label}</span>
         </Link>
-    ));
+    )
+    let Admin = () => <Link href={"/admin"} className={cx(classes.link)} >
+        <IconLayout2 className={classes.linkIcon} stroke={1.5} />
+        <span className="mr-20">admin</span>
+    </Link>
+    const links = data?.map((e) => <Links {...e} key={e._id} /> )
+    const add_links_jsx = add_links?.map(e => <Links {...e} key={e._id} /> )
 
     return (
         <div className='menu menu-none ' >
@@ -77,10 +84,8 @@ export function Menu() {
             </div>
             {links}
             {isLogin ? <Admin /> : <></>}
-            <Link href={"/page/about"}  className={cx(classes.link )} >
-                <IconInfoSquareRounded className={classes.linkIcon} stroke={1.5} />
-                <span className="mr-20">من نحن</span>
-            </Link>
+            {add_links_jsx}
+           
         </div>
     );
 }

@@ -1,8 +1,9 @@
 import axios from 'axios';
 import Link from 'next/link';
 import { CardHotel } from './hotels';
+import {CardCWD}  from "@/pages/car-with-driver"
 import { Hero } from '../theme/hero';
-import { IconBuilding } from '@tabler/icons-react';
+import { IconBuilding ,IconCar} from '@tabler/icons-react';
 import SEO from '@/lib/SEO';
 
 export const getStaticProps = async ({ query }) => {
@@ -37,6 +38,22 @@ export default function Home({ data }) {
             <div className="box grid">
                 {data?.hotelsApartment?.map(e =>
                     <CardHotel key={e._id} title={e.name} image={e.image} city={e.city} href={`/hotel-apartment/${encodeURIComponent(e._id)}`} />
+                )}
+            </div>
+            <div className="box row m-10"> 
+                <IconCar stroke={1.5} className="m-10" size={50} />
+                <h2 style={{ fontSize: "xx-large" }} className="mr-10" >سيارة مع سائق</h2>
+            </div>
+
+            <div className="box grid">
+                {data?.carWithDriver?.map(e =>
+                    <CardCWD 
+                        key={e._id}
+                        data={e}
+                        title={e.title}
+                        image={e?.carImage}
+                        href={`/car-with-driver/${encodeURIComponent(e._id)}`}
+                    />
                 )}
             </div>
         </section>

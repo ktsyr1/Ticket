@@ -5,7 +5,6 @@ import SEO from "@/lib/SEO";
 import { HeroPart } from "@/theme/Elements";
 import { IconCar, IconSteeringWheel, IconCurrencyDollar, IconCalendarTime, IconMap } from '@tabler/icons-react';
 
-
 export async function getStaticProps() {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/car-with-driver`);
     return { props: { data }, revalidate: 10 };
@@ -22,7 +21,7 @@ export default function CarWithDriver({ data }) {
 
             <div className="box grid m-a j">
                 {data.map((e) => (
-                    <Card
+                    <CardCWD
                         key={e._id}
                         data={e}
                         title={e.title}
@@ -35,7 +34,7 @@ export default function CarWithDriver({ data }) {
     );
 }
 
-const Card = ({ data, image, href }) => {
+export function CardCWD ({ data, image, href }) {
     return (
         <Link className="card" href={href}>
             <img src={data?.carImage || "/images/logo-full.png"} alt={data?.title} className="w-full h-auto mb-2" />
@@ -55,7 +54,6 @@ const Card = ({ data, image, href }) => {
         </Link>
     );
 };
-
 const RowData = ({ title, Icon, width = 150 }) => {
     return (
         <div className="box row aitem "   >
