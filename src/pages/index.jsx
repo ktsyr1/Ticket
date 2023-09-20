@@ -10,7 +10,14 @@ export const getStaticProps = async ({ query }) => {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API || '/api'}/client/`);
     return { props: { data }, revalidate: 10 }
 }
-
+let otherCards = {
+    margin: '10px 20px',
+    color: '#fff',
+    backgroundColor: '#4caf50',
+    textAlign: 'center',
+    minWidth: '80px',
+    borderRadius: '10px'
+}
 export default function Home({ data }) {
     return (
         <section className="box col m-10 " >
@@ -22,29 +29,37 @@ export default function Home({ data }) {
             <div className="box row m-10">
                 <img src="/icons/hotel.svg" alt=" ايقونة الاوتيلات" width="30" />
                 <h2 style={{ fontSize: "xx-large" }} className="mr-10" >الاوتيلات</h2>
+                <Link href="/hotels" className="box j aitem" style={otherCards} >المزيد</Link>
             </div>
-
+ 
             <div className="box grid">
                 {data?.hotels?.map(e =>
-                    <CardHotel key={e._id} title={e.name} image={e.image} rank={e.rank} city={e.city} href={`/hotels/${encodeURIComponent(e._id)}`} />
+                    <CardHotel
+                        key={e._id}
+                        title={e.name}
+                        image={e.image}
+                        rank={e.rank} 
+                        city={e.city} 
+                        href={`/hotels/${encodeURIComponent(e._id)}`}
+                    />
                 )}
             </div>
-            <div className="box row m-10">
-
-                <IconBuilding stroke={1.5} className="m-10" size={50} />
-                <h2 style={{ fontSize: "xx-large" }} className="mr-10" >الشقق الفنادقية</h2>
-            </div>
+          
+            <TitlePart Icon={IconBuilding} title=" الشقق الفنادقية" href='/hotel-apartment' />
 
             <div className="box grid">
                 {data?.hotelsApartment?.map(e =>
-                    <CardHotel key={e._id} title={e.name} image={e.image} city={e.city} href={`/hotel-apartment/${encodeURIComponent(e._id)}`} />
+                    <CardHotel 
+                        key={e._id} 
+                        title={e.name}
+                        image={e.image} 
+                        city={e.city} 
+                        href={`/hotel-apartment/${encodeURIComponent(e._id)}`} 
+                    />
                 )}
             </div>
-            <div className="box row m-10"> 
-                <IconCar stroke={1.5} className="m-10" size={50} />
-                <h2 style={{ fontSize: "xx-large" }} className="mr-10" >سيارة مع سائق</h2>
-            </div>
-
+            
+            <TitlePart Icon={IconCar} title="سيارة مع سائق" href='/car-with-driver' />
             <div className="box grid">
                 {data?.carWithDriver?.map(e =>
                     <CardCWD 
@@ -59,3 +74,15 @@ export default function Home({ data }) {
         </section>
     )
 } 
+
+function TitlePart ({Icon , title , href}){
+    return(
+        <div className="box row m-10"> 
+        <Icon stroke={1.5} className="m-10" size={50} />
+        <h2 style={{ fontSize: "xx-large" }} className="mr-10" >{title}</h2>
+        <Link href={href} className="box j aitem" style={{otherCards}} >المزيد</Link>
+
+    </div>
+
+    )
+}
