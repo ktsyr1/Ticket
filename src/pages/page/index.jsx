@@ -7,18 +7,19 @@ import Link from "next/link";
 PageOne.getInitialProps = async (ctx) => { 
     let {cat} = ctx.query// ?.cat
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/posts?cat=${cat}`);
-    return { props: { data, cat}, revalidate: 10 }
+    return { data, cat }
 }
 
-export default function PageOne({ data, cat }) {
-
+export default function PageOne(props) {
+    console.log(props);
+let { data, cat }= props
     let md = new markdownIt()
     let content = md.render(data?.content || '')
-
+console.log(data);
     return (
         <div className="aitem m-10 box col page w-full" >
             {/* content */}
-            <SEO title={` ${cat}`} description={data?.bio} image={data?.image} />
+            <SEO title={cat} description={data?.bio} image={data?.image} />
             <div>
                 {data?.map(a => (
                     <Link href={`/page/${a.url}`} className="bord w-300 box col m-10" key={a._id}>
