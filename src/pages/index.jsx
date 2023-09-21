@@ -80,7 +80,13 @@ function TitlePart ({Icon , title , href}){
         <div className="box row m-10"> 
         <Icon stroke={1.5} className="m-10" size={50} />
         <h2 style={{ fontSize: "xx-large" }} className="mr-10" >{title}</h2>
-        <Link href={href} className="box j aitem" style={{otherCards}} >المزيد</Link>
+        <Link href={href} className="box j aitem" style={{ margin: '10px 20px',
+    color: '#fff',
+    backgroundColor: '#4caf50',
+    textAlign: 'center',
+    minWidth: '80px',
+    borderRadius: '10px'
+}} >المزيد</Link>
 
     </div>
 
