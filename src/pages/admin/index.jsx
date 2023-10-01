@@ -1,7 +1,7 @@
 import { AuthServerSide } from '@/lib/app2'
 import Link from 'next/link'
 import { createStyles, Card, Text, SimpleGrid, UnstyledButton, Anchor, Group, rem, } from '@mantine/core';
-import { IconUsers, IconBuildingBank, IconRepeat, IconArticle, IconCar, IconHotelService, IconReport, IconCashBanknote, IconCoin, } from '@tabler/icons-react';
+import { IconUsers, IconSteeringWheel, IconRepeat, IconArticle, IconCar, IconHotelService, IconReport, IconCashBanknote, IconCoin, } from '@tabler/icons-react';
 
 export async function getServerSideProps(ctx) {
     return AuthServerSide(ctx, () => ({}))
@@ -13,9 +13,8 @@ const mockdata = [
     { title: 'السيارة مع السائق', href: "/admin/car-with-driver", icon: IconCar, color: 'teal' },
     { title: 'اوتيلات', href: "/admin/hotels", icon: IconHotelService, color: 'cyan' },
     { title: 'شقق فندقية', href: "/admin/hotel-apartment", icon: IconHotelService, color: 'cyan' },
-   // { title: 'Reports', icon: IconReport, color: 'pink' },
-    // { title: 'Payments', icon: IconCoin, color: 'red' },
-    // { title: 'Cashback', icon: IconCashBanknote, color: 'orange' },
+    { title: 'تاجير السيارات', href: "/admin/car-rental", icon: IconSteeringWheel, color: 'pink' },
+    { title: 'البرامج السياحية', href: "/admin/program", icon: IconSteeringWheel, color: 'pink' },
 ];
 
 const useStyles = createStyles((theme) => ({

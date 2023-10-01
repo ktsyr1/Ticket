@@ -59,7 +59,7 @@ export default function Posts(props) {
 				<Link href="/admin/posts/add" className="btn mx-10">اضافة منشور</Link>
 			</div>
 			{/* table */}
-			<Table dataSource={data} columns={columns} pagination={false} />
+			<Table  rowKey={record => record._id} dataSource={data} columns={columns} pagination={false} />
 		</main>
 	);
 }

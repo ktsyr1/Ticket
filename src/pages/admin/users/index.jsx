@@ -90,7 +90,7 @@ export default function AdminUsers(props) {
 
 			<FormInvite />
 			<div>
-				<Table dataSource={data} columns={columns} pagination={false} />
+				<Table  rowKey={record => record._id} dataSource={data} columns={columns} pagination={false} />
 			</div>
 		</div>
 

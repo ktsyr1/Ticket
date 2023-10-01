@@ -96,7 +96,7 @@ export default function CarWithDriverAdmin(props) {
                 </Link>
             </div>
             {/* table */}
-            <Table dataSource={data} columns={columns} pagination={false} />
+            <Table  rowKey={record => record._id} dataSource={data} columns={columns} pagination={false} />
         </main>
     );
 }

@@ -9,14 +9,13 @@
 4- @/pages/api/admin/<name-part>/[_id].js  ( طلب معلومات عنصر محدد او تعديلها او حذفها  )
 
 5- @/pages/admin/<name-part>/index.js (عرض كل معلومات القسم و الحذف مع روابط الاضافة و التعديل )
-6- @/pages/admin/<name-part>/add.js (اظافة معلومات جديدة)
-7- @/pages/admin/<name-part>/[_id].jsx (تحديث العنصر )
+6- @/pages/admin/<name-part>/form.js (اظافة وتحديث معلومات العنصر)
 
-8- @/pages/api/client/<name-part>/index.js ( طلب كل معلومات القسم  )
-9- @/pages/api/client/<name-part>/[_id].js  ( طلب معلومات عنصر محدد  )
- 
-10- @/pages/<name-part>/index.jsx ( عرض كل معلومات القسم   )
-11- @/pages/<name-part>/[_id].jsx (عرض معلومات عنصر محدد   )
+7- @/pages/api/client/<name-part>/index.js ( طلب كل معلومات القسم  )
+8- @/pages/api/client/<name-part>/[_id].js  ( طلب معلومات عنصر محدد  )
+
+9- @/pages/<name-part>/index.jsx ( عرض كل معلومات القسم   )
+10- @/pages/<name-part>/[_id].jsx (عرض معلومات عنصر محدد   )
 
 ## اكواد هذه الملفات التي يمكننا استخلاص الكود منها
 ### models
@@ -44,68 +43,68 @@ export const NamePart = namePart
 ```
 ### admin backend
 
-6- @/pages/api/admin/<name-part>/index.js 
+3- @/pages/api/admin/<name-part>/index.js 
 ```js 
 import { NamePart } from "@/models";
-import { API, APIAuth } from "@/lib/app";
+import { APIAuth } from "@/lib/app";
+import API from "@/lib/server";
 
 export default async function NamePartAPI(req, res, next) {
-        let { body } = req
-        let { GET, POST, Send } = new API(req, res)
-        let Auth = new APIAuth(req, res)
+    let { body } = req
+    let app = new API(req, res)
+    let Auth = new APIAuth(req, res)
 
-        GET(
-                await Auth.isLogin(),
-                async () => {
-                        let namePart = await NamePart.find().sort({ _id: -1 })
-                        Send(namePart)
-
-                })
-        POST(
-                await Auth.isLogin(),
-                async () => { 
-                        let namePart = await NamePart.create(body)
-                        Send(namePart)
-                })
+    app.get(
+        await Auth.isLogin(),
+        async () => {
+            let namePart = await NamePart.find().sort({ _id: -1 })
+            app.Send(namePart)
+        })
+    app.post(
+        await Auth.isLogin(),
+        async () => { 
+            let namePart = await NamePart.create(body)
+            app.Send(namePart)
+        })
 } 
 ```
-7- @/pages/api/admin/<name-part>/[_id].js  
+4- @/pages/api/admin/<name-part>/[_id].js  
 ```js 
- import { API, APIAuth } from "@/lib/app";
+
+import { APIAuth } from "@/lib/app";
+import API from "@/lib/server";
 import {  NamePart } from "@/models";
  
 
 export default async function NamePartOneAPI(req, res, next) {
-        let { body } = req
-        let { id, GET, PUT, DELETE, Send } = new API(req, res)
-        let Auth = new APIAuth(req, res)
+    let { body } = req
+    let app = new API(req, res)
+    let Auth = new APIAuth(req, res)
 
-        GET(
-                await Auth.isLogin(),
-                async () => {
-                        let namePart = await NamePart.findOne(id)
-                        Send(namePart)
-                })
-        PUT(
-                await Auth.isLogin(),
-                async () => {
-                        await NamePart.updateOne(id, body)
-                        Send({ msg: "تم تحديث المعلومات" })
-                })
-        DELETE(
-                await Auth.isLogin(),
-                async () => {
-                        await NamePart.deleteOne(id)
-                        Send({ msg: "تم حذف المعلومات" })
-
-                })
-
+    app.get(
+        await Auth.isLogin(),
+        async () => {
+            let namePart = await NamePart.findOne(id)
+            Send(namePart)
+        })
+    app.put(
+        await Auth.isLogin(),
+        async () => {
+            await NamePart.updateOne(id, body)
+            Send({ msg: "تم تحديث المعلومات" })
+        })
+    app.delete(
+        await Auth.isLogin(),
+        async () => {
+            await NamePart.deleteOne(id)
+            Send({ msg: "تم حذف المعلومات" })
+        }) 
 }
 
 ```
 
 ### admin front
-3- @/pages/admin/<name-part>/index.jsx
+5- @/pages/admin/<name-part>/index.jsx
 ```js 
 //   imports 
  import LineHeader from "@/theme/lineHeader";
@@ -164,184 +163,126 @@ export default function AdminNamePart(props) {
 			{/* header */}
 			<div className="aitem   box m-10 grid">
 				<h1> اسم القسم</h1>
-				<Link href="/admin/posts/add" className="btn mx-10">اضافة عنصر</Link>
+				<Link href="/admin/<name-part>/form" className="btn mx-10">اضافة عنصر</Link>
 			</div>
 			{/* table */}
-			<Table dataSource={data} columns={columns} pagination={false} />
+			<Table  rowKey={record => record._id} dataSource={data} columns={columns} pagination={false} />
 		</main>
 	);
 }
 
 ```
-4- @/pages/admin/<name-part>/add.jsx
+6- @/pages/admin/<name-part>/form.jsx
 ```js 
 import { message } from "antd";
 import axios from "axios"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import { useForm } from "react-hook-form";
-import { AuthServerSide } from "@/lib/app2";
+import { AuthServerSide } from "@/lib/server";
 import { Storage } from "@/lib/firebase";
 
 export async function getServerSideProps(ctx) {
-        return await AuthServerSide(ctx, async ({ query, config }) => ({ config, query }))
-}
-
-export default function AdminNamePartAdd({ config, query }) {
-        let route = useRouter() 
-        const { register, handleSubmit } = useForm();
-        let [res, setR] = useState()
-
-        const onSubmit = (formData) => {
-                let data = { ...formData, ...res };
-
-                axios.post('/api/admin/<name-part>', data, config)
-                        .then(({ data }) => {
-                                // alert
-                                message.success("تم اضافة المنشور")
-                                route.push('/admin/<name-part>')
-                        })
-        }
-
-        async function upImage(e) {
-            let image = await Storage.add(e.target.files)
-            setR({ ...res, image: image[0] })
-        }
-        return (
-                <div>
-                        <form onSubmit={handleSubmit(onSubmit)}  >
-                                <h1>اضافة عنصر</h1>
-                                <label htmlFor="title"  >العنوان</label>
-                                <input type="text" id="title" {...register("title")} />
-  
-                                <label   >الوصف   </label>
-                                <textarea {...register("about")} className="h-200">  </textarea>
-                                
-                                {/* add other code */}
-                                {/*  other code example for image*/}
-
-                                <label htmlFor="image">صورة الفندق</label>
-                                <input type="file" id="image" name={"image"} onChange={upImage} />
-
-                                <div className="mt-20 w-full box row">
-                                        <button onClick={(e) => {
-                                                e.preventDefault()
-                                                route.back()
-                                        }} className="ml-10 btn p-10 w-full m-0 off"  >عودة </button>
-                                        <button type="submit" className="  w-full">اضافة</button>
-                                </div>
-                        </form>
-                </div>
-        )
-} 
- 
-```
-5- @/pages/admin/<name-part>/[_id].jsx
-```js 
-import { message } from "antd";
-import axios from "axios"
-import { useRouter } from "next/router"
-import { useState } from "react"
-import { useForm } from "react-hook-form";
-import { AuthServerSide } from "@/lib/app2";
-import { Storage } from "@/lib/firebase";
-
-export async function getServerSideProps(ctx) {
-    return await AuthServerSide(ctx, async ({ NEXT_PUBLIC_API, query, config }) => {
-        let url = `${NEXT_PUBLIC_API}/admin/<name-part>/${ctx.query._id}`;
-        let { data } = await axios.get(url, config);
-        return { data, config, query: ctx.query };
+    return AuthServerSide(ctx, async ({ query, config }) => {
+        let url = `${process.env?.NEXT_PUBLIC_API}/admin/<name-part>`
+        if (query?.id) {
+            const { data } = await axios.get(`${url}/${query?.id}`);
+            return { data, config, query }
+        } else return { config, query }
     });
 }
 
-export default function AdminNamePartEdit({  data, config, query }) {
-        let route = useRouter() 
-        const { register, handleSubmit } = useForm({ defaultValues: data });
-        let [res, setR] = useState()
+export default function AdminNamePartAdd({ config, query }) {
+    const router = useRouter();
+    const { register, handleSubmit } = useForm(query?.id ? { defaultValues: data } : {});
+    const [title, setTitle] = useState(query?.id ? "تحديث معلومات السيارة" : "إضافة سيارة جديدة");
+    const [res, setRes] = useState({});
 
-        const onSubmit = (formData) => {
-        let Data = { ...data, ...formData, ...res };
+    const onSubmit = (formData) => {
+        let NewData = { ...formData, ...res }
 
-                axios.put('/api/admin/<name-part>', Data, config)
-                        .then(({ data }) => {
-                                // alert
-                                message.success("تم اضافة المنشور")
-                                route.push('/admin/<name-part>')
-                        })
+        let url = `/api${router.pathname.replace("/form", "").replace("?id=", "")}`
+        let config = {
+            method: query?.id ? "put" : 'post',
+            url: `${url}/${query?.id ? query?.id : ""}`,
+            data: query?.id ? { ...data, ...NewData } : NewData,
+            headers
         }
+        axios(config).then(({ data }) => {
+            message.success("تمت إضافة السيارة بنجاح");
+            router.push(url.replace("/api", ""));
+        });
+    }
+       
+    async function upImage(e) {
+        let image = await Storage.add(e.target.files)
+        setR({ ...res, image: image[0] })
+    }
+    return ( 
+        <form onSubmit={handleSubmit(onSubmit)}  >
+            <h1>اضافة عنصر</h1>
+            <label htmlFor="title"  >العنوان</label>
+            <input type="text" id="title" {...register("title")} />
 
-        async function upImage(e) {
-            let image = await Storage.add(e.target.files)
-            setR({ ...res, image: image[0] })
-        }
-        return (
-                <div>
-                        <form onSubmit={handleSubmit(onSubmit)}  >
-                                <h1>اضافة عنصر</h1>
-                                <label htmlFor="title"  >العنوان</label>
-                                <input type="text" id="title" {...register("title")} />
-  
-                                <label   >الوصف   </label>
-                                <textarea {...register("about")} className="h-200">  </textarea>
-                                
-                                {/* add other code */}
+            <label   >الوصف   </label>
+            <textarea {...register("about")} className="h-200">  </textarea>
+            
+            {/* add other code */}
+            {/*  other code example for image*/}
 
-                                {/*  other code example for image*/}
-                                <label htmlFor="image">صورة الفندق</label>
-                                <input type="file" id="image" name={"image"} onChange={upImage} />
+            <label htmlFor="image">صورة الفندق</label>
+            <input type="file" id="image" name={"image"} onChange={upImage} />
 
-                                <div className="mt-20 w-full box row">
-                                        <button onClick={(e) => {
-                                                e.preventDefault()
-                                                route.back()
-                                        }} className="ml-10 btn p-10 w-full m-0 off"  >عودة </button>
-                                        <button type="submit" className="  w-full">اضافة</button>
-                                </div>
-                        </form>
-                </div>
-        )
+            <div className="mt-20 w-full box row">
+                <button onClick={(e) => {
+                    e.preventDefault()
+                    route.back()
+                }} className="ml-10 btn p-10 w-full m-0 off"  >عودة </button>
+                <button type="submit" className="  w-full">اضافة</button>
+            </div>
+        </form> 
+    )
 } 
-  
  
-```
-
+``` 
 ### client backend
-8- @/pages/api/client/<name-part>/index.js 
+7- @/pages/api/client/<name-part>/index.js 
 ```js 
 import { NamePart } from "@/models";
-import { API } from "@/lib/app";
+import API from "@/lib/server";
 
 export default async function ClientNamePart(req, res, next) {
-        let { GET, Send } = new API(req, res)
+    let app = new API(req, res)
 
-        GET(
-                async () => {
-                        let namePart = await NamePart.find().sort({ _id: -1 })
-                        Send(namePart)
-                })
+    app.get(
+        async () => {
+            let namePart = await NamePart.find().sort({ _id: -1 })
+            app.Send(namePart)
+        }
+    )
 }
  
 ```
-9- @/pages/api/client/<name-part>/[_id].js  
+8- @/pages/api/client/<name-part>/[_id].js  
 ```js 
- import { API } from "@/lib/app";
+import API from "@/lib/server";
 import { NamePart } from "@/models";
 
 export default async function hotelOne(req, res, next) {
     let { query } = req;
-    let { GET, Send } = new API(req, res);
+    let app = new API(req, res);
 
-    GET(
+    app.get(
         async () => {
             let namePart = await NamePart.findById(query._id).select("-_id")
-            Send(namePart);
+            app.Send(namePart)
         }
     );
 }
  
 ```
 ### client UI
-10- @/pages/<name-part>/index.jsx 
+9- @/pages/<name-part>/index.jsx 
 ```js 
 import axios from "axios";
 import Link from "next/link";
@@ -372,8 +313,7 @@ export default function NamePart({ data }) {
 } 
 ```
 
-
-11- @/pages/<name-part>/[_id].jsx 
+10- @/pages/<name-part>/[_id].jsx 
 ```js 
 import axios from "axios";
 import { useRouter } from "next/router";

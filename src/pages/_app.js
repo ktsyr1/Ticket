@@ -20,8 +20,6 @@ function MyApp({ Component, pageProps }) {
         < >
             <Head>
                 <meta name="theme-color" content="#fff" />
-                {/* <link rel="manifest" href="/manifest.json" /> */}
-
                 <link rel="shortcut icon" href="/image/logo.png" />
             </Head>
             <Next13ProgressBar height="4px" color="#0A2FFF" options={{ showSpinner: true }} showOnShallow />

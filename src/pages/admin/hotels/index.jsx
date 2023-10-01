@@ -63,7 +63,7 @@ export default function HotelPage(props) {
                 <h1 className="text-xl font-semibold mb-4">قائمة الفنادق</h1>
                 <Link href="/admin/hotels/add" className="btn mx-10"> إضافة </Link>
             </div>
-            <Table dataSource={data} columns={columns} />
+            <Table  rowKey={record => record._id} dataSource={data} columns={columns} />
         </main>
     );
 }

@@ -60,7 +60,7 @@ export default function UserProfile({ data, config }) {
                 <h1>   الحسابات الاعلانية</h1>
                 <Link href={`/user/accounts/add`} className="btn mx-10">اضافة حساب جديد</Link>
             </div>
-            {data?.accounts.length > 0 ? <Table dataSource={data.accounts} columns={columns} pagination={false} /> : ""}
+            {data?.accounts.length > 0 ? <Table  rowKey={record => record._id} dataSource={data.accounts} columns={columns} pagination={false} /> : ""}
 
         </div>
     )

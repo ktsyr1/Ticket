@@ -61,7 +61,7 @@ export default function AdminHotelsApartment(props) {
                 <h1 className="text-xl font-semibold mb-4">قائمة  الشقق الفندقية</h1>
                 <Link href="/admin/hotel-apartment/add" className="btn mx-10"> إضافة </Link>
             </div>
-            <Table dataSource={data} columns={columns} pagination={false} />
+            <Table  rowKey={record => record._id} dataSource={data} columns={columns} pagination={false} />
         </main>
     );
 }

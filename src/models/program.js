@@ -1,0 +1,25 @@
+import mongoose, { Schema } from 'mongoose';
+
+const programSchema = new Schema({
+  title: String,
+  title: String,
+  duration: String,
+  price: Number,
+  numberOfPeople: String,
+  description: String,
+  overview: String,
+  includes: String,
+  excludes: String,
+  plan: [
+    {
+      image: String,
+      title: String,
+      description: String,
+      sortDay: Number,
+      activities: String,
+    },
+  ],
+});
+
+mongoose.models = {};
+export default mongoose.model('program', programSchema);

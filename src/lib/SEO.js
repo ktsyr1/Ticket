@@ -55,22 +55,7 @@ export default function SEO(props) {
             {/* ---------------  SEO Bots  --------------- */}
             <link rel="canonical" href={canonical} />
             <meta name="robots" content="index, follow" />
-            {/* <meta name="google-site-verification" content="OR7y7vZTT8JAzL0w48XNuKtUSgT3Zvtja4M0LBt43zM" /> */}
-            {/* --------------- Global site tag (gtag.js) - Google Analytics */}
-            {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-PPNKBBZWX2"></script>
-            <script
-               dangerouslySetInnerHTML={{
-                   __html: `
-                             window.dataLayer = window.dataLayer || [];
-                             function gtag(){dataLayer.push(arguments);}
-                             gtag('js', new Date());
-                             gtag('config', 'G-PPNKBBZWX2');
-
-                            `,
-                        }}
-                     /> */}
-            <link rel="stylesheet" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css" />
-
+          
         </Head>
     );
 }
