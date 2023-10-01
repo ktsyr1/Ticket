@@ -1,6 +1,6 @@
 import API from "@/lib/server";
 import { APIAuth } from "@/lib/app";
-import { CarRentalModel } from "@/models";
+import { CarRental } from "@/models";
 
 export default async function CarRentalOneAPI(req, res, next) {
     const { body } = req;
@@ -11,21 +11,21 @@ export default async function CarRentalOneAPI(req, res, next) {
     app.get(
         await Auth.isLogin(),
         async () => {
-            const carRental = await CarRentalModel.findOne({ _id: id });
+            const carRental = await CarRental.findOne({ _id: id });
             app.Send(carRental);
         }
     );
     app.put(
         await Auth.isLogin(),
         async () => {
-            await CarRentalModel.updateOne({ _id: id }, body);
+            await CarRental.updateOne({ _id: id }, body);
             app.Send({ msg: "تم تحديث المعلومات" });
         }
     );
     app.delete(
         await Auth.isLogin(),
         async () => {
-            await CarRentalModel.deleteOne({ _id: id });
+            await CarRental.deleteOne({ _id: id });
             app.Send({ msg: "تم حذف المعلومات" });
         }
     );

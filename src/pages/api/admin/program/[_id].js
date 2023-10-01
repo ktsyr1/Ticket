@@ -16,8 +16,7 @@ export default async function ProgramOneAPI(req, res, next) {
 
     app.put(
         await Auth.isLogin(),
-        async () => {
-        console.log(query , body)
+        async () => { 
             await Program.updateOne({ _id: query._id },  body);
             app.Send({ msg: "تم تحديث المعلومات" });
         }

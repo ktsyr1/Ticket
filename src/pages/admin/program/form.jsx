@@ -1,11 +1,11 @@
 import { message, Popconfirm, Table } from "antd";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthServerSide } from "@/lib/server";
 import { Storage } from "@/lib/firebase";
-import Link from "next/link";
+import { useEffect, useState } from "react";
+import { IconChevronUp, IconChevronDown } from '@tabler/icons-react';
 
 export async function getServerSideProps(ctx) {
     return AuthServerSide(ctx, async ({ query, config }) => {
@@ -15,7 +15,7 @@ export async function getServerSideProps(ctx) {
             return { data, config, query }
         } else return { config, query }
     });
-}
+} 
 
 let upImg = async e => await Storage.add(e.target.files).then(a => a[0])
 
@@ -41,9 +41,8 @@ export default function AdminCarRentalAdd({ data, config: headers, query }) {
         });
     };
 
-
     return (
-        <div className="box grid">
+        <div className="box grid j">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <h1>{title}</h1>
 
@@ -63,6 +62,12 @@ export default function AdminCarRentalAdd({ data, config: headers, query }) {
                 <label>الوصف</label>
                 <textarea {...register("description")} />
 
+                <label>السعر يشمل </label>
+                <textarea {...register("includes")} />
+
+                <label>السعر لا يشمل </label>
+                <textarea {...register("excludes")} />
+
                 <label>نظرة عامة</label>
                 <textarea {...register("overview")} />
 
@@ -78,57 +83,105 @@ export default function AdminCarRentalAdd({ data, config: headers, query }) {
                     <button type="submit" className="w-full">{query?.id ? "تحديث" : "إضافة"}</button>
                 </div>
             </form>
-            <Plans data={data.plan} />
+            <Plans data={data.plan} config={headers} />
         </div>
-    );
+    )
 }
 
 function Plans(props) {
-    const [data, setData] = useState(props?.data)
-    const { register, handleSubmit } = useForm()
+    let upImg = async e => await Storage.add(e.target.files).then(a => a[0])
+    const [data, setData] = useState(props?.data.sort((a, b) => b.sortDay + a.sortDay))
+    const { register, handleSubmit, reset } = useForm()
     const [viewForms, setViewForms] = useState(false);
     const { query } = useRouter();
-    const [One, setOne] = useState({});
+    // const [One, setOne] = useState({});
+    const [title, setTitle] = useState("تحديث معلومات البرنامج");
+    useEffect(() => {
 
-    function Btn({ id }) {
-        function Delete(_id) {
-            //     let url = `${props.url}/${_id}`;
-            //     axios.delete(url, props.config)
-            //         .then(({ data: D }) => {
-            //             message.success(D.msg);
-            //             let filter = data.filter(a => a._id.toString() !== _id);
-            //             setData(filter);
-            //         });
+        let config = {
+            method: "put",
+            url: `/api/admin/program/${query?.id}`,
+            data: { plan: data },
+            headers: props.config
+        }
+        axios(config).then(({ data }) => {
+            message.success(`تمت ${title} بنجاح`);
+        });
+    }, [data])
+    function Btn({ sortDay }) {
+        function Delete() {
+            let filter = data.filter(a => a.sortDay !== sortDay);
+            let newSD = filter.map((a, i) => ({ ...a, sortDay: i + 1 }))
+            newSD = newSD.sort((a, b) => b.sortDay + a.sortDay)
+
+            setData(newSD);
+            // put to api
         }
         return (
-            <Popconfirm title="هل أنت متأكد من حذف البرنامج" onConfirm={() => Delete(id)} okText="نعم" cancelText="لا">
+            <Popconfirm title="هل أنت متأكد من حذف البرنامج" onConfirm={Delete} okText="نعم" cancelText="لا">
                 <button className="err">حذف</button>
             </Popconfirm>
         );
     }
+    function setSort(i, moveUp) {
+        let array = data
+        i--
+        const target = array[i];
+        const newI = moveUp ? i - 1 : i + 1;
+        if (newI < array.length || i < 1) {
+            array[i] = array[newI]
+            array[newI] = target
+
+            array = array.map((a, i) => ({ ...a, sortDay: i + 1 }))
+
+            // put to api
+            setData(array)
+        }
+    }
+    function Sorting({ _ }) {
+        if (data.length > 1) {
+            let i = _.sortDay
+            let BTN = (I, up, _if) => _if ? <button className="mx-5" onClick={() => setSort(i, up)} > <I /></button> : <div style={{ width: '90px' }} />
+            return (
+                <div className="w-full box row">
+                    {BTN(IconChevronUp, true, i > 1)}
+                    {BTN(IconChevronDown, false, data.length > i)}
+                </div>
+            )
+        } else return <></>
+    }
+
     const columns = [
         {
             title: "العنوان", dataIndex: "title", key: "title",
-            render: (_, record) => <Link href={`/admin/program/form?id=${record._id}`}>{record.title}</Link>
+            // render: (_, record) => <Link href={`/admin/program/form?id=${record._id}`}>{record.title}</Link>
         },
         { title: "وصف", dataIndex: "description", key: "description" },
         { title: "أنشطة", dataIndex: "activities", key: "activities" },
+        { title: "ترتيب اليوم", dataIndex: "sortDay", key: "sortDay" },
         {
             title: "الإجراءات", dataIndex: "actions", key: "actions",
             render: (_, record) => (
-                <>
-                    <Btn id={record._id} />
-                    <button>up</button>
-                    <button>down</button>
-                </>
+                <div className="box row">
+                    <Btn sortDay={record.sortDay} />
+                    <Sorting _={record} />
+                </div>
             )
         },
     ];
-    let onSubmit = (DATA) => { console.log(DATA); }
-    
+    let onSubmit = (DATA) => {
+        let sortArray = [...data, { ...DATA, sortDay: data.length ? data.length + 1 : 1 }]
+        sortArray = sortArray.sort((a, b) => b.sortDay + a.sortDay);
+
+        // put to api
+        setData(sortArray)
+        reset({})
+        setViewForms(!viewForms)
+    }
+
     function Forms() {
         return (
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} style={{ position: 'fixed', zIndex: '10' }} >
                 <h1>{title}</h1>
 
                 <label htmlFor="title">العنوان</label>
@@ -155,16 +208,16 @@ function Plans(props) {
         )
     }
     return (
-        <main className="box col m-10 bord w-full">
+        <main className="box col m-10 bord page">
             <div className="aitem   box m-10 grid">
-                <h1> الخطط</h1>
-                <button onClick={e => setViewForms(true)} >اضافة</button>
+                <h1 className="mx-10"> الخطط</h1>
+                <button onClick={e => setViewForms(!viewForms)} >اضافة</button>
             </div>
             {viewForms ?
                 <Forms />
                 : <></>}
             {/* جدول عرض البرامج */}
-            <Table rowKey={record => record._id} dataSource={data} columns={columns} pagination={false} />
+            <Table dataSource={data} columns={columns} className="programs" pagination={false} rowKey={record => record.title} />
         </main>
     );
 

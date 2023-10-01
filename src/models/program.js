@@ -1,8 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 const programSchema = new Schema({
-  title: String,
-  title: String,
+  title: String, 
   duration: String,
   price: Number,
   numberOfPeople: String,
@@ -10,6 +9,7 @@ const programSchema = new Schema({
   overview: String,
   includes: String,
   excludes: String,
+  image: String,
   plan: [
     {
       image: String,

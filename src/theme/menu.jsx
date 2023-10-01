@@ -57,6 +57,7 @@ const data = [
     { label: 'شقق فندقية', link: "/hotel-apartment", Icon: IconBuilding, color: 'green' },
     { label: 'السيارة مع السائق', link: "/car-with-driver", Icon: IconCar, color: 'teal' },
     { label: 'تاجير السيارات', link: "/car-rental", Icon: IconSteeringWheel, color: 'pink' },
+    { label: 'البرامج السياحية', link: "/program", Icon: IconSteeringWheel, color: 'pink' },
     { label: 'من نحن', link: "/page/about", Icon: IconInfoSquareRounded, color: 'blue' },
     { label: 'تواصل معنا', link: "https://wa.me/905365475371", Icon: IconBrandWhatsapp, color: 'blue' },
 
