@@ -3,16 +3,17 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { HeroPart } from "@/theme/Elements";
 import SEO from "@/lib/SEO";
+import NotFoundTitle from "../404";
 
-export async function getStaticProps() {
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/car-rental`);
-  return { props: { data }, revalidate: 10 };
-}
+// export async function getStaticProps() {
+//   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/car-rental`);
+//   return { props: { data }, revalidate: 10 };
+// }
 
 export default function CarRentals({ data }) {
   const router = useRouter();
-
-  return (
+  if (!data) return <NotFoundTitle />
+  else return (
     <div className="box col m-a j">
       <SEO title="سيارات التأجير" description="عرض جميع سيارات التأجير المتاحة" />
 
@@ -32,4 +33,4 @@ export default function CarRentals({ data }) {
   );
 }
 
- 
+

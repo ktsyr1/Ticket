@@ -1,88 +1,76 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { IconMapPin, IconStars, IconWifi, IconParking, } from '@tabler/icons-react';
+import { IconMapPin, IconStars, IconWifi, IconParking, IconUsers, IconCurrencyDollar, IconHourglassHigh } from '@tabler/icons-react';
 import LineTitles, { ContactWa, Gallray } from "@/theme/Elements";
 import SEO from "@/lib/SEO";
 
 export async function getStaticPaths() {
-  let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/hotels`);
-  const paths = data.map((post) => ({ params: { _id: post._id } }));
-  return { paths, fallback: false };
-}
-let styles = {
-  image: {
-    width: '320px',
-    borderRadius: '20px',
-    boxShadow: '0 0 10px #ddd'
-  }
+    let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/program`);
+    const paths = data.map((post) => ({ params: { _id: post._id } }));
+    return { paths, fallback: false };
 }
 export async function getStaticProps(ctx) {
-  let { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API}/client/hotels/${encodeURIComponent(ctx.params._id)}`
-  );
-  return { props: { data }, revalidate: 10 };
+    let { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API}/client/program/${encodeURIComponent(ctx.params._id)}`
+    );
+    return { props: { data }, revalidate: 10 };
 }
 
+let styles = {
+    image: {
+        width: '320px',
+        borderRadius: '20px',
+        boxShadow: '0 0 10px #ddd'
+    }
+}
 export default function HotelsOne({ data }) {
-  let route = useRouter()
-  return (
-    <div className="  m-10">
-      <SEO title={`اوتيل | ${data?.name}`} description={data?.description} image={data?.image} />
+    let route = useRouter()
+    return (
+        <div className="aitem box col m-10 w-full">
+            <SEO title={`البرامج السياحية | ${data?.name}`} description={data?.description} image={data?.image} />
 
-      <LineTitles data={[{ href: "/hotels", title: "الاوتيلات" }]} />
-      <div className="  box col m-a page hotel  ">
-        <div className="bord box col m-a page   m-0">
-          <div className="box grid m-10 j hotel-title">
-            <img src={data.image} alt={`صورة ${data.name}`} className="" style={styles.image} loading="lazy" />
-            <div className="box col m-10 mx-20 w-300">
-              <h1 className="m-0">{data.name}</h1>
-              <div className="aitem box m-10 row">
-                {/* icon city */}
-                <IconMapPin size={18} />
-                <p className="mr-10">{data.city} - {data.address}</p>
-              </div>
-              <div className="aitem box m-10 row">
-                <IconStars size={18} />
-                {/* icon stars */}
-                <p className="mr-10">{data.rank}</p>
-              </div>
-              <ContactWa href={`${process.env.NEXT_PUBLIC_API.replace("/api", "")}${route.asPath}`} />
+            <LineTitles data={[{ href: "/program", title: "البرامج السياحية" }]} />
+            <div className="bord page w-full p-20">
+                <img src={data.image} alt={data.title} className="w-full bord p-0" />
+                <h1>{data.title}</h1>
+
+                <div className="box row w-300 p-20 m-a space bord">
+                    <IconHourglassHigh stroke={1.5} />
+                    <p> {data.duration}</p>
+                    <IconCurrencyDollar stroke={1.5} />
+                    <p> {data.price}</p>
+                    <IconUsers stroke={1.5} />
+                    <p> {data.numberOfPeople}</p>
+                </div>
+                <b>الوصف:  </b>
+                <p> {data.description}</p>
+                <b>نظرة عامة:  </b>
+                <p> {data.overview}</p>
+
             </div>
-          </div>
-          <div className="box col m-10">
-            <b>الوصف</b>
-            <p>{data.description}</p>
-          </div>
+            <div className="bord page w-full p-20 mt-10">
+                <h2>خطة البرنامج</h2>
+                {data.plan.map((item, index) => (
+                    <div key={index} className="bord box m-10 p-15 row space" >
+                        <img src={item.image} alt={item.title} className="w-300 bord p-0" />
+                        <div className="box col w-full m-15">
+                            <div className="aitem box row">
+                                <p className="btn ml-15" style={{ width: 'min-content' }}>اليوم {item.sortDay}</p>
+                                <h3>{item.title}</h3>
+                            </div>
+                            <p>{item.description}</p>
+                            <h4>الأنشطة لهذا اليوم:</h4>
+                            <p>{item.activities}</p>
+                        </div>
+                    </div>
+                ))}
+                <h2>يشمل البرنامج</h2>
+                <p>{data.includes}</p>
+
+                <h2>لا يشمل البرنامج</h2>
+                <p>{data.excludes}</p>
+            </div>
         </div>
-        <Gallray data={data?.images} />
-
-        <div className="box col bord p-20 page w-full">
-          <div className="box col ">
-            <b>محيط مكان الإقامة</b>
-            <p>{data.surroundingArea}</p>
-          </div>
-          <div className="box col ">
-            <b>الخدمات</b>
-            <div className="box grid my-10">
-
-              <div className="aitem box m-10 row"> 
-              {/* icon wifi */}
-              <IconWifi size={18} />
-              <p className="mr-10">{data.services.freeWiFi ? "" : "لا"} وايفاي مجانية</p>
-            </div>
-              <div className="aitem box m-10 row">
-              <IconParking size={18} />
-              <p className="mr-10">{data.services.freeParking ? "" : "لا"} موقف سيارات مجانية</p>
-            </div>
-              <div className="aitem box m-10 row">
-              <IconWifi size={18} />
-              <p className="mr-10">{data.services.breakfast ? "" : "لا"} فطور </p>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }
 

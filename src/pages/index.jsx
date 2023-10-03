@@ -1,10 +1,17 @@
 import axios from 'axios';
 import Link from 'next/link';
 import { CardHotel } from './hotels';
-import {CardCWD}  from "@/pages/car-with-driver"
+import { CardCWD } from "@/pages/car-with-driver"
 import { Hero } from '../theme/hero';
-import { IconBuilding ,IconCar} from '@tabler/icons-react';
+import {
+    IconBuilding,
+    IconCar,
+    IconAirBalloon,
+    IconCurrencyDollar,
+    
+} from '@tabler/icons-react';
 import SEO from '@/lib/SEO';
+import { CardProgram } from './program';
 
 export const getStaticProps = async ({ query }) => {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API || '/api'}/client/`);
@@ -31,38 +38,38 @@ export default function Home({ data }) {
                 <h2 style={{ fontSize: "xx-large" }} className="mr-10" >الاوتيلات</h2>
                 <Link href="/hotels" className="box j aitem" style={otherCards} >المزيد</Link>
             </div>
- 
+
             <div className="box grid">
                 {data?.hotels?.map(e =>
                     <CardHotel
                         key={e._id}
                         title={e.name}
                         image={e.image}
-                        rank={e.rank} 
-                        city={e.city} 
+                        rank={e.rank}
+                        city={e.city}
                         href={`/hotels/${encodeURIComponent(e._id)}`}
                     />
                 )}
             </div>
-          
+
             <TitlePart Icon={IconBuilding} title=" الشقق الفنادقية" href='/hotel-apartment' />
 
             <div className="box grid">
                 {data?.hotelsApartment?.map(e =>
-                    <CardHotel 
-                        key={e._id} 
+                    <CardHotel
+                        key={e._id}
                         title={e.name}
-                        image={e.image} 
-                        city={e.city} 
-                        href={`/hotel-apartment/${encodeURIComponent(e._id)}`} 
+                        image={e.image}
+                        city={e.city}
+                        href={`/hotel-apartment/${encodeURIComponent(e._id)}`}
                     />
                 )}
             </div>
-            
+
             <TitlePart Icon={IconCar} title="سيارة مع سائق" href='/car-with-driver' />
             <div className="box grid">
                 {data?.carWithDriver?.map(e =>
-                    <CardCWD 
+                    <CardCWD
                         key={e._id}
                         data={e}
                         title={e.title}
@@ -71,24 +78,38 @@ export default function Home({ data }) {
                     />
                 )}
             </div>
+
+            <TitlePart Icon={IconAirBalloon} title="البرامج السياحية" href='/program' />
+            <div className="box grid">
+                {data?.program?.map(e =>
+                    <CardProgram
+                        key={e._id}
+                        title={e.title}
+                        image={e.image}
+                        price={e.price}
+                        duration={e.duration}
+                        href={`/program/${encodeURIComponent(e._id)}`}
+                    />
+                )}
+            </div>
         </section>
     )
-} 
+}
 
-function TitlePart ({Icon , title , href}){
-    return(
-        <div className="box row m-10"> 
-        <Icon stroke={1.5} className="m-10" size={50} />
-        <h2 style={{ fontSize: "xx-large" }} className="mr-10" >{title}</h2>
-        <Link href={href} className="box j aitem" style={{ margin: '10px 20px',
-    color: '#fff',
-    backgroundColor: '#4caf50',
-    textAlign: 'center',
-    minWidth: '80px',
-    borderRadius: '10px'
-}} >المزيد</Link>
-
-    </div>
-
+function TitlePart({ Icon, title, href }) {
+    let link = {
+        margin: '10px 20px',
+        color: '#fff',
+        backgroundColor: '#4caf50',
+        textAlign: 'center',
+        minWidth: '80px',
+        borderRadius: '10px'
+    }
+    return (
+        <div className="box row m-10">
+            <Icon stroke={1.5} className="m-10" size={50} />
+            <h2 style={{ fontSize: "xx-large" }} className="mr-10" >{title}</h2>
+            <Link href={href} className="box j aitem" style={link} >المزيد</Link>
+        </div>
     )
 }

@@ -94,6 +94,7 @@ function Plans(props) {
     const { register, handleSubmit, reset } = useForm()
     const [viewForms, setViewForms] = useState(false);
     const { query } = useRouter();
+    const [res, setRes] = useState({});
     // const [One, setOne] = useState({});
     const [title, setTitle] = useState("تحديث معلومات البرنامج");
     useEffect(() => {
@@ -101,7 +102,7 @@ function Plans(props) {
         let config = {
             method: "put",
             url: `/api/admin/program/${query?.id}`,
-            data: { plan: data },
+            data: { plan:  data  },
             headers: props.config
         }
         axios(config).then(({ data }) => {
@@ -170,7 +171,7 @@ function Plans(props) {
         },
     ];
     let onSubmit = (DATA) => {
-        let sortArray = [...data, { ...DATA, sortDay: data.length ? data.length + 1 : 1 }]
+        let sortArray = [...data, { ...DATA,...res, sortDay: data.length ? data.length + 1 : 1 }]
         sortArray = sortArray.sort((a, b) => b.sortDay + a.sortDay);
 
         // put to api
@@ -181,7 +182,7 @@ function Plans(props) {
 
     function Forms() {
         return (
-            <form onSubmit={handleSubmit(onSubmit)} style={{ position: 'fixed', zIndex: '10' }} >
+            <form onSubmit={handleSubmit(onSubmit)} style={{position: 'fixed',zIndex: '10',top: '80px',right: '0',left: '0'}} >
                 <h1>{title}</h1>
 
                 <label htmlFor="title">العنوان</label>
@@ -195,7 +196,7 @@ function Plans(props) {
 
                 {/* إضافة صورة */}
                 <label htmlFor="image">صورة البرنامج</label>
-                <input type="file" id="image" name="image" onChange={async e => setOne({ image: await upImg(e) })} />
+                <input type="file" id="image" name="image" onChange={async e => setRes({ image: await upImg(e) })} />
 
                 <div className="mt-20 w-full box row">
                     <button onClick={(e) => {
