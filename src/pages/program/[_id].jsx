@@ -42,9 +42,13 @@ export default function HotelsOne({ data }) {
                     <IconUsers stroke={1.5} />
                     <p> {data.numberOfPeople}</p>
                 </div>
-                <b>الوصف:  </b>
+                <div className="box j m-a w-full">
+                    <ContactWa href={`${process.env.NEXT_PUBLIC_API.replace("/api", "")}${route.asPath}`} />
+                    
+                </div>
+                <b>الوصف  </b>
                 <p> {data.description}</p>
-                <b>نظرة عامة:  </b>
+                <b>نظرة عامة  </b>
                 <p> {data.overview}</p>
 
             </div>
@@ -59,7 +63,7 @@ export default function HotelsOne({ data }) {
                                 <h3>{item.title}</h3>
                             </div>
                             <p>{item.description}</p>
-                            <h4>الأنشطة لهذا اليوم:</h4>
+                            <b>الأنشطة لهذا اليوم </b>
                             <p>{item.activities}</p>
                         </div>
                     </div>

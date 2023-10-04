@@ -71,7 +71,8 @@ export default function AdminCarRentalAdd({ data, config: headers, query }) {
                 <input type="text" id="fuelType" {...register("fuelType")} />
 
                 <label htmlFor="insurance">التأمين</label>
-                <input type="text" id="insurance" {...register("insurance")} />
+                <textarea id="insurance"   {...register("insurance")} />
+                
 
                 <label htmlFor="seats">عدد المقاعد</label>
                 <input type="number" id="seats" {...register("seats")} />
@@ -85,9 +86,10 @@ export default function AdminCarRentalAdd({ data, config: headers, query }) {
                 <label htmlFor="dropoffLocation">مكان التسليم</label>
                 <input type="text" id="dropoffLocation" {...register("dropoffLocation")} />
 
-                <label htmlFor="childSeat">كرسي الطفل</label>
+                <div className=" box row my-20">
                 <input type="checkbox" id="childSeat" {...register("childSeat")} />
-
+                <label htmlFor="childSeat">كرسي الطفل</label>
+</div>
                 <label htmlFor="description">الوصف</label>
                 <textarea id="description" {...register("description")} />
 

@@ -37,7 +37,7 @@ export default function Program({ data }) {
 export const CardProgram = ({ title, image, href, price, duration }) => {
     return (
         <Link className="card" href={href}>
-            <img src={image || "/images/logo.png"} alt={title} className="w-full h-auto mb-2" loading="lazy" />
+            <img src={image || "/images/image-null.png"} alt={title} className="w-full h-auto mb-2" loading="lazy" />
             <div style={{padding: '15px',color: '#555',marginBottom: '10px'}}><b>{title}</b></div>
             {price && duration ? <div className="aitem box my-10 programCard row space"  >
                 <div className="box row aitem">

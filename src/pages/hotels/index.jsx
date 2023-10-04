@@ -37,7 +37,7 @@ export default function Hotels({ data }) {
 export const CardHotel = ({ title, image, href, rank, city }) => {
     return (
         <Link className="card" href={href}>
-            <img src={image || "/images/logo.png"} alt={title} className="w-full h-auto mb-2" loading="lazy" />
+            <img src={image || "/images/image-null.png"} alt={title} className="w-full h-auto mb-2" loading="lazy" />
             <div className="box row aitem my-10 space po"  >
                 <div className="box row aitem">
                     <IconMapPin size={18} />

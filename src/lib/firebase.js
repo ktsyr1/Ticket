@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
-
+import { message } from "antd";
 const firebaseConfig = {
     apiKey: "AIzaSyBT2yYj7Bbs1D0qcm65llx8kL6HQTL6b9M",
     authDomain: "ticket-e67c3.firebaseapp.com",
@@ -17,11 +17,13 @@ export class Storage {
         images = Array.from(images)
         try {
             if (images.length > 0)
-                return await Promise.all(images.map(async image => {
+                return await Promise.all(images.map(async image => { 
+                    message.warning (`جاري رفع الصورة ${image.name}` );
                     let storage = await getStorage(app)
                     let imageRef = await ref(storage, `images/${image.name}`)
                     await uploadBytes(imageRef, image)
                     let url = await getDownloadURL(imageRef)
+                    if (url) message.success(`تم رفع الصورة` );
                     return url
                 }))
         } catch (error) { console.log(error); }

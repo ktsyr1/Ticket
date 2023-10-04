@@ -1,20 +1,31 @@
 import { AuthServerSide } from '@/lib/app2'
 import Link from 'next/link'
 import { createStyles, Card, Text, SimpleGrid, UnstyledButton, Anchor, Group, rem, } from '@mantine/core';
-import { IconUsers, IconSteeringWheel, IconRepeat, IconArticle, IconCar, IconHotelService, IconReport, IconCashBanknote, IconCoin, } from '@tabler/icons-react';
+import { 
+IconUsers,
+IconSteeringWheel,
+IconRepeat,
+IconArticle,
+IconCar,
+IconHotelService,
+IconReport,
+IconCashBanknote,
+IconCoin,
+IconAirBalloon,
+} from '@tabler/icons-react';
 
 export async function getServerSideProps(ctx) {
     return AuthServerSide(ctx, () => ({}))
 }
 
 const mockdata = [
-    { title: 'المستخدمين', href: "/admin/users", icon: IconUsers, color: 'blue' },
+    { title: 'المستخدمين', href: "/admin/users", icon: IconUsers, color: 'green' },
     { title: 'المنشورات', href: "/admin/posts", icon: IconArticle, color: 'green' },
-    { title: 'السيارة مع السائق', href: "/admin/car-with-driver", icon: IconCar, color: 'teal' },
-    { title: 'اوتيلات', href: "/admin/hotels", icon: IconHotelService, color: 'cyan' },
-    { title: 'شقق فندقية', href: "/admin/hotel-apartment", icon: IconHotelService, color: 'cyan' },
-    { title: 'تاجير السيارات', href: "/admin/car-rental", icon: IconSteeringWheel, color: 'pink' },
-    { title: 'البرامج السياحية', href: "/admin/program", icon: IconSteeringWheel, color: 'pink' },
+    { title: 'السيارة مع السائق', href: "/admin/car-with-driver", icon: IconCar, color: 'green' },
+    { title: 'اوتيلات', href: "/admin/hotels", icon: IconHotelService, color: 'green' },
+    { title: 'شقق فندقية', href: "/admin/hotel-apartment", icon: IconHotelService, color: 'green' },
+    { title: 'تاجير السيارات', href: "/admin/car-rental", icon: IconSteeringWheel, color: 'green' },
+    { title: 'البرامج السياحية', href: "/admin/program", icon: IconAirBalloon, color: 'green' },
 ];
 
 const useStyles = createStyles((theme) => ({

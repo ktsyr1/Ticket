@@ -50,7 +50,8 @@ export function HeroPart({ Icon, iconType, title, about }) {
 
 export function ContactWa({ href = " ", title = "تواصل معنا  " }) {
     return (
-        <Link href={`https://wa.me/905365475371?text=${href}`} className=" box row  btn " style={{ alignItems: 'center', width: 'max-content' }}>
+        <Link href={`https://wa.me/905365475371?text=${href}`} className=" box row  btn " style={{ alignItems: 'center', width: 'max-content' ,
+    height: "50px"}}>
             <IconBrandWhatsapp stroke={1.5} className="m-10" size={20} />
             <p className="ml-10"> {title} </p>
         </Link>
