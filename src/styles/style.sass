@@ -2,6 +2,7 @@ body
     direction: rtl
     background-color: #eee
     font-family: "Droid Arabic Kufi"
+    font-size: small
 nav
     text-align: center
     display: flex
@@ -55,7 +56,7 @@ form
     border-radius: 20px
     background-color: #fff
     width: -webkit-fill-available
-    
+
     & h1 ,h2
         text-align: center
         padding: 20px
@@ -124,7 +125,7 @@ button , .btn ,[type='submit']
         height: -webkit-fill-available
         box-shadow: 0 0 10px #ddd
         &-none
-            display: none !important 
+            display: none !important
 @media (max-width: 733px)
     .hotel
         &-title
@@ -175,11 +176,42 @@ h1
     box-shadow: 0 0 10px #ddd
     background-color: #fff
     border-radius: 20px
-    
-.programCard 
-    padding: 10px 
+
+.programCard
+    padding: 10px
     margin: -20px 20px 10px
     border-radius: 10px
     height: 50px
-    color: #666 
+    color: #666
     margin-top: -20px !important
+    
+.plan-card
+    display: flex
+    flex-wrap: wrap
+    padding: 0
+    margin: 10px
+    box-shadow: 0 0 10px #ddd
+    background-color: #fff
+    border-radius: 20px
+    &-title
+        display: flex
+        img
+            box-shadow: 0 0 10px #ddd
+            background-color: #fff
+            padding: 0
+            border-radius: 20px
+            width: 300px
+    &-body
+        margin: 20px
+
+@media (max-width: 700px)
+    .plan-card
+        justify-content: center
+        &-title
+            width: -webkit-fill-available
+            img
+                max-width: 610px
+                width: -webkit-fill-available !important
+                box-sizing: border-box
+        &-body
+            width: -webkit-fill-available

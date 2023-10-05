@@ -26,7 +26,7 @@ let styles = {
 export default function HotelsOne({ data }) {
     let route = useRouter()
     return (
-        <div className="aitem box col m-10 w-full">
+        <div className="">
             <SEO title={`البرامج السياحية | ${data?.name}`} description={data?.description} image={data?.image} />
 
             <LineTitles data={[{ href: "/program", title: "البرامج السياحية" }]} />
@@ -61,11 +61,13 @@ export default function HotelsOne({ data }) {
             <div className="bord page w-full p-20 mt-10">
                 <h2>خطة البرنامج</h2>
                 {data.plan.map((item, index) => (
-                    <div key={index} className="bord box m-10 p-15 row space" >
-                        <img src={item.image} alt={item.title} className="w-300 bord p-0" />
-                        <div className="box col w-full m-15">
+                    <div key={index} className="plan-card" >
+                        <div className="plan-card-title">
+                            <p className="btn" style={{ position: 'absolute', margin: '10px' }}>اليوم {item.sortDay}</p>
+                            <img src={item.image} alt={item.title} className="w-300 bord p-0" />
+                        </div>
+                        <div className="plan-card-body">
                             <div className="aitem box row">
-                                <p className="btn ml-15" style={{ width: 'min-content' }}>اليوم {item.sortDay}</p>
                                 <h3>{item.title}</h3>
                             </div>
                             <p>{item.description}</p>
