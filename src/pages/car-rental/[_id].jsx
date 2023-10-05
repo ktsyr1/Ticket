@@ -30,8 +30,7 @@ export default function CarRentalDetail({ data }) {
 
     let md = new markdownIt()
     let Item = ({ Icon, value }) => value ? <div className="box aitem row my-10" style={{ width: '130px' }}> <Icon size={30} color="#555" /> <p className="mr-10">{value}</p> </div> : <></>
-    if (!data) return <NotFoundTitle />
-    else return (
+  return (
         <div className="box col m-a j">
             <SEO title={`${data.brand} ${data.model}`} description={data.description} image={data.image} />
 
