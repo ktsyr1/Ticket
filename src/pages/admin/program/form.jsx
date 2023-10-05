@@ -15,7 +15,7 @@ export async function getServerSideProps(ctx) {
             return { data, config, query }
         } else return { config, query }
     });
-} 
+}
 
 let upImg = async e => await Storage.add(e.target.files).then(a => a[0])
 
@@ -83,7 +83,7 @@ export default function AdminCarRentalAdd({ data, config: headers, query }) {
                     <button type="submit" className="w-full">{query?.id ? "تحديث" : "إضافة"}</button>
                 </div>
             </form>
-            <Plans data={data.plan} config={headers} />
+            {data?.plan ? <Plans data={data?.plan} config={headers} /> : <></>}
         </div>
     )
 }
@@ -102,7 +102,7 @@ function Plans(props) {
         let config = {
             method: "put",
             url: `/api/admin/program/${query?.id}`,
-            data: { plan:  data  },
+            data: { plan: data },
             headers: props.config
         }
         axios(config).then(({ data }) => {
@@ -171,7 +171,7 @@ function Plans(props) {
         },
     ];
     let onSubmit = (DATA) => {
-        let sortArray = [...data, { ...DATA,...res, sortDay: data.length ? data.length + 1 : 1 }]
+        let sortArray = [...data, { ...DATA, ...res, sortDay: data.length ? data.length + 1 : 1 }]
         sortArray = sortArray.sort((a, b) => b.sortDay + a.sortDay);
 
         // put to api
@@ -182,7 +182,7 @@ function Plans(props) {
 
     function Forms() {
         return (
-            <form onSubmit={handleSubmit(onSubmit)} style={{position: 'fixed',zIndex: '10',top: '80px',right: '0',left: '0'}} >
+            <form onSubmit={handleSubmit(onSubmit)} style={{ position: 'fixed', zIndex: '10', top: '80px', right: '0', left: '0' }} >
                 <h1>{title}</h1>
 
                 <label htmlFor="title">العنوان</label>
