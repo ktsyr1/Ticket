@@ -1,9 +1,8 @@
-import axios from "axios";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { IconMapPin, IconStars } from '@tabler/icons-react';
+import axios from "axios"; 
+import { useRouter } from "next/router"; 
 import { HeroPart } from "@/theme/Elements";
 import SEO from "@/lib/SEO";
+import { CardHotel } from "@/theme/cards";
 
 export async function getStaticProps() {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/hotels`);
@@ -23,10 +22,7 @@ export default function Hotels({ data }) {
                 {data.map((e) => (
                     <CardHotel
                         key={e._id}
-                        title={e.name}
-                        image={e.image}
-                        rank={e.rank}
-                        city={e.city}
+                        data={e}
                         href={`/hotels/${encodeURIComponent(e._id)}`}
                     />
                 ))}
@@ -34,25 +30,3 @@ export default function Hotels({ data }) {
         </div>
     );
 }
-export const CardHotel = ({ title, image, href, rank, city }) => {
-    return (
-        <Link className="card" href={href}>
-            <img src={image || "/images/image-null.png"} alt={title} className="w-full h-auto mb-2" loading="lazy" />
-            <div className="box row aitem my-10 space po"  >
-                <div className="box row aitem">
-                    <IconMapPin size={18} />
-                    <p className="mr-10">{city}</p>
-                </div>
-                {rank ? <div className="box row aitem">
-                    <IconStars size={18} />
-                    <p className="mr-10">{rank}</p>
-                </div> : <></>}
-            </div>
-            <div className="footer">
-                <b>{title}</b>
-
-            </div>
-        </Link>
-    );
-};
-

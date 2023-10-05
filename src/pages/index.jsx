@@ -1,29 +1,12 @@
 import axios from 'axios';
 import Link from 'next/link';
-import { CardHotel } from './hotels';
-import { CardCWD } from "@/pages/car-with-driver"
-import { Hero } from '../theme/hero';
-import {
-    IconBuilding,
-    IconCar,
-    IconAirBalloon,
-    IconCurrencyDollar,
-    
-} from '@tabler/icons-react';
 import SEO from '@/lib/SEO';
-import { CardProgram } from './program';
+import { IconBuilding, IconCar, IconAirBalloon, IconSteeringWheel } from '@tabler/icons-react';
+import { CardCarRental, CardProgram, CardCWD, CardHotel } from '@/theme/cards';
 
 export const getStaticProps = async ({ query }) => {
-    let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API || '/api'}/client/`);
+    let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/`);
     return { props: { data }, revalidate: 10 }
-}
-let otherCards = {
-    margin: '10px 20px',
-    color: '#fff',
-    backgroundColor: '#4caf50',
-    textAlign: 'center',
-    minWidth: '80px',
-    borderRadius: '10px'
 }
 export default function Home({ data }) {
     return (
@@ -32,84 +15,48 @@ export default function Home({ data }) {
                 title="تكت مسافر - Ticket Musafir"
                 description="افضل خدمة لاروع مكان"
             />
-            {/* <Hero /> */}
-            <div className="box row m-10">
-                <img src="/icons/hotel.svg" alt=" ايقونة الاوتيلات" width="30" />
-                <h2 style={{ fontSize: "xx-large" }} className="mr-10" >الاوتيلات</h2>
-                <Link href="/hotels" className="box j aitem" style={otherCards} >المزيد</Link>
-            </div>
 
-            <div className="box grid">
-                {data?.hotels?.map(e =>
-                    <CardHotel
-                        key={e._id}
-                        title={e.name}
-                        image={e.image}
-                        rank={e.rank}
-                        city={e.city}
-                        href={`/hotels/${encodeURIComponent(e._id)}`}
-                    />
-                )}
-            </div>
+            <Part data={data?.hotels} title={"الاوتيلات"} Icon={IconHotel} href='/hotels' Card={CardHotel} />
 
-            <TitlePart Icon={IconBuilding} title=" الشقق الفنادقية" href='/hotel-apartment' />
+            <Part data={data?.hotelsApartment} title={" الشقق الفنادقية"} Icon={IconBuilding} href='/hotel-apartment' Card={CardHotel} />
 
-            <div className="box grid">
-                {data?.hotelsApartment?.map(e =>
-                    <CardHotel
-                        key={e._id}
-                        title={e.name}
-                        image={e.image}
-                        city={e.city}
-                        href={`/hotel-apartment/${encodeURIComponent(e._id)}`}
-                    />
-                )}
-            </div>
+            <Part data={data?.carWithDriver} title={"سيارة مع سائق"} Icon={IconCar} href='/car-with-driver' Card={CardCWD} />
 
-            <TitlePart Icon={IconCar} title="سيارة مع سائق" href='/car-with-driver' />
-            <div className="box grid">
-                {data?.carWithDriver?.map(e =>
-                    <CardCWD
-                        key={e._id}
-                        data={e}
-                        title={e.title}
-                        image={e?.carImage}
-                        href={`/car-with-driver/${encodeURIComponent(e._id)}`}
-                    />
-                )}
-            </div>
+            <Part data={data?.carRental} title={"تاجير السيارات"} Icon={IconSteeringWheel} href='/car-rental' Card={CardCarRental} />
 
-            <TitlePart Icon={IconAirBalloon} title="البرامج السياحية" href='/program' />
-            <div className="box grid">
-                {data?.program?.map(e =>
-                    <CardProgram
-                        key={e._id}
-                        title={e.title}
-                        image={e.image}
-                        price={e.price}
-                        duration={e.duration}
-                        href={`/program/${encodeURIComponent(e._id)}`}
-                    />
-                )}
-            </div>
+            <Part data={data?.program} title="البرامج السياحية" href='/program' Icon={IconAirBalloon} Card={CardProgram} />
+
         </section>
     )
 }
 
-function TitlePart({ Icon, title, href }) {
+function Part({ data, title, Icon, href, Card }) {
     let link = {
-        margin: '10px 20px',
-        color: '#fff',
-        backgroundColor: '#4caf50',
-        textAlign: 'center',
-        minWidth: '80px',
-        borderRadius: '10px'
+        margin: '10px 20px', color: '#fff', backgroundColor: '#4caf50', textAlign: 'center', minWidth: '80px', borderRadius: '10px'
     }
     return (
-        <div className="box row m-10">
-            <Icon stroke={1.5} className="m-10" size={50} />
-            <h2 style={{ fontSize: "xx-large" }} className="mr-10" >{title}</h2>
-            <Link href={href} className="box j aitem" style={link} >المزيد</Link>
-        </div>
+        <>
+            <div className="aitem box m-10 row">
+                <Icon stroke={1.5} className="m-10" size={30} />
+                <h2 style={{ fontSize: "large" }} className="mr-10" >{title}</h2>
+                <Link href={href} className="box j aitem" style={link} >المزيد</Link>
+            </div>
+            <div className="box grid">
+                {data?.map(e =>
+                    <Card
+                        key={e._id}
+                        data={e}
+                        href={`${href}/${encodeURIComponent(e._id)}`}
+                    />
+                )}
+            </div>
+        </>
     )
 }
+
+let IconHotel = () => (
+    <svg fill="#555" width={30} height={30} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" >
+        <path d="M19.32,6.77,8,3V21h4V15h4v6h4V7.72A1,1,0,0,0,19.32,6.77Z" style={{ fill: "rgb(44, 169, 188)", strokeWidth: 2 }} />
+        <path d="M12,21V15h4v6ZM8,21H20V7.72a1,1,0,0,0-.68-1L8,3ZM4,10A1,1,0,0,1,5,9H8V21H4ZM3,21H21" style={{ fill: "none", stroke: "rgb(0, 0, 0)", strokeLinecap: "round", strokeLinejoin: "round", strokeLidth: 2 }} />
+    </svg>
+) 

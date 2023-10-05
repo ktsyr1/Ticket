@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { IconBuilding } from '@tabler/icons-react';
-import { CardHotel } from "../hotels";
+import { IconBuilding } from '@tabler/icons-react'; 
 import { HeroPart } from "@/theme/Elements";
 import SEO from "@/lib/SEO";
+import { CardHotel } from "@/theme/cards";
 
 export async function getStaticProps() {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/hotel-apartment`);
@@ -23,9 +23,7 @@ export default function HotelsApartment({ data }) {
             {data.map((e) => (
                 <CardHotel
                     key={e._id}
-                    title={e.name}
-                    image={e.image}
-                    city={e.city}
+                    data={e} 
                     href={`/hotel-apartment/${encodeURIComponent(e._id)}`}
                 />
             ))}
