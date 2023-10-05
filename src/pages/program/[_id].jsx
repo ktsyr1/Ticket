@@ -34,17 +34,23 @@ export default function HotelsOne({ data }) {
                 <img src={data.image} alt={data.title} className="w-full bord p-0" />
                 <h1>{data.title}</h1>
 
-                <div className="box row w-300 p-20 m-a space bord">
-                    <IconHourglassHigh stroke={1.5} />
-                    <p> {data.duration}</p>
-                    <IconCurrencyDollar stroke={1.5} />
-                    <p> {data.price}</p>
-                    <IconUsers stroke={1.5} />
-                    <p> {data.numberOfPeople}</p>
+                <div className="box grid w-300 p-20 m-a space bord" style={{ whiteSpace: 'nowrap' }} >
+                    <div className="box row aitem"  >
+                        <IconHourglassHigh stroke={1.5} />
+                        <p className="mr-10"> {data.duration}</p>
+                    </div>
+                    <div className="box row aitem"  >
+                        <IconCurrencyDollar stroke={1.5} />
+                        <p className="mr-10"> {data.price}</p>
+                    </div>
+                    <div className="box row aitem"  >
+                        <IconUsers stroke={1.5} />
+                        <p className="mr-10"> {data.numberOfPeople}</p>
+                    </div>
                 </div>
                 <div className="box j m-a w-full">
                     <ContactWa href={`${process.env.NEXT_PUBLIC_API.replace("/api", "")}${route.asPath}`} />
-                    
+
                 </div>
                 <b>الوصف  </b>
                 <p> {data.description}</p>
