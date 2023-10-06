@@ -12,11 +12,7 @@ export async function getStaticPaths() {
   return { paths, fallback: false };
 }
 let styles = {
-  image: {
-    width: '320px',
-    borderRadius: '20px',
-    boxShadow: '0 0 10px #ddd'
-  }
+  image: { width: '320px', borderRadius: '20px', boxShadow: '0 0 10px #ddd' }
 }
 export async function getStaticProps(ctx) {
   let { data } = await axios.get(
@@ -38,7 +34,7 @@ export default function HotelsApartmentOne({ data }) {
       <LineTitles data={[{ href: "/hotel-apartment", title: "الشقق الفندقية" }]} />
       <div className="  box col m-a page hotel  ">
         <div className="part">
-          <div className="box grid m-10 j hotel-title">
+          <div className=" hotel-title">
             <img src={data.image} alt={`صورة ${data.name}`} className="" style={styles.image} loading="lazy" />
             <div className="box col m-10 mx-20 w-300">
               <h1 className="m-0">{data.name}</h1>
@@ -46,8 +42,10 @@ export default function HotelsApartmentOne({ data }) {
                 <IconMapPin size={18} />
                 <p className="mr-10">{data.city} - {data.address}</p>
               </div>
-              <ContactWa href={`${process.env.NEXT_PUBLIC_API.replace("/api", "")}${route.asPath}`} />
-
+             <div style={{ display: 'flex', justifyContent: 'flex-end', flexDirection: 'row', width: '-webkit-fill-available' }}>
+                                <p></p>
+                                <ContactWa href={`${process.env.NEXT_PUBLIC_API.replace("/api", "")}${route.asPath}`} />
+                            </div>
             </div>
           </div>
           <div className="box col m-10">

@@ -26,14 +26,18 @@ let styles = {
 export default function HotelsOne({ data }) {
     let route = useRouter()
     return (
-        <div className="">
+        <div className="page">
             <SEO title={`البرامج السياحية | ${data?.name}`} description={data?.description} image={data?.image} />
 
             <LineTitles data={[{ href: "/program", title: "البرامج السياحية" }]} />
             <div className="bord page w-full p-20">
-                <img src={data.image} alt={data.title} className="w-full bord p-0" />
+                <img src={data.image} alt={data.title} className="title-img" style={{width: '-webkit-fill-available !important'}} />
                 <h1>{data.title}</h1>
 
+                <div className="box m-a row space">
+                    <p></p>
+                    <ContactWa href={`${process.env.NEXT_PUBLIC_API.replace("/api", "")}${route.asPath}`} />
+                </div>
                 <div className="box grid p-20 m-a space bord" style={{ whiteSpace: 'nowrap' }} >
                     <div className="box row aitem"  >
                         <IconHourglassHigh stroke={1.5} />
@@ -47,10 +51,6 @@ export default function HotelsOne({ data }) {
                         <IconUsers stroke={1.5} />
                         <p className="mr-10"> {data.numberOfPeople}</p>
                     </div>
-                </div>
-                <div className="box j m-a w-full">
-                    <ContactWa href={`${process.env.NEXT_PUBLIC_API.replace("/api", "")}${route.asPath}`} />
-
                 </div>
                 <b>الوصف  </b>
                 <p> {data.description}</p>

@@ -39,13 +39,13 @@ export default function CarWithDriverOne({ data }) {
     let md = new markdownIt()
     let programDetails = md.render(data?.programDetails || '')
     return (
-        <div className="aitem box col j  page w-full">
+        <div className="aitem box col j  page w-full CarWithDriverOne">
             <SEO title={data?.title} description={data?.programDetails} />
             <LineTitles data={[{ href: "/car-with-driver", title: "سيارة مع سائق" }]} />
             <div className="bord box col m-a page   m-0">
                 <div className="box col m-10 j  ">
                     <img src={data.carImage} alt={`صورة ${data.title}`} className="" style={styles.image} loading="lazy" />
-                    <h1 className="m-0">{data.title}</h1>
+                    <h1 className="my-15">{data.title}</h1>
                     <div className="box grid " style={{
                         display: 'flex',
                         alignItems: 'flex-end',

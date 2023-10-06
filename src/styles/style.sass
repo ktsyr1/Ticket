@@ -130,8 +130,9 @@ button , .btn ,[type='submit']
 @media (max-width: 733px)
     .hotel
         &-title
-            flex-direction: column !important
-            align-items: flex-start
+            flex-direction: column !important 
+            img 
+                width: -webkit-fill-available !important
 
 .card
     display: flex
@@ -188,12 +189,12 @@ h1
     
 .plan-card
     display: flex
-    flex-wrap: wrap
     padding: 0
-    margin: 10px
+    margin: 10px 0
     box-shadow: 0 0 10px #ddd
     background-color: #fff
     border-radius: 20px
+    flex-direction: row
     &-title
         display: flex
         img
@@ -206,8 +207,14 @@ h1
         margin: 20px
 
 @media (max-width: 700px)
+
+    .CarWithDriverOne .details 
+        justify-content: center !important
+    .title-img
+        width:-webkit-fill-available
     .plan-card
         justify-content: center
+        flex-wrap: wrap
         &-title
             width: -webkit-fill-available
             img
@@ -224,4 +231,11 @@ h1
 @media (max-width: 735px)
     .title-img
         width:-webkit-fill-available
+     
 
+.hotel-title 
+    display: flex
+    justify-content: center
+    flex-direction: row
+    margin: 10px
+    align-items: center
