@@ -116,9 +116,10 @@ button , .btn ,[type='submit']
     article
         &> div:nth-child(2)
             margin: 10px auto
-
+            width: -webkit-fill-available
     .menu
         position: fixed
+        z-index: 10
         background-color: #fff
         padding: 10px
         border-radius: 10px
@@ -215,3 +216,12 @@ h1
                 box-sizing: border-box
         &-body
             width: -webkit-fill-available
+.title-img 
+    width: 320px
+    border-radius: 20px
+    box-shadow: rgb(221, 221, 221) 0px 0px 10px
+
+@media (max-width: 735px)
+    .title-img
+        width:-webkit-fill-available
+

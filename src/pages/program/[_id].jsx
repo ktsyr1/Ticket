@@ -34,7 +34,7 @@ export default function HotelsOne({ data }) {
                 <img src={data.image} alt={data.title} className="w-full bord p-0" />
                 <h1>{data.title}</h1>
 
-                <div className="box grid w-300 p-20 m-a space bord" style={{ whiteSpace: 'nowrap' }} >
+                <div className="box grid p-20 m-a space bord" style={{ whiteSpace: 'nowrap' }} >
                     <div className="box row aitem"  >
                         <IconHourglassHigh stroke={1.5} />
                         <p className="mr-10"> {data.duration}</p>
