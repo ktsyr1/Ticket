@@ -6,7 +6,7 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {/* Add your external stylesheet here */}
-          <link rel="stylesheet" href="https://fontlibrary.org/face/droid-arabic-kufi" />
+          <link href="https://fonts.googleapis.com/css?family=Cairo&amp;display=swap" rel="stylesheet"></link>
         </Head>
         <body>
           <Main />

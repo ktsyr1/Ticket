@@ -5,7 +5,8 @@ import { IconBuilding, IconCar, IconAirBalloon, IconSteeringWheel } from '@table
 import { CardCarRental, CardProgram, CardCWD, CardHotel } from '@/theme/cards';
 
 export const getStaticProps = async ({ query }) => {
-    let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/`);
+    let url =`${process.env.NEXT_PUBLIC_API}/client/`
+    let { data } = await axios.get(url);
     return { props: { data }, revalidate: 10 }
 }
 export default function Home({ data }) {
