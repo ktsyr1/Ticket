@@ -41,7 +41,7 @@ const useStyles = createStyles((theme) => ({
         padding: '10px',
         color: '#666',
         fontSize: '15px',
-        margin: '0 10px',
+        margin: '10px',
         borderBottom: '1px solid #888',
         display: 'flex',
         alignItems: 'center'

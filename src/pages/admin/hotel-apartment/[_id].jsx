@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { AuthServerSide } from "@/lib/app2";
 import { Storage } from "@/lib/firebase";
 import { useState } from "react";
+import { ButtonForm } from "@/theme/Elements";
 
 export async function getServerSideProps(ctx) {
     return await AuthServerSide(ctx, async ({ NEXT_PUBLIC_API, query, config }) => {
@@ -23,7 +24,6 @@ export default function EditHotel({ data, config, query }) {
     const onSubmit = (formData) => {
         let Data = { ...data, ...formData, ...res };
 
-        console.log(data);
         // Send data to the server
         axios.put(`/api/admin/hotel-apartment/${query._id}`, Data, config)
             .then(({ data }) => {
@@ -57,6 +57,9 @@ export default function EditHotel({ data, config, query }) {
                 <label htmlFor="images">الصور</label>
                 <input type="file" id="images" name={"images"} onChange={upImages} multiple />
 
+                <label htmlFor="roomCount">   عدد الغرف  </label>
+                <input type="text" id="roomCount" {...register("roomCount")} />
+
                 <label htmlFor="about">   الوصف</label>
                 <textarea id="about" {...register("about")} />
 
@@ -69,16 +72,7 @@ export default function EditHotel({ data, config, query }) {
                 <label htmlFor="generalDetails">  تفاصيل عامة</label>
                 <textarea id="generalDetails" {...register("generalDetails")} />
 
-
-                <div className="mt-20 w-full box row">
-                    <button
-                        onClick={(e) => {
-                            e.preventDefault();
-                            route.back();
-                        }}
-                        className="ml-10 btn p-10 w-full m-0 off" > عودة </button>
-                    <button type="submit" className="w-full"> تحديث </button>
-                </div>
+                <ButtonForm />
             </form>
         </div>
     );

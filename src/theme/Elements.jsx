@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { IconHome, IconBrandWhatsapp } from '@tabler/icons-react';
+import { useRouter } from "next/router";
 
 
 export function Gallray({ data }) {
@@ -50,10 +51,26 @@ export function HeroPart({ Icon, iconType, title, about }) {
 
 export function ContactWa({ href = " ", title = "تواصل معنا  " }) {
     return (
-        <Link href={`https://wa.me/905365475371?text=${href}`} className=" box row  btn " style={{ alignItems: 'center', width: 'max-content' ,
-    height: "50px"}}>
+        <Link href={`https://wa.me/905365475371?text=${href}`} className=" box row  btn " style={{
+            alignItems: 'center', width: 'max-content',
+            height: "50px"
+        }}>
             <IconBrandWhatsapp stroke={1.5} className="m-10" size={20} />
             <p className="ml-10"> {title} </p>
         </Link>
+    )
+}
+
+export function ButtonForm() {
+    let route = useRouter()
+    let back = (e) => {
+        e.preventDefault();
+        route.back();
+    }
+    return (
+        <div className="mt-20 w-full box row">
+            <button onClick={(e) => back(e)} className="ml-10 btn p-10 w-full m-0 off" > عودة </button>
+            <button type="submit" className="w-full"> تحديث </button>
+        </div>
     )
 }
