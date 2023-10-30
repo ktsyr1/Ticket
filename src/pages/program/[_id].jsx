@@ -13,7 +13,7 @@ export async function getStaticProps(ctx) {
     let { data } = await axios.get(
         `${process.env.NEXT_PUBLIC_API}/client/program/${encodeURIComponent(ctx.params._id)}`
     );
-    return { props: { data }, revalidate: 10 };
+    return { props: { data }, revalidate: 1};
 }
 
 let styles = {
