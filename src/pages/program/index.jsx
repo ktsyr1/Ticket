@@ -15,7 +15,7 @@ export default function Program({ data }) {
     let icon = <img src={"/icons/hotel.svg"} alt=" ايقونة الفنادق" className="w-50" />
     let about = "انطلق في مغامرة استثنائية واستكشف عجائب الطبيعة في هذا البرنامج المثير. ستتاح لك الفرصة لاستكشاف المناظر الطبيعية الساحرة، والغابات الكثيفة، والشلالات الرائعة. "
     return (
-        <div className="box col m-a j">
+        <section className="box col m-a j">
             <SEO title="البرامج السياحية" description={about} />
             <HeroPart iconType={true} Icon={IconAirBalloon} title="البرامج السياحية" about={about} />
 
@@ -28,6 +28,6 @@ export default function Program({ data }) {
                     />
                 ))}
             </div>
-        </div>
+        </section>
     );
 }

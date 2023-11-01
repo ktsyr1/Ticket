@@ -13,7 +13,7 @@ export default function CarWithDriver({ data }) {
     let about = "نحن نقدم لكم خدمة تأجير سيارة مع سائق في طرابزون.ستحصلون على تجربة سفر مريحة ومميزة مع محترفين يضمنون لكم الوصول إلى وجهتكم بأمان وراحة.سياراتنا مجهزة بأحدث التقنيات والراحة لضمان تجربة سفر فاخرة."
 
     return (
-        <div className="box col m-a j">
+        <section className="box col m-a j">
             <SEO title={`سيارة مع سائق`} description={about} />
             <HeroPart iconType={true} Icon={IconCar} title="سيارة مع سائق" about={about} />
 
@@ -26,6 +26,6 @@ export default function CarWithDriver({ data }) {
                     />
                 ))}
             </div>
-        </div>
+        </section>
     );
 }

@@ -1,8 +1,12 @@
 import { createStyles, Header, Autocomplete, Group, Burger, rem, getStylesRef } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconSearch } from '@tabler/icons-react';
-import Image from 'next/image';
+import { IconSearch ,
+    IconLayout2,} from '@tabler/icons-react';
+import Image from 'next/image'; 
+import { Menu } from './menu'
+import { useEffect, useState } from 'react';
 
+import Cookies from "js-cookie";
 import {
     IconMenu, IconSteeringWheel, IconCurrencyDollar, IconCalendarTime, IconMapPin, IconClockPlay
 } from '@tabler/icons-react';
@@ -61,8 +65,17 @@ const useStyles = createStyles((theme) => ({
 
 export function NavHeader() {
     const [opened, { toggle }] = useDisclosure(false);
-    const { classes } = useStyles();
+    const { classes, cx } = useStyles();
+  const [isLogin, setIsLogin] = useState(false)
 
+    useEffect(() => {
+        let token = Cookies.get("token")
+        if (token?.length > 15) setIsLogin(true)
+    }, [])
+
+    let Admin = () => <Link href={"/admin"} className={cx(classes.link)} title="admin" >
+        <IconLayout2 className={classes.linkIcon} stroke={1.5} /> 
+    </Link>
     function openMenu() {
         document.querySelector(".menu")?.classList.toggle('menu-none')
     }
@@ -75,9 +88,10 @@ export function NavHeader() {
                     <Image src={'/images/logo.png'} width={40} height={40} alt='logo ansfni' />
                     <p style={{ color: "#000" ,marginRight: '10px' }}>تكت مسافر - Ticket Musafir </p>
                 </Link>
-                <div></div>
+               
+            {isLogin ? <Admin /> : <></>}
             </div>
-            {/* <Menu /> */}
+             <Menu /> 
         </nav>
     );
 }

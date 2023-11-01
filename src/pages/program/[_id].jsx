@@ -26,7 +26,7 @@ let styles = {
 export default function HotelsOne({ data }) {
     let route = useRouter()
     return (
-        <div className="page">
+        <section className="page">
             <SEO title={`البرامج السياحية | ${data?.name}`} description={data?.description} image={data?.image} />
 
             <LineTitles data={[{ href: "/program", title: "البرامج السياحية" }]} />
@@ -82,7 +82,7 @@ export default function HotelsOne({ data }) {
                 <h2>لا يشمل البرنامج</h2>
                 <p>{data.excludes}</p>
             </div>
-        </div>
+        </section>
     );
 }
 

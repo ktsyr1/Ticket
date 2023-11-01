@@ -27,11 +27,10 @@ export default function PageOne({ data ,slug}) {
     const month = date.getMonth() + 1; // Months are 0-indexed, so we add 1
     const day = date.getDate();
     const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
+    const minutes = date.getMinutes(); 
     
     return (
-        <div className="box col aitem m-10 page w-full" >
+        <section className="box col aitem m-10 page w-full" >
             {/* content */}
             <SEO title={` ${slug}`} description={data?.bio} image={data?.image} />
             <div className="bord col page p-10 w-full">
@@ -45,6 +44,6 @@ export default function PageOne({ data ,slug}) {
                 </div>
                 <div className="m-20" dangerouslySetInnerHTML={{ __html: content }} />
             </div>
-        </div>
+        </section>
     )
 }

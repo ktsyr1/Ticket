@@ -52,15 +52,13 @@ const useStyles = createStyles((theme) => ({
     }
 }));
 
-const data = [
-    { label: 'الرئيسية', link: "/", Icon: IconHome, color: 'blue' },
+const data = [ 
     { label: 'اوتيلات', link: "/hotels", Icon: IconHotelService, color: 'cyan' },
     { label: 'شقق فندقية', link: "/hotel-apartment", Icon: IconBuilding, color: 'green' },
     { label: 'السيارة مع السائق', link: "/car-with-driver", Icon: IconCar, color: 'teal' },
     { label: 'تاجير السيارات', link: "/car-rental", Icon: IconSteeringWheel, color: 'pink' },
     { label: 'البرامج السياحية', link: "/program", Icon: IconAirBalloon, color: 'pink' },
-    { label: 'من نحن', link: "/page/about", Icon: IconInfoSquareRounded, color: 'blue' },
-    { label: 'تواصل معنا', link: "https://wa.me/905365475371", Icon: IconBrandWhatsapp, color: 'blue' },
+    { label: 'من نحن', link: "/page/about", Icon: IconInfoSquareRounded, color: 'blue' }, 
 
 ];
 
@@ -87,12 +85,8 @@ export function Menu() {
 
     return (
         <div className='menu menu-none ' >
-            <div className={classes.linkHome} >
-                <IconListDetails className={classes.linkIcon} stroke={1.5} />
-                <span className="mr-20">الاقسام</span>
-            </div>
+            
             {links}
-            {isLogin ? <Admin /> : <></>}
 
         </div>
     );

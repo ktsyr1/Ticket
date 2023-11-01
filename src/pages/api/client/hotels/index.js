@@ -7,7 +7,7 @@ export default async function hotels(req, res, next) {
 
     GET(
         async () => {
-            let hotels = await Hotel.find().select("-services")
+            let hotels = await Hotel.find()
             Send(hotels);
         }
     );

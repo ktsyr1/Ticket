@@ -9,26 +9,35 @@ import {
     IconMap,
     IconMapPin,
     IconStars,
+    IconWifi,
+    IconParking,
 } from '@tabler/icons-react';
 
 
 export function CardHotel({ data, href }) {
     let { name, image, rank, city } = data
+    let RowData = ({ el, Icon,text }) => {
+        if (el) return (
+            <div className="box row aitem  my-10"  >
+                <Icon size={18} />
+                <p className="mr-10">{el} {text}</p>
+            </div>
+        )
+    }
     return (
         <Link className="card" href={href}>
             <img src={image || "/images/image-null.png"} alt={name} className="w-full h-auto mb-2" loading="lazy" />
-            <div className="box row aitem my-10 space po"  >
-                <div className="box row aitem">
-                    <IconMapPin size={18} />
-                    <p className="mr-10">{city}</p>
+            <b className="footer"> {name} </b>
+            <div className="box col aitem space po"  >
+                <div className="box row space px-10 w-full"  >
+                    <RowData el={city} Icon={IconMapPin} />
+                    <RowData el={rank} Icon={IconStars} />
+                </div> 
+	        <div className="box row space w-full"  >
+                    <RowData el={data?.services?.freeWiFi} Icon={IconWifi} text="واي فاي "/>
+                    <RowData el={data?.services?.freeParking} Icon={IconParking}  text="موقف سيارات"/>
+                    <RowData el={data?.services?.breakfast} Icon={IconWifi}  text="افطار" />
                 </div>
-                {rank ? <div className="box row aitem">
-                    <IconStars size={18} />
-                    <p className="mr-10">{rank}</p>
-                </div> : <></>}
-            </div>
-            <div className="footer">
-                <b>{name}</b>
             </div>
         </Link>
     );

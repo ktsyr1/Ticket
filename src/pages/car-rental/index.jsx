@@ -16,7 +16,7 @@ export default function CarRentals({ data }) {
     let about = "عرض جميع سيارات التأجير المتاحة"
     if (!data) return <NotFoundTitle />
     else return (
-        <div className="box col m-a j">
+        <section className="box col m-a j">
             <SEO title="تاجير السيارات" description={about} />
 
             <HeroPart iconType={true} Icon={IconSteeringWheel} title="تاجير السيارات" about={about} />
@@ -24,6 +24,6 @@ export default function CarRentals({ data }) {
             <div className="box grid m-a j">
                 {data?.map((car) => <CardCarRental key={car._id} data={car} />)}
             </div>
-        </div>
+        </section>
     );
 }

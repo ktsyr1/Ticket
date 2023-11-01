@@ -19,7 +19,7 @@ export async function getStaticProps(ctx) {
 export default function HotelsOne({ data }) {
     let route = useRouter()
     return (
-        <div className="  m-10">
+        <section >
             <SEO title={`اوتيل | ${data?.name}`} description={data?.description} image={data?.image} />
 
             <LineTitles data={[{ href: "/hotels", title: "الاوتيلات" }]} />
@@ -81,7 +81,7 @@ export default function HotelsOne({ data }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 

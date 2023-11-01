@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import SEO from "@/lib/SEO";
 import markdownIt from "markdown-it";
 import {
-    IconCar, IconSteeringWheel, IconCurrencyDollar, IconCalendarTime, IconMapPin, IconClockPlay
+    IconSteeringWheel, IconCurrencyDollar, IconCalendarTime, IconMapPin, IconClockPlay
 } from '@tabler/icons-react';
 
 export async function getStaticPaths() {
@@ -28,18 +28,10 @@ let styles = {
 }
 export default function CarWithDriverOne({ data }) {
     const route = useRouter();
-    let test = {
-        "duration": "12",
-        "tourDuration": "10 ساعات",
-        "additionalFeatures": [
-            "واي فاي مجاني ",
-            " مشروبات مجانية"
-        ]
-    }
     let md = new markdownIt()
     let programDetails = md.render(data?.programDetails || '')
     return (
-        <div className="aitem box col j  page w-full CarWithDriverOne">
+        <section className="aitem box col j  page w-full CarWithDriverOne">
             <SEO title={data?.title} description={data?.programDetails} />
             <LineTitles data={[{ href: "/car-with-driver", title: "سيارة مع سائق" }]} />
             <div className="bord box col m-a page   m-0">
@@ -64,10 +56,7 @@ export default function CarWithDriverOne({ data }) {
                                 <RowData title={data?.price} Icon={IconCurrencyDollar} />
                             </div>
                         </div>
-                        <div className=" mx-20 m-a" style={{
-                            display: 'flex',
-                            justifyContent: 'flex-end'
-                        }}>
+                        <div className=" mx-20 m-a" style={{ display: 'flex', justifyContent: 'flex-end' }}>
                             <ContactWa href={`${process.env.NEXT_PUBLIC_API.replace("/api", "")}${route.asPath}`} />
                         </div>
                     </div>
@@ -82,7 +71,7 @@ export default function CarWithDriverOne({ data }) {
                 </div>
 
             </div>
-        </div>
+        </section>
     );
 }
 

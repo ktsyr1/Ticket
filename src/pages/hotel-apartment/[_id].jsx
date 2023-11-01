@@ -28,7 +28,7 @@ export default function HotelsApartmentOne({ data }) {
     let accommodationFeatures = md.render(data?.accommodationFeatures || '')
     let generalDetails = md.render(data?.generalDetails || '')
     return (
-        <div className="  m-10">
+        <section >
             <SEO title={`شقق فندقية | ${data?.name}`} description={data?.about} image={data?.image} />
 
             <LineTitles data={[{ href: "/hotel-apartment", title: "الشقق الفندقية" }]} />
@@ -71,6 +71,6 @@ export default function HotelsApartmentOne({ data }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }

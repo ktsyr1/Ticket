@@ -6,7 +6,7 @@ export default async function HomePage(req, res, next) {
     let app = new API(req, res)
     app.get(
         async () => {
-            let hotels = await Hotel.find().select("name image rank city").limit(3)
+            let hotels = await Hotel.find().select("name image rank city services").limit(3)
             let hotelsApartment = await HotelApartment.find().select("name image city").limit(3)
             let carWithDriver = await CarWithDriver.find().select("carImage title driver tourDuration city price").limit(3)
             let program = await Program.find().select("image title price duration").limit(3)
