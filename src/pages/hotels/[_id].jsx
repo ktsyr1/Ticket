@@ -19,7 +19,7 @@ export async function getStaticProps(ctx) {
 export default function HotelsOne({ data }) {
     let route = useRouter()
     return (
-        <section >
+        <section className="page w-full" >
             <SEO title={`اوتيل | ${data?.name}`} description={data?.description} image={data?.image} />
 
             <LineTitles data={[{ href: "/hotels", title: "الاوتيلات" }]} />

@@ -26,7 +26,7 @@ let styles = {
 export default function HotelsOne({ data }) {
     let route = useRouter()
     return (
-        <section className="page">
+        <section className="page w-full">
             <SEO title={`البرامج السياحية | ${data?.name}`} description={data?.description} image={data?.image} />
 
             <LineTitles data={[{ href: "/program", title: "البرامج السياحية" }]} />
