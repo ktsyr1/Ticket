@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { IconMapPin, IconStars, IconWifi, IconParking, } from '@tabler/icons-react';
 import LineTitles, { ContactWa, Gallray } from "@/theme/Elements";
 import SEO from "@/lib/SEO";
+import { IconBreakfast } from "../../theme/icons";
 
 export async function getStaticPaths() {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/hotels`);
@@ -74,7 +75,7 @@ export default function HotelsOne({ data }) {
                                 <p className="mr-10">{data.services.freeParking ? "" : "لا"} موقف سيارات مجانية</p>
                             </div>
                             <div className="aitem box m-10 row">
-                                <IconWifi size={18} />
+                                <IconBreakfast size={18} />
                                 <p className="mr-10">{data.services.breakfast ? "" : "لا"} فطور </p>
                             </div>
                         </div>
