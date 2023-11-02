@@ -20,7 +20,7 @@ const useStyles = createStyles((theme) => ({
         ...theme.fn.focusStyles(),
         display: 'flex',
         alignItems: 'center',
-        textDecoration: 'none',
+        textDecoration: 'deploy',
         fontSize: theme.fontSizes.sm,
         color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7],
         padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
@@ -84,7 +84,7 @@ export function Menu() {
     ))
 
     return (
-        <div className='menu menu-none ' >
+        <div className='menu menu-deploy ' >
             
             {links}
 

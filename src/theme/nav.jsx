@@ -77,7 +77,7 @@ export function NavHeader() {
         <IconLayout2 className={classes.linkIcon} stroke={1.5} /> 
     </Link>
     function openMenu() {
-        document.querySelector(".menu")?.classList.toggle('menu-none')
+        document.querySelector(".menu")?.classList.toggle('menu-deploy')
     }
     return (
         <nav >
