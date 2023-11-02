@@ -72,10 +72,6 @@ export function Menu() {
         if (token?.length > 15) setIsLogin(true)
     }, [])
 
-    let Admin = () => <Link href={"/admin"} className={cx(classes.link)} >
-        <IconLayout2 className={classes.linkIcon} stroke={1.5} />
-        <span className="mr-20">admin</span>
-    </Link>
     const links = data?.map(({ link, label, Icon }) => (
         <Link href={link} key={label} className={cx(classes.link, { [classes.linkActive]: label === active })} >
             <Icon className={classes.linkIcon} stroke={1.5} />
@@ -84,8 +80,7 @@ export function Menu() {
     ))
 
     return (
-        <div className='menu menu-deploy ' >
-            
+        <div className='menu ' > 
             {links}
 
         </div>
