@@ -12,6 +12,7 @@ import {
     IconWifi,
     IconParking,
 } from '@tabler/icons-react';
+import { IconBreakfast } from "./icons";
 
 
 export function CardHotel({ data, href }) {
@@ -36,7 +37,7 @@ export function CardHotel({ data, href }) {
 	        <div className="box row space w-full"  >
                     <RowData el={data?.services?.freeWiFi} Icon={IconWifi} text="واي فاي "/>
                     <RowData el={data?.services?.freeParking} Icon={IconParking}  text="موقف سيارات"/>
-                    <RowData el={data?.services?.breakfast} Icon={IconWifi}  text="افطار" />
+                    <RowData el={data?.services?.breakfast} Icon={IconBreakfast}  text="افطار" />
                 </div>
             </div>
         </Link>

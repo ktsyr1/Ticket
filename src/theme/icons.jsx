@@ -5,7 +5,7 @@
 
 // fill={color} stroke={color} width={size} className={className} style={style} 
 
-export function IconBreakfast({ size, color, className, style }) {
+export function IconBreakfast({ size, color = "#555", className, style }) {
     return (
         <svg fill={color} xmlns="http://www.w3.org/2000/svg" viewBox="-15.36 -15.36 542.72 542.72" width={size} className={className} style={style} >
 
