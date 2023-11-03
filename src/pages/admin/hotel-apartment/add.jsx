@@ -59,7 +59,7 @@ export default function AddHotel({ config, query }) {
                 <label htmlFor="roomCount">   عدد الغرف  </label>
                 <input type="text" id="roomCount" {...register("roomCount")} />
 
-                <div className="box row aitem" >
+                <div className="box row aitem my-20" >
                     <input type="checkbox" id="breakfast" {...register("breakfast")} className="ml-10" />
                     <label htmlFor="breakfast"> فطور مجاني</label>
                 </div>

@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { createStyles, getStylesRef } from '@mantine/core';
 import Link from 'next/link';
 import Cookies from "js-cookie";
-import { 
-    IconBuilding, 
+import {
+    IconBuilding,
     IconHotelService,
-    IconCar, 
-    IconInfoSquareRounded, 
+    IconCar,
+    IconInfoSquareRounded,
     IconSteeringWheel,
     IconAirBalloon
 } from '@tabler/icons-react';
@@ -49,12 +49,12 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const data = [
-    { label: 'اوتيلات', link: "/hotels", Icon: IconHotelService, color: 'cyan' },
-    { label: 'شقق فندقية', link: "/hotel-apartment", Icon: IconBuilding, color: 'green' },
-    { label: 'السيارة مع السائق', link: "/car-with-driver", Icon: IconCar, color: 'teal' },
-    { label: 'تاجير السيارات', link: "/car-rental", Icon: IconSteeringWheel, color: 'pink' },
-    { label: 'البرامج السياحية', link: "/program", Icon: IconAirBalloon, color: 'pink' },
-    { label: 'من نحن', link: "/page/about", Icon: IconInfoSquareRounded, color: 'blue' },
+    { label: 'اوتيلات', link: "/hotels", Icon: IconHotelService },
+    { label: 'شقق فندقية', link: "/hotel-apartment", Icon: IconBuilding },
+    { label: 'السيارة مع السائق', link: "/car-with-driver", Icon: IconCar },
+    { label: 'تاجير السيارات', link: "/car-rental", Icon: IconSteeringWheel },
+    { label: 'البرامج السياحية', link: "/program", Icon: IconAirBalloon },
+    { label: 'من نحن', link: "/page/about", Icon: IconInfoSquareRounded },
 
 ];
 
@@ -69,10 +69,10 @@ export function Menu() {
     }, [])
 
     const links = data?.map(({ link, label, Icon }) => (
-        <Link href={link} key={label} className={cx(classes.link, { [classes.linkActive]: label === active })} >
+        <Link href={link} key={label} className={cx(classes.link, { [classes.linkActive]: label === active })} title={label} >
             <Icon className={classes.linkIcon} stroke={1.5} />
             <span className="mr-20">{label}</span>
         </Link>
-    )) 
+    ))
     return <div className='menu ' > {links} </div>
 }

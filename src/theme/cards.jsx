@@ -12,16 +12,16 @@ import {
     IconWifi,
     IconParking,
 } from '@tabler/icons-react';
-import { IconBreakfast, IconFuelType } from "./icons";
+import { IconBreakfast, IconFuelType, IconRoom } from "./icons";
 
 
 export function CardHotel({ data, href }) {
-    let { name, image, rank, city } = data
+    let { name, image, rank, city, start } = data
     let RowData = ({ el, Icon, text }) => {
         if (el) return (
             <div className="box row aitem  my-10"  >
                 <Icon size={18} />
-                <p className="mr-10">{el} {text}</p>
+                <p className="mr-10">{start} {el} {text}</p>
             </div>
         )
     }
@@ -38,6 +38,9 @@ export function CardHotel({ data, href }) {
                     <RowData el={data?.services?.freeWiFi} Icon={IconWifi} text="واي فاي " />
                     <RowData el={data?.services?.freeParking} Icon={IconParking} text="موقف سيارات" />
                     <RowData el={data?.services?.breakfast} Icon={IconBreakfast} text="افطار" />
+
+                    <RowData el={data?.roomCount} Icon={IconRoom} start="الغرف" />
+                    <RowData el={data?.breakfast} Icon={IconBreakfast} text="افطار" />
                 </div>
             </div>
         </Link>

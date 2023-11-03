@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { IconMapPin } from '@tabler/icons-react';
+import { IconMapPin, IconStars } from '@tabler/icons-react';
 import markdownIt from "markdown-it";
 import LineTitles, { ContactWa } from "@/theme/Elements";
 import SEO from "@/lib/SEO";
 import { Gallray } from "../../theme/Elements";
+import { IconBreakfast, IconRoom } from "@/theme/icons";
 
 export async function getStaticPaths() {
     let { data } = await axios.get(`${process.env.NEXT_PUBLIC_API}/client/hotel-apartment`);
@@ -42,7 +43,22 @@ export default function HotelsApartmentOne({ data }) {
                                 <IconMapPin size={18} />
                                 <p className="mr-10">{data.city} - {data.address}</p>
                             </div>
-                            {data?.roomCount ? <p className="mr-10" title="عدد الغرف "> الغرف {data?.roomCount}</p> :<></>}
+
+                            {data?.roomCount ? <div className="aitem box m-10 row">
+                                <IconRoom size={18} />
+                                <p className="mr-10">الغرف {data.roomCount}</p>
+                            </div> : <></>}
+
+                            {data?.rank ? <div className="aitem box m-10 row">
+                                <IconStars size={18} />
+                                <p className="mr-10">{data.rank}</p>
+                            </div> : <></>}
+
+                            {data?.rank ? <div className="aitem box m-10 row">
+                                <IconBreakfast size={18} />
+                                <p className="mr-10">{data.breakfast ? "فطور مجاني" : <></>}</p>
+                            </div> : <></>}
+
                             <div style={{ display: 'flex', justifyContent: 'flex-end', flexDirection: 'row', width: '-webkit-fill-available' }}>
                                 <p></p>
                                 <ContactWa href={`${process.env.NEXT_PUBLIC_API.replace("/api", "")}${route.asPath}`} />
@@ -67,7 +83,7 @@ export default function HotelsApartmentOne({ data }) {
                     </div>
                     <div className="box col m-10">
                         <b>الميزات الداخلية</b>
-                        <div dangerouslySetInnerHTML={{ __html: generalDetails }} />
+                        <div dangerouslySetInnerHTML={{ __html: md.render(data?.generalDetails || '') }} />
                     </div>
                 </div>
             </div>
