@@ -6,6 +6,8 @@ const HotelApartmentSchema = new mongoose.Schema({
     images: { type: [String], required: true, },
     about: { type: String, required: true, },
     roomCount: String,
+    rank: { type: Number },
+    breakfast: Boolean, 
     city: { type: String, required: true, },
     interiorFeatures: { type: String, required: true, },
     accommodationFeatures: { type: String, required: true, },

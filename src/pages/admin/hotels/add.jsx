@@ -43,7 +43,7 @@ export default function AddHotel({ config, query }) {
                 <label htmlFor="name">اسم الفندق</label>
                 <input type="text" id="name" {...register("name")} />
 
-                <label htmlFor="category">التقييم</label>
+                <label htmlFor="rank">التقييم</label>
                 <input type="range" id="rank" {...register("rank")} min="0" max="5" />
 
                 <label htmlFor="city">المدينة</label>

@@ -51,6 +51,9 @@ export default function EditHotel({ data, config, query }) {
                 <label htmlFor="city">   المدينة  </label>
                 <input type="text" id="name" {...register("city")} />
 
+                <label htmlFor="rank">التقييم</label>
+                <input type="range" id="rank" {...register("rank")} min="0" max="5" />
+
                 <label htmlFor="image">صورة الفندق</label>
                 <input type="file" id="image" name={"image"} onChange={upImage} />
 
@@ -59,6 +62,11 @@ export default function EditHotel({ data, config, query }) {
 
                 <label htmlFor="roomCount">   عدد الغرف  </label>
                 <input type="text" id="roomCount" {...register("roomCount")} />
+
+                <div className="box row aitem" >
+                    <input type="checkbox" id="breakfast" {...register("breakfast")} className="ml-10" />
+                    <label htmlFor="breakfast"> فطور مجاني</label>
+                </div>
 
                 <label htmlFor="about">   الوصف</label>
                 <textarea id="about" {...register("about")} />
