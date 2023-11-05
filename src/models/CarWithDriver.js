@@ -10,7 +10,7 @@ const carWithDriverSchema = new mongoose.Schema({
     price: Number,
     additionalFeatures: [String],
     programDetails: String,
-    // يمكنك إضافة المزيد من الحقول حسب الحاجة
+    createdAt: { type: Date, default: Date.now },
 });
 
 const CarWithDriver = mongoose.model('CarWithDriver', carWithDriverSchema);

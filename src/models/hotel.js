@@ -15,6 +15,7 @@ const hotelSchema = new mongoose.Schema({
         breakfast: Boolean,
     },
     surroundingArea: String,
+    createdAt: { type: Date, default: Date.now },
 });
 
 const Hotel = mongoose.model("Hotel", hotelSchema);

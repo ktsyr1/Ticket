@@ -1,7 +1,7 @@
 import { User, } from "@/models";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { API, APIAuth, EmailSender } from "@/lib/app";
+import { API, APIAuth } from "@/lib/app";
 import nodemailer from 'nodemailer';
 
 export default async function auth(req, res, next) {

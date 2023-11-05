@@ -7,12 +7,12 @@ const HotelApartmentSchema = new mongoose.Schema({
     about: { type: String, required: true, },
     roomCount: String,
     rank: { type: Number },
-    breakfast: Boolean, 
+    breakfast: Boolean,
     city: { type: String, required: true, },
     interiorFeatures: { type: String, required: true, },
     accommodationFeatures: { type: String, required: true, },
     generalDetails: { type: String, required: true, },
-
+    createdAt: { type: Date, default: Date.now },
 });
 
 const HotelApartment = mongoose.model('HotelApartment', HotelApartmentSchema);

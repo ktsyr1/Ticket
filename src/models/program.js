@@ -18,7 +18,8 @@ const programSchema = new Schema({
       sortDay: Number,
       activities: String,
     },
-  ],
+  ], 
+  createdAt: { type: Date, default: Date.now },
 });
 
 mongoose.models = {};

@@ -8,23 +8,6 @@ token: {{token}}
 {
 "email":"ktsyr1+7@gmail.com"
 }
-
-HTTP/1.1 200  - OK
-access-control-allow-credentials: true
-access-control-allow-headers: Origin, Content-Type, Accept
-access-control-allow-origin: *
-cache-control: public, max-age=0, must-revalidate
-content-length: 45
-content-type: application/json; charset=utf-8
-date: Fri, 08 Sep 2023 17:29:27 GMT
-etag: "15qlmxzlsz0t"
-server: Vercel
-strict-transport-security: max-age=63072000; includeSubDomains; preload
-x-matched-path: /api/admin/users
-x-requested-with: NEXTJS
-x-vercel-cache: MISS
-x-vercel-id: cdg1::fra1::tzw6c-1694194166450-062d040f3ca4
-connection: close
 ###
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imt0c3lyMTIzNEBnbWFpbC5jb20iLCJleHAiOjE2OTIxOTkzMDQsImlhdCI6MTY5MTU5NDUwNH0.Txa5hr89CRTgjyI_2Lb_8ZHqSfEHHThbkS7h41-v0NQ
 
@@ -75,16 +58,7 @@ content-type: application/json
     },
     "surroundingArea": "قريب من المعالم السياحية والتسوق"
 }
-
-HTTP/1.1 200  - OK
-content-type: application/json; charset=utf-8
-access-control-allow-origin: *
-access-control-allow-credentials: true
-x-requested-with: NEXTJS
-access-control-allow-headers: Origin, Content-Type, Accept
-etag: "176bh6caa42t"
-vary: Accept-Encoding
-date: Sat, 26 Aug 2023 13:51:18 GMT
-content-encoding: gzip
-connection: close
-transfer-encoding: chunked
+###
+GET http://localhost:3000/api?domain=http://localhost:3000
+###
+GET http://localhost:3000/sitemap.xml
